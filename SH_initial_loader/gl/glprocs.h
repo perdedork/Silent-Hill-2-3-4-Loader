@@ -1,0 +1,41 @@
+#ifndef GLPROCS_H
+#define GLPROCS_H
+
+#include <windows.h>
+#include <gl\glext.h>
+#include <gl\wglext.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+extern PFNGLACTIVETEXTUREARBPROC glActiveTextureARB;
+extern PFNGLCLIENTACTIVETEXTUREARBPROC glClientActiveTextureARB;
+extern PFNGLGENPROGRAMSARBPROC glGenProgramsARB;
+extern PFNGLBINDPROGRAMARBPROC glBindProgramARB;
+extern PFNGLDELETEPROGRAMSARBPROC glDeleteProgramsARB;
+extern PFNGLPROGRAMSTRINGARBPROC glProgramStringARB;
+extern PFNGLPROGRAMENVPARAMETER4FARBPROC glProgramEnvParameter4fARB;
+extern PFNGLPROGRAMLOCALPARAMETER4FARBPROC glProgramLocalParameter4fARB;
+extern PFNGLCOMPRESSEDTEXIMAGE2DARBPROC glCompressedTexImage2DARB;
+extern PFNGLGETCOMPRESSEDTEXIMAGEARBPROC glGetCompressedTexImageARB;
+
+extern PFNWGLGETEXTENSIONSSTRINGARBPROC wglGetExtensionsStringARB;
+extern PFNWGLCHOOSEPIXELFORMATARBPROC wglChoosePixelFormatARB;
+extern PFNWGLGETPIXELFORMATATTRIBIVARBPROC wglGetPixelFormatAttribivARB;
+extern PFNWGLCREATEPBUFFERARBPROC wglCreatePbufferARB;
+extern PFNWGLGETPBUFFERDCARBPROC wglGetPbufferDCARB;
+extern PFNWGLRELEASEPBUFFERDCARBPROC wglReleasePbufferDCARB;
+extern PFNWGLDESTROYPBUFFERARBPROC wglDestroyPbufferARB;
+extern PFNWGLQUERYPBUFFERARBPROC wglQueryPbufferARB;
+extern PFNWGLBINDTEXIMAGEARBPROC wglBindTexImageARB;
+extern PFNWGLRELEASETEXIMAGEARBPROC wglReleaseTexImageARB;
+extern PFNWGLSETPBUFFERATTRIBARBPROC wglSetPbufferAttribARB;
+
+int InitGLProcs(void);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif

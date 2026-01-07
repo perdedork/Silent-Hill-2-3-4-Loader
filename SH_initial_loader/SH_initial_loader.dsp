@@ -43,7 +43,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /Yu"stdafx.h" /FD /c
-# ADD CPP /nologo /W3 /GX /Ot /Oi /Ob2 /I "..\..\OpenTest" /I "C:\Documents and Settings\Mike\Desktop\zlib123" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /FR /FD /c
+# ADD CPP /nologo /W3 /GX /Ot /Oi /Ob2 /I "." /I "C:\Documents and Settings\Mike\Desktop\zlib123" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /FR /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
@@ -69,7 +69,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /Yu"stdafx.h" /FD /GZ /c
-# ADD CPP /nologo /W3 /Gm /Gi /GX /ZI /Od /I "..\..\OpenTest" /I "C:\Documents and Settings\Mike\Desktop\zlib123" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "SILENT_HILL3" /FR /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /Gi /GX /ZI /Od /I "." /I "C:\Documents and Settings\Mike\Desktop\zlib123" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "SILENT_HILL3" /FR /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
@@ -92,47 +92,47 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=..\..\OpenTest\Camera.cpp
+SOURCE=.\Camera.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\glprocs.c
+SOURCE=.\glprocs.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\mathlib.cpp
+SOURCE=.\mathlib.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\mathOpts.cpp
+SOURCE=.\mathOpts.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\matrix.cpp
+SOURCE=.\matrix.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\OBJ_Exporter.cpp
+SOURCE=.\OBJ_Exporter.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\quat.cpp
+SOURCE=.\quat.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\Renderer.cpp
+SOURCE=.\Renderer.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\RenderObjs.cpp
+SOURCE=.\RenderObjs.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\RShadow.cpp
+SOURCE=.\RShadow.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\RVertex.cpp
+SOURCE=.\RVertex.cpp
 # End Source File
 # Begin Source File
 
@@ -172,7 +172,7 @@ SOURCE=.\SH_Msg.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\tgaload.cpp
+SOURCE=.\tgaload.cpp
 # End Source File
 # Begin Source File
 
@@ -180,7 +180,7 @@ SOURCE=.\utils.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\vertex.cpp
+SOURCE=.\vertex.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -188,7 +188,7 @@ SOURCE=..\..\OpenTest\vertex.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\OpenTest\Camera.h
+SOURCE=.\Camera.h
 # End Source File
 # Begin Source File
 
@@ -200,43 +200,43 @@ SOURCE=.\fontSystem.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\IBaseTypes.h
+SOURCE=.\IBaseTypes.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\mathlib.h
+SOURCE=.\mathlib.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\mathOpts.h
+SOURCE=.\mathOpts.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\matrix.h
+SOURCE=.\matrix.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\OBJ_Exporter.h
+SOURCE=.\OBJ_Exporter.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\PerPixelLighting.h
+SOURCE=.\PerPixelLighting.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\quat.h
+SOURCE=.\quat.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\Renderer.h
+SOURCE=.\Renderer.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\RenderObjs.h
+SOURCE=.\RenderObjs.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\RVertex.h
+SOURCE=.\RVertex.h
 # End Source File
 # Begin Source File
 
@@ -276,11 +276,11 @@ SOURCE=.\SH_Msg.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\tgaload.h
+SOURCE=.\tgaload.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\typedefs.h
+SOURCE=.\typedefs.h
 # End Source File
 # Begin Source File
 
@@ -288,7 +288,7 @@ SOURCE=.\utils.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\OpenTest\vertex.h
+SOURCE=.\vertex.h
 # End Source File
 # Begin Source File
 
@@ -309,3 +309,6 @@ SOURCE=.\ReadMe.txt
 # End Source File
 # End Target
 # End Project
+
+
+

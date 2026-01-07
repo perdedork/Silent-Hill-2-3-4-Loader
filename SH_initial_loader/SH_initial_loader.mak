@@ -63,7 +63,7 @@ CLEAN :
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
-CPP_PROJ=/nologo /ML /W3 /GX /O2 /I "..\..\OpenTest" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_PROJ=/nologo /ML /W3 /GX /O2 /I "." /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
 MTL_PROJ=/nologo /D "NDEBUG" /mktyplib203 /win32 
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\SH_initial_loader.bsc" 
@@ -148,7 +148,7 @@ CLEAN :
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
-CPP_PROJ=/nologo /MLd /W3 /Gm /GX /ZI /Od /I "H:\pro\OpenGLStuff\OpenTest" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "SILENT_HILL3" /FR"$(INTDIR)\\" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
+CPP_PROJ=/nologo /MLd /W3 /Gm /GX /ZI /Od /I "." /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "SILENT_HILL3" /FR"$(INTDIR)\\" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
 MTL_PROJ=/nologo /D "_DEBUG" /mktyplib203 /win32 
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\SH_initial_loader.bsc" 
@@ -243,7 +243,7 @@ LINK32_OBJS= \
 
 
 !IF "$(CFG)" == "SH_initial_loader - Win32 Release" || "$(CFG)" == "SH_initial_loader - Win32 Debug"
-SOURCE=..\..\OpenTest\Camera.cpp
+SOURCE=.\Camera.cpp
 
 !IF  "$(CFG)" == "SH_initial_loader - Win32 Release"
 
@@ -261,7 +261,7 @@ SOURCE=..\..\OpenTest\Camera.cpp
 
 !ENDIF 
 
-SOURCE=..\..\OpenTest\glprocs.c
+SOURCE=.\glprocs.c
 
 !IF  "$(CFG)" == "SH_initial_loader - Win32 Release"
 
@@ -279,7 +279,7 @@ SOURCE=..\..\OpenTest\glprocs.c
 
 !ENDIF 
 
-SOURCE=..\..\OpenTest\mathlib.cpp
+SOURCE=.\mathlib.cpp
 
 !IF  "$(CFG)" == "SH_initial_loader - Win32 Release"
 
@@ -297,7 +297,7 @@ SOURCE=..\..\OpenTest\mathlib.cpp
 
 !ENDIF 
 
-SOURCE=..\..\OpenTest\mathOpts.cpp
+SOURCE=.\mathOpts.cpp
 
 !IF  "$(CFG)" == "SH_initial_loader - Win32 Release"
 
@@ -315,7 +315,7 @@ SOURCE=..\..\OpenTest\mathOpts.cpp
 
 !ENDIF 
 
-SOURCE=..\..\OpenTest\matrix.cpp
+SOURCE=.\matrix.cpp
 
 !IF  "$(CFG)" == "SH_initial_loader - Win32 Release"
 
@@ -333,7 +333,7 @@ SOURCE=..\..\OpenTest\matrix.cpp
 
 !ENDIF 
 
-SOURCE=..\..\OpenTest\quat.cpp
+SOURCE=.\quat.cpp
 
 !IF  "$(CFG)" == "SH_initial_loader - Win32 Release"
 
@@ -351,7 +351,7 @@ SOURCE=..\..\OpenTest\quat.cpp
 
 !ENDIF 
 
-SOURCE=..\..\OpenTest\Renderer.cpp
+SOURCE=.\Renderer.cpp
 
 !IF  "$(CFG)" == "SH_initial_loader - Win32 Release"
 
@@ -369,7 +369,7 @@ SOURCE=..\..\OpenTest\Renderer.cpp
 
 !ENDIF 
 
-SOURCE=..\..\OpenTest\RenderObjs.cpp
+SOURCE=.\RenderObjs.cpp
 
 !IF  "$(CFG)" == "SH_initial_loader - Win32 Release"
 
@@ -387,7 +387,7 @@ SOURCE=..\..\OpenTest\RenderObjs.cpp
 
 !ENDIF 
 
-SOURCE=..\..\OpenTest\RShadow.cpp
+SOURCE=.\RShadow.cpp
 
 !IF  "$(CFG)" == "SH_initial_loader - Win32 Release"
 
@@ -405,7 +405,7 @@ SOURCE=..\..\OpenTest\RShadow.cpp
 
 !ENDIF 
 
-SOURCE=..\..\OpenTest\RVertex.cpp
+SOURCE=.\RVertex.cpp
 
 !IF  "$(CFG)" == "SH_initial_loader - Win32 Release"
 
@@ -487,7 +487,7 @@ SOURCE=.\SH_Model_Anim.cpp
 
 !ENDIF 
 
-SOURCE=..\..\OpenTest\tgaload.cpp
+SOURCE=.\tgaload.cpp
 
 !IF  "$(CFG)" == "SH_initial_loader - Win32 Release"
 
@@ -505,7 +505,7 @@ SOURCE=..\..\OpenTest\tgaload.cpp
 
 !ENDIF 
 
-SOURCE=..\..\OpenTest\vertex.cpp
+SOURCE=.\vertex.cpp
 
 !IF  "$(CFG)" == "SH_initial_loader - Win32 Release"
 
@@ -525,4 +525,7 @@ SOURCE=..\..\OpenTest\vertex.cpp
 
 
 !ENDIF 
+
+
+
 

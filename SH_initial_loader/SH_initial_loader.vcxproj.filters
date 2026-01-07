@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -15,37 +15,37 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\OpenTest\Camera.cpp">
+    <ClCompile Include=".\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\OpenTest\glprocs.c">
+    <ClCompile Include=".\glprocs.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\OpenTest\mathlib.cpp">
+    <ClCompile Include=".\mathlib.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\OpenTest\mathOpts.cpp">
+    <ClCompile Include=".\mathOpts.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\OpenTest\matrix.cpp">
+    <ClCompile Include=".\matrix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\OpenTest\OBJ_Exporter.cpp">
+    <ClCompile Include=".\OBJ_Exporter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\OpenTest\quat.cpp">
+    <ClCompile Include=".\quat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\OpenTest\Renderer.cpp">
+    <ClCompile Include=".\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\OpenTest\RenderObjs.cpp">
+    <ClCompile Include=".\RenderObjs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\OpenTest\RShadow.cpp">
+    <ClCompile Include=".\RShadow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\OpenTest\RVertex.cpp">
+    <ClCompile Include=".\RVertex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SH2_Loader.cpp">
@@ -75,18 +75,18 @@
     <ClCompile Include="SH_Msg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\OpenTest\tgaload.cpp">
+    <ClCompile Include=".\tgaload.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\OpenTest\vertex.cpp">
+    <ClCompile Include=".\vertex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\OpenTest\Camera.h">
+    <ClInclude Include=".\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="debugDrawing.h">
@@ -95,34 +95,34 @@
     <ClInclude Include="fontSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\OpenTest\IBaseTypes.h">
+    <ClInclude Include=".\IBaseTypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\OpenTest\mathlib.h">
+    <ClInclude Include=".\mathlib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\OpenTest\mathOpts.h">
+    <ClInclude Include=".\mathOpts.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\OpenTest\matrix.h">
+    <ClInclude Include=".\matrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\OpenTest\OBJ_Exporter.h">
+    <ClInclude Include=".\OBJ_Exporter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\OpenTest\PerPixelLighting.h">
+    <ClInclude Include=".\PerPixelLighting.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\OpenTest\quat.h">
+    <ClInclude Include=".\quat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\OpenTest\Renderer.h">
+    <ClInclude Include=".\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\OpenTest\RenderObjs.h">
+    <ClInclude Include=".\RenderObjs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\OpenTest\RVertex.h">
+    <ClInclude Include=".\RVertex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SH2_Loader.h">
@@ -152,16 +152,16 @@
     <ClInclude Include="SH_Msg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\OpenTest\tgaload.h">
+    <ClInclude Include=".\tgaload.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\OpenTest\typedefs.h">
+    <ClInclude Include=".\typedefs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\OpenTest\vertex.h">
+    <ClInclude Include=".\vertex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="winutil.h">
@@ -175,3 +175,5 @@
     <CustomBuild Include="ReadMe.txt" />
   </ItemGroup>
 </Project>
+
+

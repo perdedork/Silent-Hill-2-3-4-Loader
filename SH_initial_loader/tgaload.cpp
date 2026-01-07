@@ -36,12 +36,6 @@
 #endif /*__PRINT_ERRORS__*/
 
 
-#ifdef WINDOWS
-/* Extension Management */
-PFNGLCOMPRESSEDTEXIMAGE2DARBPROC  glCompressedTexImage2DARB  = NULL;
-PFNGLGETCOMPRESSEDTEXIMAGEARBPROC glGetCompressedTexImageARB = NULL;
-#endif
-
 /* Default support - lets be optimistic! */
 bool tgaCompressedTexSupport = true;
 
@@ -49,9 +43,11 @@ bool tgaCompressedTexSupport = true;
 void tgaGetExtensions ( void )
 {  
 #ifdef WINDOWS
-   glCompressedTexImage2DARB  = ( PFNGLCOMPRESSEDTEXIMAGE2DARBPROC  ) 
+   if ( glCompressedTexImage2DARB == NULL )
+      glCompressedTexImage2DARB = ( PFNGLCOMPRESSEDTEXIMAGE2DARBPROC  ) 
                    wglGetProcAddress ( "glCompressedTexImage2DARB"  );
-   glGetCompressedTexImageARB = ( PFNGLGETCOMPRESSEDTEXIMAGEARBPROC ) 
+   if ( glGetCompressedTexImageARB == NULL )
+      glGetCompressedTexImageARB = ( PFNGLGETCOMPRESSEDTEXIMAGEARBPROC ) 
                    wglGetProcAddress ( "glGetCompressedTexImageARB" );
    
    if ( glCompressedTexImage2DARB == NULL || glGetCompressedTexImageARB == NULL )
@@ -732,3 +728,5 @@ char mess[228];
 
    return 1;
 }
+
+

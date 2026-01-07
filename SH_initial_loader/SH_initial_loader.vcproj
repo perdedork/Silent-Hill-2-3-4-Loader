@@ -51,7 +51,7 @@
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="..\..\OpenTest,C:\Documents and Settings\Mike\Desktop\zlib123"
+				AdditionalIncludeDirectories=".,C:\Documents and Settings\Mike\Desktop\zlib123"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="0"
 				PrecompiledHeaderFile=".\Release/SH_initial_loader.pch"
@@ -145,7 +145,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;C:\Users\Mike\Desktop\fuckMS\My Code\SH3_Level_Viewer\test2005\SHloader-Release-VC6\SH_initial_loader&quot;;&quot;C:\Users\Mike\Desktop\fuckMS\My Code\SH3_Level_Viewer\test2005\SHloader-Release-VC6\SH_initial_loader\SMD&quot;;..\..\..\..\zlib123;..\..\OpenTest;&quot;C:\Documents and Settings\Mike\Desktop\zlib123&quot;"
+				AdditionalIncludeDirectories="&quot;C:\Users\Mike\Desktop\fuckMS\My Code\SH3_Level_Viewer\test2005\SHloader-Release-VC6\SH_initial_loader&quot;;&quot;C:\Users\Mike\Desktop\fuckMS\My Code\SH3_Level_Viewer\test2005\SHloader-Release-VC6\SH_initial_loader\SMD&quot;;..\..\..\..\zlib123;.;&quot;C:\Documents and Settings\Mike\Desktop\zlib123&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;SILENT_HILL3;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -217,7 +217,7 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="..\..\OpenTest\Camera.cpp"
+				RelativePath=".\Camera.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -243,7 +243,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\glprocs.c"
+				RelativePath=".\glprocs.c"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -265,7 +265,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\mathlib.cpp"
+				RelativePath=".\mathlib.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -287,7 +287,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\mathOpts.cpp"
+				RelativePath=".\mathOpts.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -309,7 +309,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\matrix.cpp"
+				RelativePath=".\matrix.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -335,7 +335,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\OBJ_Exporter.cpp"
+				RelativePath=".\OBJ_Exporter.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -357,7 +357,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\quat.cpp"
+				RelativePath=".\quat.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -379,7 +379,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\Renderer.cpp"
+				RelativePath=".\Renderer.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -401,7 +401,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\RenderObjs.cpp"
+				RelativePath=".\RenderObjs.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -423,7 +423,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\RShadow.cpp"
+				RelativePath=".\RShadow.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -445,7 +445,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\RVertex.cpp"
+				RelativePath=".\RVertex.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -669,7 +669,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\tgaload.cpp"
+				RelativePath=".\tgaload.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -713,7 +713,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\vertex.cpp"
+				RelativePath=".\vertex.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -768,7 +768,7 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath="..\..\OpenTest\Camera.h"
+				RelativePath=".\Camera.h"
 				>
 			</File>
 			<File
@@ -784,19 +784,19 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\IBaseTypes.h"
+				RelativePath=".\IBaseTypes.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\mathlib.h"
+				RelativePath=".\mathlib.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\mathOpts.h"
+				RelativePath=".\mathOpts.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\matrix.h"
+				RelativePath=".\matrix.h"
 				>
 			</File>
 			<File
@@ -808,27 +808,27 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\OBJ_Exporter.h"
+				RelativePath=".\OBJ_Exporter.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\PerPixelLighting.h"
+				RelativePath=".\PerPixelLighting.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\quat.h"
+				RelativePath=".\quat.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\Renderer.h"
+				RelativePath=".\Renderer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\RenderObjs.h"
+				RelativePath=".\RenderObjs.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\RVertex.h"
+				RelativePath=".\RVertex.h"
 				>
 			</File>
 			<File
@@ -872,11 +872,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\tgaload.h"
+				RelativePath=".\tgaload.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\typedefs.h"
+				RelativePath=".\typedefs.h"
 				>
 			</File>
 			<File
@@ -884,7 +884,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\OpenTest\vertex.h"
+				RelativePath=".\vertex.h"
 				>
 			</File>
 			<File
@@ -929,3 +929,6 @@
 	<Globals>
 	</Globals>
 </VisualStudioProject>
+
+
+

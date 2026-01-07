@@ -184,16 +184,19 @@ static GLboolean IsExtensionSupported(char *checkExtension)
 		}
 	}
 
-	glString = (const GLubyte *)wglGetExtensionsStringARB(tHdc);
-	LogFile(ERROR_LOG,(char *)glString);
-	s = glString;
-	len = strlen (checkExtension);
+	if (wglGetExtensionsStringARB != NULL)
+	{
+		glString = (const GLubyte *)wglGetExtensionsStringARB(tHdc);
+		LogFile(ERROR_LOG,(char *)glString);
+		s = glString;
+		len = strlen (checkExtension);
 
-	while ((s =(GLubyte *) strstr ((char *)s,checkExtension)) != NULL) {
-		s += len;
+		while ((s =(GLubyte *) strstr ((char *)s,checkExtension)) != NULL) {
+			s += len;
 
-		if ((*s == ' ') || (*s == '\0')) {
-			return (GL_TRUE);
+			if ((*s == ' ') || (*s == '\0')) {
+				return (GL_TRUE);
+			}
 		}
 	}
 
@@ -460,3 +463,10 @@ private:
 #define BACK(x)    if((x)->back!=NULL)(x)=(x)->back;
 
 #endif
+
+
+
+
+
+
+

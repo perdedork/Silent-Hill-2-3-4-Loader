@@ -1603,6 +1603,8 @@ int init( void )
 		hdc=GetDC(hwnd);
 	hglrc = wglCreateContext( hdc );
 	wglMakeCurrent( hdc, hglrc );
+	if(!InitGLProcs())
+		LogFile(ERROR_LOG,"init(%d) - WARNING: Failed to load OpenGL extension procedures",__LINE__);
 	glEnable(GL_DEPTH_TEST);
 
 	viewCam.createCamView(75.0f, 4.0f/3.0f, 1.0f, zDist);
@@ -4148,3 +4150,5 @@ void readFileDataAtLocation( char *filename, int numLongs, long offset )
 	delete [] buffer;
 	LogFile(ERROR_LOG,"");
 }
+
+
