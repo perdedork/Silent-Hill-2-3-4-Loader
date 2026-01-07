@@ -51,7 +51,7 @@
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories=".,C:\Documents and Settings\Mike\Desktop\zlib123"
+				AdditionalIncludeDirectories=".,C:\Users\micha\source\repos\zlib"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="0"
 				PrecompiledHeaderFile=".\Release/SH_initial_loader.pch"
@@ -79,7 +79,7 @@
 				OutputFile="Release/SH2-SH3_Viewer.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="C:\Documents and Settings\Mike\Desktop\zlib123\projects\visualc6\Win32_LIB_Debug"
+				AdditionalLibraryDirectories="C:\Users\micha\source\repos\zlib\contrib\vstudio\vc17\x86\ZlibDllDebug"
 				IgnoreDefaultLibraryNames="msvcrtd.lib"
 				ProgramDatabaseFile=".\Release/SH2-SH3_Viewer.pdb"
 				SubSystem="2"
@@ -145,7 +145,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;C:\Users\Mike\Desktop\fuckMS\My Code\SH3_Level_Viewer\test2005\SHloader-Release-VC6\SH_initial_loader&quot;;&quot;C:\Users\Mike\Desktop\fuckMS\My Code\SH3_Level_Viewer\test2005\SHloader-Release-VC6\SH_initial_loader\SMD&quot;;..\..\..\..\zlib123;.;&quot;C:\Documents and Settings\Mike\Desktop\zlib123&quot;"
+				AdditionalIncludeDirectories="&quot;C:\Users\Mike\Desktop\fuckMS\My Code\SH3_Level_Viewer\test2005\SHloader-Release-VC6\SH_initial_loader&quot;;&quot;C:\Users\Mike\Desktop\fuckMS\My Code\SH3_Level_Viewer\test2005\SHloader-Release-VC6\SH_initial_loader\SMD&quot;;C:\Users\micha\source\repos\zlib;.;&quot;C:\Users\micha\source\repos\zlib&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;SILENT_HILL3;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -176,7 +176,7 @@
 				OutputFile=".\Debug/SH_initial_loader.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="&quot;C:\Users\Mike\Desktop\fuckMS\My Code\zlib123\projects\visualc6\Win32_LIB_Debug&quot;;C:\Lib"
+				AdditionalLibraryDirectories="&quot;C:\Users\micha\source\repos\zlib\contrib\vstudio\vc17\x86\ZlibDllDebug&quot;;C:\Lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\Debug/SH_initial_loader.pdb"
 				SubSystem="2"
@@ -929,6 +929,9 @@
 	<Globals>
 	</Globals>
 </VisualStudioProject>
+
+
+
 
 
 
