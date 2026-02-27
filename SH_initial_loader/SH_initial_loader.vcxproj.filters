@@ -42,9 +42,6 @@
     <ClCompile Include=".\RenderObjs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include=".\RShadow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include=".\RVertex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -75,6 +72,21 @@
     <ClCompile Include="SH_Msg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="strParse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SMD\SMD_Animation_Frame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SMD\SMD_Model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SMD\SMD_Triangle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SMD\SMD_Vertex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include=".\tgaload.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -82,6 +94,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include=".\vertex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mstring.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fileCrawler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -152,6 +170,21 @@
     <ClInclude Include="SH_Msg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="strParse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SMD\SMD_Animation_Frame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SMD\SMD_Model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SMD\SMD_Triangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SMD\SMD_Vertex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include=".\tgaload.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -167,6 +200,15 @@
     <ClInclude Include="winutil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="mstring.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mvector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fileCrawler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="fontTest.bmp">
@@ -175,5 +217,3 @@
     <CustomBuild Include="ReadMe.txt" />
   </ItemGroup>
 </Project>
-
-

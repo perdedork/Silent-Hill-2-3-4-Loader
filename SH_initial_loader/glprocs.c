@@ -1,4 +1,4 @@
-#include "glprocs.h"
+#include <gl\glprocs.h>
 
 static PROC GetGLProcAddress(const char *name)
 {

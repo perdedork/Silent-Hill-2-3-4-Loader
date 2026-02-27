@@ -67,26 +67,26 @@ static void LogFile(int logType, char *s, ...)
 	case DATA_LOG: filename = dataFile;
 		if(d1st == 0)
 		{
-			strcpy(openString,"w+");
+			strcpy_s(openString, sizeof(openString), "w+");
 			d1st = 1;
 		}
-		else strcpy(openString,"a+");
+		else strcpy_s(openString, sizeof(openString), "a+");
 		break;
 	case TEST_LOG: filename = testFile;
 		if(t1st == 0)
 		{
-			strcpy(openString,"w+");
+			strcpy_s(openString, sizeof(openString), "w+");
 			t1st = 1;
 		}
-		else strcpy(openString,"a+");
+		else strcpy_s(openString, sizeof(openString), "a+");
 		break;
 	case ERROR_LOG: filename = errorFile;
 		if(e1st == 0)
 		{
-			strcpy(openString,"w+");
+			strcpy_s(openString, sizeof(openString), "w+");
 			e1st = 1;
 		}
-		else strcpy(openString,"a+");
+		else strcpy_s(openString, sizeof(openString), "a+");
 		break;
 	}
 
@@ -95,19 +95,19 @@ static void LogFile(int logType, char *s, ...)
 	if(logfile == NULL)
 		return;
 	va_start( args, s );
-	vsprintf( writeBuf, s, args );
+	vsprintf_s( writeBuf, sizeof(writeBuf), s, args );
 	va_end( args );
 
 	if((res = fwrite( writeBuf,sizeof(char), strlen(writeBuf), logfile)) != strlen(writeBuf))
 	{
 		char msg[45];
-		sprintf(msg,"\nLOG ERROR: Only wrote %d/%d bytes\n",res,strlen(writeBuf));
+		sprintf_s(msg, sizeof(msg), "\nLOG ERROR: Only wrote %d/%d bytes\n",res,strlen(writeBuf));
 		fwrite(msg,sizeof(char),strlen(msg),logfile);
 	}
 	if(fwrite("\n",sizeof(char),1,logfile)!=1)
 	{
 		char msg[45];
-		sprintf(msg,"\nLOG ERROR: Unable to write out EOL");
+		sprintf_s(msg, sizeof(msg), "\nLOG ERROR: Unable to write out EOL");
 		fwrite(msg,sizeof(char),strlen(msg),logfile);
 	}
 

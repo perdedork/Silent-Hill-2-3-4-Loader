@@ -112,6 +112,6 @@ int quadratic(float a, float b, float c, float &t1,float &t2);
 
 
 
-__forceinline void FloatToInt(int *int_pointer, float f);
+//__forceinline void FloatToInt(int *int_pointer, float f);
 
 #endif

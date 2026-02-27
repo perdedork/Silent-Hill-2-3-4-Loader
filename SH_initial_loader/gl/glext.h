@@ -1,0 +1,127 @@
+#ifndef GL_GLEXT_H
+#define GL_GLEXT_H
+
+#include <gl\gl.h>
+
+#ifndef APIENTRY
+#define APIENTRY __stdcall
+#endif
+#ifndef APIENTRYP
+#define APIENTRYP APIENTRY *
+#endif
+
+#ifndef GL_TEXTURE0_ARB
+#define GL_TEXTURE0_ARB 0x84C0
+#endif
+#ifndef GL_TEXTURE1_ARB
+#define GL_TEXTURE1_ARB 0x84C1
+#endif
+#ifndef GL_TEXTURE2_ARB
+#define GL_TEXTURE2_ARB 0x84C2
+#endif
+#ifndef GL_TEXTURE3_ARB
+#define GL_TEXTURE3_ARB 0x84C3
+#endif
+#ifndef GL_TEXTURE4_ARB
+#define GL_TEXTURE4_ARB 0x84C4
+#endif
+#ifndef GL_MAX_TEXTURE_UNITS_ARB
+#define GL_MAX_TEXTURE_UNITS_ARB 0x84E2
+#endif
+
+#ifndef GL_VERTEX_PROGRAM_ARB
+#define GL_VERTEX_PROGRAM_ARB 0x8620
+#endif
+#ifndef GL_FRAGMENT_PROGRAM_ARB
+#define GL_FRAGMENT_PROGRAM_ARB 0x8804
+#endif
+#ifndef GL_PROGRAM_FORMAT_ASCII_ARB
+#define GL_PROGRAM_FORMAT_ASCII_ARB 0x8875
+#endif
+#ifndef GL_PROGRAM_ERROR_POSITION_ARB
+#define GL_PROGRAM_ERROR_POSITION_ARB 0x864B
+#endif
+#ifndef GL_PROGRAM_ERROR_STRING_ARB
+#define GL_PROGRAM_ERROR_STRING_ARB 0x8874
+#endif
+
+#ifndef GL_TEXTURE_CUBE_MAP_ARB
+#define GL_TEXTURE_CUBE_MAP_ARB 0x8513
+#endif
+#ifndef GL_TEXTURE_CUBE_MAP
+#define GL_TEXTURE_CUBE_MAP 0x8513
+#endif
+#ifndef GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB
+#define GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB 0x8515
+#endif
+#ifndef GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB
+#define GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB 0x8516
+#endif
+#ifndef GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB
+#define GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB 0x8517
+#endif
+#ifndef GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB
+#define GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB 0x8518
+#endif
+#ifndef GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB
+#define GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB 0x8519
+#endif
+#ifndef GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB
+#define GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB 0x851A
+#endif
+
+#ifndef GL_CLAMP_TO_EDGE
+#define GL_CLAMP_TO_EDGE 0x812F
+#endif
+
+#ifndef GL_REFLECTION_MAP
+#define GL_REFLECTION_MAP 0x8512
+#endif
+
+#ifndef GL_TEXTURE_2D_ARB
+#define GL_TEXTURE_2D_ARB 0x0DE1
+#endif
+#ifndef GL_TEXTURE_RGBA_ARB
+#define GL_TEXTURE_RGBA_ARB 0x8058
+#endif
+
+#ifndef GL_COMPRESSED_RGB_S3TC_DXT1_EXT
+#define GL_COMPRESSED_RGB_S3TC_DXT1_EXT 0x83F0
+#endif
+#ifndef GL_COMPRESSED_RGBA_S3TC_DXT1_EXT
+#define GL_COMPRESSED_RGBA_S3TC_DXT1_EXT 0x83F1
+#endif
+#ifndef GL_COMPRESSED_RGBA_S3TC_DXT3_EXT
+#define GL_COMPRESSED_RGBA_S3TC_DXT3_EXT 0x83F2
+#endif
+#ifndef GL_COMPRESSED_RGBA_S3TC_DXT5_EXT
+#define GL_COMPRESSED_RGBA_S3TC_DXT5_EXT 0x83F3
+#endif
+
+#ifndef GL_TEXTURE_MAX_ANISOTROPY_EXT
+#define GL_TEXTURE_MAX_ANISOTROPY_EXT 0x84FE
+#endif
+#ifndef GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
+#define GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT 0x84FF
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+typedef void (APIENTRYP PFNGLACTIVETEXTUREARBPROC)(GLenum texture);
+typedef void (APIENTRYP PFNGLCLIENTACTIVETEXTUREARBPROC)(GLenum texture);
+typedef void (APIENTRYP PFNGLGENPROGRAMSARBPROC)(GLsizei n, GLuint *programs);
+typedef void (APIENTRYP PFNGLBINDPROGRAMARBPROC)(GLenum target, GLuint program);
+typedef void (APIENTRYP PFNGLDELETEPROGRAMSARBPROC)(GLsizei n, const GLuint *programs);
+typedef void (APIENTRYP PFNGLPROGRAMSTRINGARBPROC)(GLenum target, GLenum format, GLsizei len, const void *string);
+typedef void (APIENTRYP PFNGLPROGRAMENVPARAMETER4FARBPROC)(GLenum target, GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
+typedef void (APIENTRYP PFNGLPROGRAMLOCALPARAMETER4FARBPROC)(GLenum target, GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
+typedef void (APIENTRYP PFNGLCOMPRESSEDTEXIMAGE2DARBPROC)(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const void *data);
+typedef void (APIENTRYP PFNGLGETCOMPRESSEDTEXIMAGEARBPROC)(GLenum target, GLint level, void *img);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif

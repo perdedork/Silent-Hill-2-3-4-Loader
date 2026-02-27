@@ -100,7 +100,7 @@ static void drawBasisMatrix( matrix *m, float mScale, int colorSet = 0, long mat
 	if( matrixNum != -1 )
 	{
 		glRasterPos3f(pos.x,pos.y+10.0f,pos.z);
-		sprintf( text,"%4ld",matrixNum);
+		sprintf_s( text, sizeof(text), "%4ld",matrixNum);
 		glListBase(nFontList);
 		glCallLists (strlen(text), GL_UNSIGNED_BYTE, text);
 	}

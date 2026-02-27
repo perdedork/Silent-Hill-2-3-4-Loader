@@ -128,7 +128,6 @@ SOURCE=.\RenderObjs.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\RShadow.cpp
 # End Source File
 # Begin Source File
 
@@ -309,6 +308,7 @@ SOURCE=.\ReadMe.txt
 # End Source File
 # End Target
 # End Project
+
 
 
 

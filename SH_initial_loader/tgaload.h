@@ -68,8 +68,10 @@ typedef void (APIENTRY * PFNGLCOMPRESSEDTEXSUBIMAGE1DARBPROC)(GLenum target, GLi
 														  GLint xoffset, GLsizei width,
 														  GLenum format, GLsizei imageSize,
 														  const GLvoid *data);
-typedef void (APIENTRY * PFNGLGETCOMPRESSEDTEXIMAGEARBPROC)(GLenum target, GLint lod, 
-#endif WINDOWS														GLvoid *img);
+typedef void (APIENTRY * PFNGLGETCOMPRESSEDTEXIMAGEARBPROC)(GLenum target, GLint lod,
+													   GLvoid *img);
+
+#endif /* WINDOWS */
 														
 
 #endif /* GL_ARB_texture_compression */

@@ -4,8 +4,15 @@
 
 /.vs/SH_loader/copilot-chat/bc34c64c/sessions
 /.vs/SH_loader/CopilotIndices/17.14.698.11175
-/.vs/SH_loader/FileContentIndex
+/.vs/SH_loader/FileContentIndex/*.*
 /.vs/SH_loader/v17/ipch/AutoPCH/17e8f42fcdf442a4
 /.vs/SH_loader/v17/ipch/AutoPCH
-/SH_initial_loader/Debug
+/SH_initial_loader/Debug/*
+/SH_initial_loader/Release/*
+/SH_initial_loader/x64/Debug/*
+/SH_initial_loader/x64/Release/*
 /.vs/Silent-Hill-2-3-4-Loader/v17
+*.tga
+/SH_initial_loader/Error.txt
+/SH_initial_loader/Test.txt
+*.ipch

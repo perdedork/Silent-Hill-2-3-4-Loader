@@ -129,7 +129,7 @@ long SH3_AllMsg::LoadAll( char *_baseSH3dir, long _lLangFlag )
 
 	LogFile( ERROR_LOG, "SH3_AllMsg::LoadAll( ) - Start");
 	ReleaseAllData( );
-	sprintf( l_pcFilename, "%sarc.arc",_baseSH3dir );
+	sprintf_s( l_pcFilename, sizeof(l_pcFilename), "%sarc.arc",_baseSH3dir );
 
 	if( (l_lRes = l_cArcList.Load( l_pcFilename )) < 1 )
 	{
@@ -140,28 +140,28 @@ long SH3_AllMsg::LoadAll( char *_baseSH3dir, long _lLangFlag )
 	switch( _lLangFlag )
 	{
 		case MSG_LANG_GERMAN:
-				sprintf( l_pcFilename, "_grm_msg.mes" );
+				strcpy_s( l_pcFilename, sizeof(l_pcFilename), "_grm_msg.mes" );
 				break;
 		case MSG_LANG_FRENCH:
-				sprintf( l_pcFilename, "_frn_msg.mes" );
+				strcpy_s( l_pcFilename, sizeof(l_pcFilename), "_frn_msg.mes" );
 				break;
 		case MSG_LANG_ITALIAN:
-				sprintf( l_pcFilename, "_itl_msg.mes" );
+				strcpy_s( l_pcFilename, sizeof(l_pcFilename), "_itl_msg.mes" );
 				break;
 		case MSG_LANG_CHINESE:
-				sprintf( l_pcFilename, "_chn_msg.mes" );
+				strcpy_s( l_pcFilename, sizeof(l_pcFilename), "_chn_msg.mes" );
 				break;
 		case MSG_LANG_JAPANESE:
-				sprintf( l_pcFilename, "_jpn_msg.mes" );
+				strcpy_s( l_pcFilename, sizeof(l_pcFilename), "_jpn_msg.mes" );
 				break;
 		case MSG_LANG_SPANISH:
-				sprintf( l_pcFilename, "_spn_msg.mes" );
+				strcpy_s( l_pcFilename, sizeof(l_pcFilename), "_spn_msg.mes" );
 				break;
 		case MSG_LANG_KOREAN:
-				sprintf( l_pcFilename, "_krn_msg.mes" );
+				strcpy_s( l_pcFilename, sizeof(l_pcFilename), "_krn_msg.mes" );
 				break;
 		default:
-				sprintf( l_pcFilename, "_eng_msg.mes" );
+				strcpy_s( l_pcFilename, sizeof(l_pcFilename), "_eng_msg.mes" );
 				break;
 	}
 
@@ -179,7 +179,7 @@ LogFile( ERROR_LOG, "Check: The index is %ld of %ld", k+1, l_cArcList.m_sArcData
 		return 0;
 	}
 
-	sprintf( l_pcFilename, "%smsg.arc", _baseSH3dir );
+	sprintf_s( l_pcFilename, sizeof(l_pcFilename), "%smsg.arc", _baseSH3dir );
 	LogFile( ERROR_LOG, "The arc filename is '%s'", l_pcFilename );
 	m_lNumAll = l_cMsgFiles.m_lNumFilenames;
 	m_pcAllMsg = new SH3_MsgMgr[ m_lNumAll ];

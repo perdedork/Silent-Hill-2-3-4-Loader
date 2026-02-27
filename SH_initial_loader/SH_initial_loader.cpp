@@ -44,7 +44,6 @@
 
 #pragma comment(lib, "opengl32.lib")
 #pragma comment(lib, "glu32.lib")
-#pragma comment(lib, "glaux.lib")
 
 extern int errno;
 
@@ -104,7 +103,7 @@ bool sh3_modelMode = false; //true;
 bool sh3_sceneMode = false;
 bool debugMode = false;
 bool animDebugMode = false;
-bool testMode = false;
+bool testMode = true;
 bool showBox = false;
 bool clearAllTex = true;
 bool dumpScene = false;
@@ -321,7 +320,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	
 	origin.identity( );
 
-	if( false )//testMode )
+	if( testMode )
 	{
 		long res;
 		char arcFilename[256];
@@ -1433,7 +1432,7 @@ int init( void )
 
 	// Variables for setting pixel format and display settings
 	DWORD flagPtr=PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
-	DWORD dwStyle = WS_POPUP | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
+	DWORD dwStyle = 0;
 	DWORD retVal;
 
 	char errorString[128];
@@ -1459,7 +1458,75 @@ int init( void )
 				LogFile(ERROR_LOG,"init( %d ) - ERROR: Config File Line Appears to be invalid:\n[%s]\n\t...Ignoring Line",__LINE__, &(configLine[k]));
 			else if(configLine[k] != '\0' && configLine[k] != '#' && configLine[k] != '\n' )
 			{
-				sscanf(&(configLine[k]),"%20s%128[\t ]%512[^\n\0\r]",command,junkStr,option);
+                // Replace the config file parsing logic in init() with a more robust approach
+
+                if((fp=fopen(configFile,"r"))!=NULL)
+                {
+                    while(!feof(fp))
+                    {
+                        char configLine[4096];
+                        if (!fgets(configLine, sizeof(configLine), fp))
+                            break;
+
+                        // Skip leading whitespace
+                        char *line = configLine;
+                        while (*line == ' ' || *line == '\t') line++;
+
+                        // Skip empty lines and comments
+                        if (*line == '\0' || *line == '\n' || *line == '#')
+                            continue;
+
+                        // Find the first whitespace separating command and option
+                        char *optionStart = line;
+                        while (*optionStart && *optionStart != ' ' && *optionStart != '\t' && *optionStart != '\n')
+                            optionStart++;
+
+                        // Null-terminate the command
+                        char command[64] = {0};
+                        size_t cmdLen = optionStart - line;
+                        if (cmdLen >= sizeof(command)) cmdLen = sizeof(command) - 1;
+                        strncpy(command, line, cmdLen);
+                        command[cmdLen] = '\0';
+
+                        // Skip whitespace to get to the option
+                        while (*optionStart == ' ' || *optionStart == '\t') optionStart++;
+
+                        // Null-terminate at newline
+                        char *newline = strchr(optionStart, '\n');
+                        if (newline) *newline = '\0';
+
+                        char option[512] = {0};
+                        strncpy(option, optionStart, sizeof(option) - 1);
+
+                        if (debugMode)
+                            LogFile(ERROR_LOG,"TEST: command [%s] option [%s]",command,option);
+
+                        if     (strncmp(command,"d_colordepth",12)==0)		colorBits=atoi(option);
+                        else if(strncmp(command,"d_depthbuff",11)==0)		depthBits=atoi(option);
+                        else if(strncmp(command,"d_stencil",9)==0)			stencilBits=atoi(option);
+                        else if(strncmp(command,"d_dispmode",10)==0)		screenDimMode=atoi(option) % NUM_SCREEN_DIMS;
+                        else if(strncmp(command,"d_refresh",9)==0)			refreshRate=atoi(option);
+                        else if(strncmp(command,"d_fullscreen",12)==0)		fullScreen=atoi(option);
+                        else if(strncmp(command,"o_num_scenes",12)==0)		sceneLimit=atoi(option);
+                        else if(strncmp(command,"o_sh2_data_dir",14)==0)	sprintf(baseSH2dir,"%.256s",option);
+                        else if(strncmp(command,"o_sh3_data_dir",14)==0)	sprintf(baseSH3dir,"%.256s",option);
+                        else if(strncmp(command,"o_sh4_data_dir",14)==0)	sprintf(baseSH4dir,"%.256s",option);
+                        else if(strncmp(command,"o_sh2_anim",10)==0)		sh2_anim = (atoi(option) != 0 );
+                        else if(strncmp(command,"d_zdist",7)==0)			zDist = (float)atof(option);
+                        else if(strncmp(command,"o_debug_render",14)==0)	debugRender = (atoi(option) != 0);
+                        else if(strncmp(command,"o_debug",7)==0)			debugMode = (atoi(option) != 0);				
+                        else if(strncmp(command,"o_anim_debug",12)==0)		animDebugMode = (atoi(option) != 0);
+                        else if(strncmp(command,"o_dumpmeshdata",14)==0)	dumpModel=(atoi(option) != 0 );
+                        else if(strncmp(command,"o_test_mode",11)==0)		testMode=(atoi(option) != 0 );
+                        else if(strncmp(command,"o_movementrate",14)==0)	fMoveRate = (float)atof(option);
+                        else if(strncmp(command,"o_mouse_rate",12)==0)		fMouseRate = (float)atof(option);
+                        else if(strncmp(command,"o_throttle_keys",15)==0)	fThrottleRatio = (float)atof(option);
+                        else if(strncmp(command,"o_anim_frame_rate",17)==0)	d_frameRate = (float)atof(option);
+                        else if(strncmp(command,"d_screen_color",14)==0)	sscanf(option,"%f %f %f",&fClearColorRed,&fClearColorGreen,&fClearColorBlue);
+                        else 
+                            LogFile( ERROR_LOG, "init( ) - ERROR: Config command '%s' not recognized\n\t...Ignored",command);
+                    }
+                }
 				//--------------------------------------------------/
 				// Config file options - add as more are added... --/
 				//--------------------------------------------------/
@@ -1515,6 +1582,8 @@ int init( void )
 		fMoveRate = 0.01f;
 	if( fMouseRate < F_EPS )
 		fMouseRate = 0.01f;
+	// Force windowed mode for reliable startup.
+	fullScreen = 0;
 	
 
 	// Cache the current display mode so we can switch back when done.
@@ -1559,16 +1628,16 @@ int init( void )
 			LogFile(ERROR_LOG,"init( %d ) - ERROR: Couldn't find correct display mode\n\t...Exiting",__LINE__);
 			return 0;
 		}
+
+		if( ChangeDisplaySettings( &devMode, CDS_FULLSCREEN ) != DISP_CHANGE_SUCCESSFUL )
+		{
+			// TO DO: Respond to failure of ChangeDisplaySettings
+			LogFile(ERROR_LOG,"init( %d ) - ERROR: Couldn't change the display\n\t...Exiting",__LINE__);
+			return 0;
+		}
 	}
 
-
-
-	if( ChangeDisplaySettings( &devMode, CDS_FULLSCREEN ) != DISP_CHANGE_SUCCESSFUL )
-	{
-		// TO DO: Respond to failure of ChangeDisplaySettings
-		LogFile(ERROR_LOG,"init( %d ) - ERROR: Couldn't change the display\n\t...Exiting",__LINE__);
-		return 0;
-	}
+	dwStyle = (fullScreen ? WS_POPUP : WS_OVERLAPPEDWINDOW) | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
 
 	RECT winRect;
 	winRect.left	= 0;			
@@ -1576,11 +1645,25 @@ int init( void )
 	winRect.top	    = 0;
 	winRect.bottom	= dScreenRes[screenDimMode].h;	
 
-	AdjustWindowRect( &winRect, dwStyle, false);
+	if( !fullScreen )
+		AdjustWindowRect( &winRect, dwStyle, false);
+
+	int winW = winRect.right - winRect.left;
+	int winH = winRect.bottom - winRect.top;
+	int winX = 0;
+	int winY = 0;
+
+	if( !fullScreen )
+	{
+		winX = (GetSystemMetrics(SM_CXSCREEN) - winW) / 2;
+		winY = (GetSystemMetrics(SM_CYSCREEN) - winH) / 2;
+		if( winX < 0 ) winX = 0;
+		if( winY < 0 ) winY = 0;
+	}
 
 	hwnd = CreateWindowEx( NULL, className, "Silent Hill 3 - Level Viewer",
 						     dwStyle,
-					         0, 0, winRect.right-winRect.left, winRect.bottom-winRect.top, NULL, NULL, g_hInstance, NULL );
+					         winX, winY, winW, winH, NULL, NULL, g_hInstance, NULL );
 	if( hwnd == NULL )
 	{
 		LogFile(ERROR_LOG,"init( %d ) - ERROR: Couldn't create the Windo\n\t...Exiting",__LINE__);
@@ -1874,7 +1957,7 @@ void createFont()
 	logfont.lfClipPrecision = CLIP_DEFAULT_PRECIS;
 	logfont.lfQuality = DEFAULT_QUALITY;
 	logfont.lfPitchAndFamily = DEFAULT_PITCH;
-	strcpy(logfont.lfFaceName,"Arial");
+	strcpy_s(logfont.lfFaceName, sizeof(logfont.lfFaceName), "Arial");
 
 	// Create the font and display list
 	hFont = CreateFontIndirect(&logfont);

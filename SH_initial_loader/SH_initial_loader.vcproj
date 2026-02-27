@@ -423,7 +423,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\RShadow.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -929,6 +928,7 @@
 	<Globals>
 	</Globals>
 </VisualStudioProject>
+
 
 
 

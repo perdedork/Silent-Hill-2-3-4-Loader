@@ -94,15 +94,15 @@ void fsqrt::build_sine_table()
 }
 /*__inline*/ float fsqrt::Cos(float rad){return 1.0;}
 
-// At the assembly level the recommended workaround for the second FIST bug is the same for the first; 
-// inserting the FRNDINT instruction immediately preceding the FIST instruction. 
-
-__forceinline void FloatToInt(int *int_pointer, float f) 
-{
-	__asm  fld  f
-  __asm  mov  edx,int_pointer
-  __asm  FRNDINT
-  __asm  fistp dword ptr [edx];
-
-}
+//// At the assembly level the recommended workaround for the second FIST bug is the same for the first; 
+//// inserting the FRNDINT instruction immediately preceding the FIST instruction. 
+//
+//__forceinline void FloatToInt(int *int_pointer, float f) 
+//{
+//	__asm  fld  f
+//  __asm  mov  edx,int_pointer
+//  __asm  FRNDINT
+//  __asm  fistp dword ptr [edx];
+//
+//}
 
