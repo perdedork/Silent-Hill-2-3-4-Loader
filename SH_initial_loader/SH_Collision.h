@@ -67,15 +67,20 @@ public:
 	SH3_CldPrim( ){ SetNullAll( ); }
 	SH3_CldPrim( const SH3_CldPrim & rhs ){ SetNullAll( ); operator=( rhs ); }
 	~SH3_CldPrim( ){ DeleteData( ); }
-	SH3_CldPrim & operator=( const SH3_CldPrim & rhs ){ if( &rhs != this ){ DeleteData( ); structMemcpy( m_sVertHeader ); dynamicDataCopy( m_pcVerts, vertex4f, m_sVertHeader.s_lNumVerts ); } return *this; }
+	SH3_CldPrim & operator=( const SH3_CldPrim & rhs ){ if( &rhs != this ){ DeleteData( ); structMemcpy( m_sVertHeader ); dynamicDataCopy( m_pcVerts, vertex4f, m_sVertHeader.s_lNumVerts ); fieldCopy( m_lSectionRelativeOffset ); fieldCopy( m_lVertexDataOffset ); fieldCopy( m_lUnknownDataOffset ); fieldCopy( m_lTotalSize ); fieldCopy( m_vUnknownData ); } return *this; }
 
-	void SetNullAll( ){ structMemClear( m_sVertHeader ); m_pcVerts = NULL; }
+	void SetNullAll( ){ structMemClear( m_sVertHeader ); m_pcVerts = NULL; m_lSectionRelativeOffset = 0; m_lVertexDataOffset = 0; m_lUnknownDataOffset = 0; m_lTotalSize = 0; m_vUnknownData.clear( ); }
 	void DeleteData( ){ delete [] m_pcVerts; SetNullAll( ); }
 
-	long LoadData( FILE *inFile );
+	long LoadData( FILE *inFile, long _lSectionRelativeOffset = 0, long _lPrimSize = 0, long _lUnknownSize = 0 );
 
 	sh3_cld_vert_header	m_sVertHeader;
 	vertex4f			*m_pcVerts;
+	long				m_lSectionRelativeOffset;
+	long				m_lVertexDataOffset;
+	long				m_lUnknownDataOffset;
+	long				m_lTotalSize;
+	vector<BYTE>		m_vUnknownData;
 };
 
 
@@ -85,16 +90,20 @@ public:
 	SH3_CldSet( ){ SetNullAll( ); }
 	SH3_CldSet( const SH3_CldSet & rhs ){ SetNullAll( ); operator=( rhs ); }
 	~SH3_CldSet( ){ DeleteData( ); }
-	SH3_CldSet & operator=( const SH3_CldSet & rhs ){ if( &rhs != this ){ DeleteData( ); fieldCopy( m_vIndexData ); fieldCopy( m_vPrimData ); } return *this; }
+	SH3_CldSet & operator=( const SH3_CldSet & rhs ){ if( &rhs != this ){ DeleteData( ); fieldCopy( m_vIndexData ); fieldCopy( m_vPrimData ); fieldCopy( m_lSectionRelativeOffset ); fieldCopy( m_lSectionSize ); fieldCopy( m_lParsedBytes ); fieldCopy( m_vTrailingData ); } return *this; }
 
-	void SetNullAll( ){ }
-	void DeleteData( ){ m_vIndexData.clear( ); m_vPrimData.clear( ); }
+	void SetNullAll( ){ m_lSectionRelativeOffset = 0; m_lSectionSize = 0; m_lParsedBytes = 0; m_vTrailingData.clear( ); }
+	void DeleteData( ){ m_vIndexData.clear( ); m_vPrimData.clear( ); SetNullAll( ); }
 
 	long LoadIndex( FILE *inFile, sh3_cld_index_offsets *_psOffsets );
 	long LoadVerts( FILE *inFile, long _lOffset, long _lDataSize );
 
 	vector<SH3_CldIndex>	m_vIndexData;
 	vector<SH3_CldPrim>		m_vPrimData;
+	long					m_lSectionRelativeOffset;
+	long					m_lSectionSize;
+	long					m_lParsedBytes;
+	vector<BYTE>			m_vTrailingData;
 };
 
 
@@ -106,8 +115,8 @@ public:
 	~SH3_Collision( ){ DeleteData( ); }
 	SH3_Collision & operator=( const SH3_Collision & rhs ){ if( &rhs != this ){ DeleteData( ); structMemcpy( m_sHeader ); staticDataCopy( m_caCldData, 5 ); } return *this; }
 
-	void SetNullAll( ){ }
-	void DeleteData( ){ }
+	void SetNullAll( ){ structMemClear( m_sHeader ); for( int k = 0; k < 5; k++ ) m_caCldData[ k ].DeleteData( ); }
+	void DeleteData( ){ for( int k = 0; k < 5; k++ ) m_caCldData[ k ].DeleteData( ); structMemClear( m_sHeader ); }
 
 	long Load( char *filename, long _offset );
 

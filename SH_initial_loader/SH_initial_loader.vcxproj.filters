@@ -102,6 +102,9 @@
     <ClCompile Include="fileCrawler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SH3_SDB_Loader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include=".\Camera.h">
@@ -207,6 +210,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="fileCrawler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SH3_SDB_Loader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

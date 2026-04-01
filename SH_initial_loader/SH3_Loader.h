@@ -632,6 +632,38 @@ public:
 };
 	
 
+class SH3_ArcArchiveEntry
+{
+public:
+	SH3_ArcArchiveEntry( ):q1( 0 ){ }
+
+	long				q1;
+	string				internalName;
+	vector<unsigned char>	data;
+};
+
+
+class SH3_ArcArchive
+{
+public:
+	SH3_ArcArchive( ){ }
+	~SH3_ArcArchive( ){ Clear( ); }
+
+	void	Clear( );
+	bool	LoadArchive( const char *arcPath, const char *arcNameTablePath = NULL );
+	bool	ExtractAll( const char *outputDir, const char *manifestName = "arc_manifest.txt" ) const;
+	bool	BuildFromDirectory( const char *inputDir, const char *outputArcPath, const char *manifestName = "arc_manifest.txt" );
+	bool	Save( const char *outputArcPath ) const;
+
+	long	GetEntryCount( ) const { return (long)m_vEntries.size( ); }
+	const SH3_ArcArchiveEntry *GetEntry( long index ) const;
+
+	string						m_sArchivePath;
+	string						m_sArchiveBaseName;
+	vector<SH3_ArcArchiveEntry>	m_vEntries;
+};
+
+
 
 //----===[ G E N E R A L   F U N C T I O N S ]===----/
 
@@ -672,7 +704,8 @@ public:
 		int _shaderNum = 9, int _transformNum = 0 )
 		{	verts = _verts; primitiveType = _primitiveType; startVert = _startVert; numPrim = _numPrim;
 			texID = _texID; alphaTest = _alphaTest; alphaBlend = _alphaBlend; stencilRef = _stencilRef;
-			shaderNum = _shaderNum; transformNum = _transformNum; }
+			shaderNum = _shaderNum; transformNum = _transformNum;
+			sourceOffset = 0; sourceSize = 0; }
 	~scenePrimitive( ){ SAFEDELETE(verts);}
 
 	scenePrimitive & operator=( const scenePrimitive & rhs );
@@ -691,6 +724,8 @@ public:
 	int				stencilRef;
 	int				shaderNum;
 	int				transformNum;
+	long			sourceOffset;		//Offset of primitive data relative to scene baseOffset
+	long			sourceSize;		//Estimated size of primitive data block in bytes
 };
 
 
@@ -699,7 +734,8 @@ class SceneMap
 public:
 	SceneMap( ){ sceneData = NULL; numScenePrimitives = 0; maxScenePrimitives = 0; baseOffset = 0;
 				 nextTexOffset = 0; nextRenderOffset = 0; nextShaderOffset = 0; nextSceneOffset = 0;
-				 interact.sceneInteract = NULL; numSceneTransform = 0; sceneTransform = NULL; sceneFilename[0] = 0;}
+				 interact.startOffset = 0; interact.numSceneInteract = 0; interact.sceneInteract = NULL;
+				 numSceneTransform = 0; sceneTransform = NULL; sceneFilename[0] = 0;}
 	SceneMap( FILE *sceneFile ){ loadScene(sceneFile, 0); }
 	SceneMap( char *filename, int sceneNum ){ loadArcScene( filename, sceneNum ); }
 	~SceneMap( ){ deleteScene();}
@@ -716,7 +752,9 @@ public:
 	bool isSceneValid(){ return (numScenePrimitives > 0 && sceneData );}	//Determines if a scene is loaded
 	bool isMainSceneHeader( main_scene_header *h );		//Determines if a main header is actually a main header
 
-	void renderScene( );						//Renders sceneData
+	void renderScene( bool selectMode = false, unsigned int sectionIndex = 0 );	//Renders sceneData (or emits names for selection)
+	void renderInteractDebug( );		//Renders scene interaction/camera debug geometry
+	void dumpDebugData( const char *label = NULL );	//Dumps scene/header/interact debug data to TEST_LOG
 
 	scenePrimitive * getSceneData( ){ return sceneData; }
 	int getNumScenePrimitives( ){ return numScenePrimitives; }

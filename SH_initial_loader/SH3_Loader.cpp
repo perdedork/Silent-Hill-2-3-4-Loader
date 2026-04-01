@@ -27,6 +27,8 @@
 #include <SMD_Model.h>
 #include <ostream>
 #include <fstream>
+#include <string.h>
+#include <ctype.h>
 
 using namespace SMD;
 
@@ -41,6 +43,207 @@ extern bool dumpScene;
 extern bool displayMatrix;
 extern bool onlyVar;
 extern bool onlyStatic;
+extern bool g_bSH3SceneRenderAll;
+extern int g_iSH3ScenePrimIndex;
+
+static string SH3_GetFilenameOnly( const string &sPath )
+{
+	size_t lPos = sPath.find_last_of( "\\/" );
+	return ( lPos == string::npos ) ? sPath : sPath.substr( lPos + 1 );
+}
+
+
+static string SH3_GetFilenameNoExt( const string &sPath )
+{
+	string sFile = SH3_GetFilenameOnly( sPath );
+	size_t lPos = sFile.find_last_of( '.' );
+	return ( lPos == string::npos ) ? sFile : sFile.substr( 0, lPos );
+}
+
+
+static bool SH3_EnsureDirectoryExists( const string &sDir )
+{
+	size_t k;
+	string sCur;
+
+	if( sDir.empty( ) )
+		return true;
+
+	for( k = 0; k < sDir.size( ); k++ )
+	{
+		char c = sDir[ k ];
+		sCur += c;
+
+		if( c == '\\' || c == '/' )
+		{
+			if( sCur.size( ) == 2 && sCur[ 1 ] == ':' )
+				continue;
+
+			CreateDirectory( sCur.c_str( ), NULL );
+		}
+	}
+
+	if( !CreateDirectory( sDir.c_str( ), NULL ) )
+	{
+		DWORD l_dwErr = GetLastError( );
+		if( l_dwErr != ERROR_ALREADY_EXISTS )
+			return false;
+	}
+
+	return true;
+}
+
+
+static string SH3_SanitizeArchiveName( const string &sName )
+{
+	string sOut = sName;
+	size_t k;
+
+	for( k = 0; k < sOut.size( ); k++ )
+	{
+		char &c = sOut[ k ];
+		if( c == '/' )
+			c = '\\';
+		if( c == ':' || c == '*' || c == '?' || c == '\"' || c == '<' || c == '>' || c == '|' )
+			c = '_';
+	}
+
+	return sOut;
+}
+
+
+static string SH3_JoinPath( const string &sBase, const string &sChild )
+{
+	if( sBase.empty( ) )
+		return sChild;
+	if( sChild.empty( ) )
+		return sBase;
+	if( sBase[ sBase.size( ) - 1 ] == '\\' || sBase[ sBase.size( ) - 1 ] == '/' )
+		return sBase + sChild;
+	return sBase + "\\" + sChild;
+}
+
+
+static bool SH3_ReadWholeFile( const char *pcFilename, vector<unsigned char> &vData )
+{
+	FILE *inFile;
+	long l_lSize;
+	size_t l_lRead;
+
+	vData.clear( );
+
+	if( !pcFilename )
+		return false;
+
+	if( (inFile = fopen( pcFilename, "rb" )) == NULL )
+		return false;
+
+	fseek( inFile, 0, SEEK_END );
+	l_lSize = ftell( inFile );
+	fseek( inFile, 0, SEEK_SET );
+
+	if( l_lSize < 0 )
+	{
+		fclose( inFile );
+		return false;
+	}
+
+	vData.resize( l_lSize );
+	if( l_lSize > 0 )
+	{
+		l_lRead = fread( &(vData[ 0 ]), 1, l_lSize, inFile );
+		if( (long)l_lRead != l_lSize )
+		{
+			fclose( inFile );
+			vData.clear( );
+			return false;
+		}
+	}
+
+	fclose( inFile );
+	return true;
+}
+
+
+static bool SH3_WriteWholeFile( const char *pcFilename, const unsigned char *pcData, long l_lSize )
+{
+	FILE *outFile;
+	size_t l_lWritten;
+	string sFilename;
+	size_t lPos;
+
+	if( !pcFilename || l_lSize < 0 )
+		return false;
+
+	sFilename = pcFilename;
+	lPos = sFilename.find_last_of( "\\/" );
+	if( lPos != string::npos )
+	{
+		if( !SH3_EnsureDirectoryExists( sFilename.substr( 0, lPos ) ) )
+			return false;
+	}
+
+	if( (outFile = fopen( pcFilename, "wb" )) == NULL )
+		return false;
+
+	if( l_lSize > 0 )
+	{
+		l_lWritten = fwrite( pcData, 1, l_lSize, outFile );
+		if( (long)l_lWritten != l_lSize )
+		{
+			fclose( outFile );
+			return false;
+		}
+	}
+
+	fclose( outFile );
+	return true;
+}
+
+
+static bool SH3_LoadArcFilenamesForArchive( const char *pcArcPath, vector<string> &vNames, const char *pcArcNameTablePath )
+{
+	sh3_arcfile	l_cArcList;
+	string		sArcPath;
+	string		sArcBase;
+	string		sArcNameTable;
+	long		k;
+	long		j;
+
+	vNames.clear( );
+
+	if( !pcArcPath )
+		return false;
+
+	sArcPath = pcArcPath;
+	sArcBase = SH3_GetFilenameNoExt( sArcPath );
+
+	if( pcArcNameTablePath && pcArcNameTablePath[ 0 ] )
+		sArcNameTable = pcArcNameTablePath;
+	else
+	{
+		size_t lPos = sArcPath.find_last_of( "\\/" );
+		string sDir = ( lPos == string::npos ) ? string( "" ) : sArcPath.substr( 0, lPos + 1 );
+		sArcNameTable = sDir + "arc.arc";
+	}
+
+	if( l_cArcList.Load( (char *)sArcNameTable.c_str( ) ) < 1 )
+		return false;
+
+	for( k = 0; k < l_cArcList.m_sArcData.arcFileCount; k++ )
+	{
+		if( strcmp( l_cArcList.m_pcArcSections[ k ].sectionName, sArcBase.c_str( ) ) == 0 )
+			break;
+	}
+
+	if( k >= l_cArcList.m_sArcData.arcFileCount )
+		return false;
+
+	for( j = 0; j < l_cArcList.m_pcArcSections[ k ].nameCount; j++ )
+		vNames.push_back( string( l_cArcList.m_pcArcSections[ k ].m_pcArcFilenames[ j ].fileName ) );
+
+	return true;
+}
 
 //\------====[ G E N E R A L   F U N C T I O N S ]====------/
 
@@ -212,6 +415,298 @@ index_record  arc_index_data::operator[](int ind) const
 	if( ind < 0 )
 		return index[ 0 ];
 	return index[ ind % numIndex ];
+}
+
+
+void SH3_ArcArchive::Clear( )
+{
+	m_sArchivePath.clear( );
+	m_sArchiveBaseName.clear( );
+	m_vEntries.clear( );
+}
+
+
+const SH3_ArcArchiveEntry *SH3_ArcArchive::GetEntry( long index ) const
+{
+	if( index < 0 || index >= (long)m_vEntries.size( ) )
+		return NULL;
+	return &(m_vEntries[ index ]);
+}
+
+
+bool SH3_ArcArchive::LoadArchive( const char *arcPath, const char *arcNameTablePath )
+{
+	FILE			*inFile;
+	arc_index_data	l_cIndex;
+	vector<string>	l_vNames;
+	long			k;
+
+	Clear( );
+
+	if( !arcPath )
+	{
+		LogFile( ERROR_LOG, "SH3_ArcArchive::LoadArchive( ) - ERROR: No archive path supplied" );
+		return false;
+	}
+
+	if( !l_cIndex.LoadData( (char *)arcPath ) )
+	{
+		LogFile( ERROR_LOG, "SH3_ArcArchive::LoadArchive( ) - ERROR: Could not load archive index from '%s'", arcPath );
+		return false;
+	}
+
+	if( (inFile = fopen( arcPath, "rb" )) == NULL )
+	{
+		LogFile( ERROR_LOG, "SH3_ArcArchive::LoadArchive( ) - ERROR: Could not open '%s' for reading", arcPath );
+		return false;
+	}
+
+	SH3_LoadArcFilenamesForArchive( arcPath, l_vNames, arcNameTablePath );
+
+	m_sArchivePath = arcPath;
+	m_sArchiveBaseName = SH3_GetFilenameNoExt( arcPath );
+	m_vEntries.resize( l_cIndex.numIndex );
+
+	for( k = 0; k < l_cIndex.numIndex; k++ )
+	{
+		SH3_ArcArchiveEntry &l_cEntry = m_vEntries[ k ];
+		l_cEntry.q1 = l_cIndex.index[ k ].q1;
+		if( k < (long)l_vNames.size( ) )
+			l_cEntry.internalName = l_vNames[ k ];
+		else
+		{
+			char l_cName[ 64 ];
+			sprintf( l_cName, "file_%04ld.bin", k );
+			l_cEntry.internalName = l_cName;
+		}
+
+		if( l_cIndex.index[ k ].offset > 0 && l_cIndex.index[ k ].size > 0 )
+		{
+			l_cEntry.data.resize( l_cIndex.index[ k ].size );
+			fseek( inFile, l_cIndex.index[ k ].offset, SEEK_SET );
+			if( fread( &(l_cEntry.data[ 0 ]), 1, l_cIndex.index[ k ].size, inFile ) != (size_t)l_cIndex.index[ k ].size )
+			{
+				LogFile( ERROR_LOG, "SH3_ArcArchive::LoadArchive( ) - ERROR: Could not read entry %ld from '%s'", k, arcPath );
+				fclose( inFile );
+				Clear( );
+				return false;
+			}
+		}
+	}
+
+	fclose( inFile );
+	return true;
+}
+
+
+bool SH3_ArcArchive::ExtractAll( const char *outputDir, const char *manifestName ) const
+{
+	FILE	*outFile;
+	long	k;
+	string	sOutputDir;
+	string	sManifestPath;
+
+	if( !outputDir || m_vEntries.empty( ) )
+		return false;
+
+	sOutputDir = outputDir;
+	if( !SH3_EnsureDirectoryExists( sOutputDir ) )
+	{
+		LogFile( ERROR_LOG, "SH3_ArcArchive::ExtractAll( ) - ERROR: Could not create output directory '%s'", outputDir );
+		return false;
+	}
+
+	sManifestPath = SH3_JoinPath( sOutputDir, ( manifestName && manifestName[ 0 ] ) ? manifestName : "arc_manifest.txt" );
+	outFile = fopen( sManifestPath.c_str( ), "wb" );
+	if( !outFile )
+	{
+		LogFile( ERROR_LOG, "SH3_ArcArchive::ExtractAll( ) - ERROR: Could not create manifest '%s'", sManifestPath.c_str( ) );
+		return false;
+	}
+
+	fprintf( outFile, "SH3_ARC_MANIFEST_V1\n" );
+	fprintf( outFile, "archive=%s\n", m_sArchiveBaseName.c_str( ) );
+	fprintf( outFile, "count=%ld\n", (long)m_vEntries.size( ) );
+
+	for( k = 0; k < (long)m_vEntries.size( ); k++ )
+	{
+		char	l_cIndex[ 32 ];
+		string	sStoredName;
+		string	sFullPath;
+
+		sprintf( l_cIndex, "%04ld_", k );
+		sStoredName = string( l_cIndex ) + SH3_SanitizeArchiveName( m_vEntries[ k ].internalName );
+		sFullPath = SH3_JoinPath( sOutputDir, sStoredName );
+
+		if( !SH3_WriteWholeFile( sFullPath.c_str( ),
+				m_vEntries[ k ].data.empty( ) ? NULL : &(m_vEntries[ k ].data[ 0 ]),
+				(long)m_vEntries[ k ].data.size( ) ) )
+		{
+			fclose( outFile );
+			LogFile( ERROR_LOG, "SH3_ArcArchive::ExtractAll( ) - ERROR: Could not write entry '%s'", sFullPath.c_str( ) );
+			return false;
+		}
+
+		fprintf( outFile, "%ld\t%ld\t%s\t%s\n",
+			k,
+			m_vEntries[ k ].q1,
+			m_vEntries[ k ].internalName.c_str( ),
+			sStoredName.c_str( ) );
+	}
+
+	fclose( outFile );
+	return true;
+}
+
+
+bool SH3_ArcArchive::BuildFromDirectory( const char *inputDir, const char *outputArcPath, const char *manifestName )
+{
+	FILE	*inFile;
+	char	l_cLine[ 2048 ];
+	string	sInputDir;
+	string	sManifestPath;
+
+	Clear( );
+
+	if( !inputDir || !outputArcPath )
+		return false;
+
+	sInputDir = inputDir;
+	sManifestPath = SH3_JoinPath( sInputDir, ( manifestName && manifestName[ 0 ] ) ? manifestName : "arc_manifest.txt" );
+
+	inFile = fopen( sManifestPath.c_str( ), "rb" );
+	if( !inFile )
+	{
+		LogFile( ERROR_LOG, "SH3_ArcArchive::BuildFromDirectory( ) - ERROR: Could not open manifest '%s'", sManifestPath.c_str( ) );
+		return false;
+	}
+
+	while( fgets( l_cLine, sizeof( l_cLine ), inFile ) )
+	{
+		char		*pcNewline;
+		long		lIndex;
+		long		lQ1;
+		char		*pcTok;
+		string		sInternalName;
+		string		sStoredName;
+		string		sStoredPath;
+		SH3_ArcArchiveEntry	l_cEntry;
+
+		pcNewline = strchr( l_cLine, '\n' );
+		if( pcNewline ) *pcNewline = '\0';
+		pcNewline = strchr( l_cLine, '\r' );
+		if( pcNewline ) *pcNewline = '\0';
+
+		if( l_cLine[ 0 ] == '\0' || strchr( l_cLine, '\t' ) == NULL )
+			continue;
+
+		pcTok = strtok( l_cLine, "\t" );
+		if( !pcTok ) continue;
+		lIndex = atol( pcTok );
+
+		pcTok = strtok( NULL, "\t" );
+		if( !pcTok ) continue;
+		lQ1 = atol( pcTok );
+
+		pcTok = strtok( NULL, "\t" );
+		if( !pcTok ) continue;
+		sInternalName = pcTok;
+
+		pcTok = strtok( NULL, "\t" );
+		if( !pcTok ) continue;
+		sStoredName = pcTok;
+
+		if( lIndex < 0 )
+			continue;
+
+		while( (long)m_vEntries.size( ) <= lIndex )
+			m_vEntries.push_back( SH3_ArcArchiveEntry( ) );
+
+		sStoredPath = SH3_JoinPath( sInputDir, sStoredName );
+		if( !SH3_ReadWholeFile( sStoredPath.c_str( ), l_cEntry.data ) )
+		{
+			fclose( inFile );
+			LogFile( ERROR_LOG, "SH3_ArcArchive::BuildFromDirectory( ) - ERROR: Could not read entry file '%s'", sStoredPath.c_str( ) );
+			Clear( );
+			return false;
+		}
+
+		l_cEntry.q1 = lQ1;
+		l_cEntry.internalName = sInternalName;
+		m_vEntries[ lIndex ] = l_cEntry;
+	}
+
+	fclose( inFile );
+	m_sArchivePath = outputArcPath;
+	m_sArchiveBaseName = SH3_GetFilenameNoExt( outputArcPath );
+	return Save( outputArcPath );
+}
+
+
+bool SH3_ArcArchive::Save( const char *outputArcPath ) const
+{
+	FILE	*outFile;
+	long	l_lCurOffset;
+	long	k;
+	long	l_lEntryCount;
+	vector<index_record>	l_vIndex;
+	string	sOutputPath;
+	size_t	lPos;
+
+	if( !outputArcPath || m_vEntries.empty( ) )
+		return false;
+
+	sOutputPath = outputArcPath;
+	lPos = sOutputPath.find_last_of( "\\/" );
+	if( lPos != string::npos )
+	{
+		if( !SH3_EnsureDirectoryExists( sOutputPath.substr( 0, lPos ) ) )
+		{
+			LogFile( ERROR_LOG, "SH3_ArcArchive::Save( ) - ERROR: Could not create output directory for '%s'", outputArcPath );
+			return false;
+		}
+	}
+
+	l_lEntryCount = (long)m_vEntries.size( );
+	l_lCurOffset = sizeof( long ) * 4 + sizeof( index_record ) * l_lEntryCount;
+
+	l_vIndex.resize( l_lEntryCount );
+	for( k = 0; k < l_lEntryCount; k++ )
+	{
+		l_vIndex[ k ].offset = l_lCurOffset;
+		l_vIndex[ k ].q1 = m_vEntries[ k ].q1;
+		l_vIndex[ k ].size = (long)m_vEntries[ k ].data.size( );
+		l_vIndex[ k ].size2 = l_vIndex[ k ].size;
+		l_lCurOffset += l_vIndex[ k ].size;
+	}
+
+	if( (outFile = fopen( outputArcPath, "wb" )) == NULL )
+	{
+		LogFile( ERROR_LOG, "SH3_ArcArchive::Save( ) - ERROR: Could not open '%s' for writing", outputArcPath );
+		return false;
+	}
+
+	{
+		long l_lIndexID = 537068807;
+		long l_lIndexSize = sizeof( index_record ) * l_lEntryCount + sizeof( long ) * 4;
+		long l_lF1 = 0;
+		fwrite( &l_lIndexID, sizeof( long ), 1, outFile );
+		fwrite( &l_lEntryCount, sizeof( long ), 1, outFile );
+		fwrite( &l_lIndexSize, sizeof( long ), 1, outFile );
+		fwrite( &l_lF1, sizeof( long ), 1, outFile );
+	}
+
+	for( k = 0; k < l_lEntryCount; k++ )
+		fwrite( &(l_vIndex[ k ]), sizeof( index_record ), 1, outFile );
+
+	for( k = 0; k < l_lEntryCount; k++ )
+	{
+		if( !m_vEntries[ k ].data.empty( ) )
+			fwrite( &(m_vEntries[ k ].data[ 0 ]), 1, m_vEntries[ k ].data.size( ), outFile );
+	}
+
+	fclose( outFile );
+	return true;
 }
 
 
@@ -889,6 +1384,9 @@ scenePrimitive & scenePrimitive::operator=( const scenePrimitive & rhs )
 		stencilRef = rhs.stencilRef;
 		texID = rhs.texID;
 		transformNum = rhs.transformNum;
+		shaderNum = rhs.shaderNum;
+		sourceOffset = rhs.sourceOffset;
+		sourceSize = rhs.sourceSize;
 		max = rhs.max;
 		min = rhs.min;
 	}
@@ -921,6 +1419,8 @@ void scenePrimitive::computeMinMax( )
 void scenePrimitive::draw()
 {
 	GLuint *wordArray,k;
+	bool useStencilTransparency = (stencilRef == 64);
+	bool useBlend = (alphaBlend || useStencilTransparency);
 
 	//	LogFile(ERROR_LOG,"scenePrimitive::draw - Start: texID: %d\tnumPrim: %d\t", texID,numPrim);
 
@@ -929,10 +1429,14 @@ void scenePrimitive::draw()
 		glAlphaFunc(GL_GEQUAL, 0.01f);
 		glEnable(GL_ALPHA_TEST);
 	}
-	else if(alphaBlend)
+
+	if(useBlend)
 	{
 		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA,GL_DST_COLOR);
+		if( useStencilTransparency )
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		else
+			glBlendFunc(GL_SRC_ALPHA, GL_DST_COLOR);
 	}
 
 	//----[ CREATE INDICIES ]----/	
@@ -962,7 +1466,7 @@ void scenePrimitive::draw()
 
 	SAFEDELETE(wordArray);
 
-	if(alphaBlend )
+	if(useBlend)
 		glDisable(GL_BLEND);
 	if(alphaTest)
 		glDisable(GL_ALPHA_TEST);
@@ -1001,6 +1505,8 @@ void SceneMap::deleteScene()
 			SAFEDELETE(interact.sceneInteract[k].verts);
 	}
 	SAFEDELETE(interact.sceneInteract);
+	interact.startOffset = 0;
+	interact.numSceneInteract = 0;
 
 	numScenePrimitives = 0;
 	baseOffset = 0;
@@ -1522,6 +2028,94 @@ int SceneMap::loadScene( FILE *sceneFile, long bOffset )
 		}
 		else	//Load scene_interact_data
 		{
+			long l_lBaseInteractOffset = bOffset + mainHeader.someWeirdDataOffset;
+			long l_lCurOffset;
+			long l_lLoadedInteract = 0;
+			long l_lTempHeader[2];
+			scene_interact_base l_sBase;
+
+			interact.startOffset = 0;
+			interact.numSceneInteract = 0;
+			SAFEDELETE(interact.sceneInteract);
+
+			fseek( sceneFile, l_lBaseInteractOffset, SEEK_SET );
+			if( fread( l_lTempHeader, 1, sizeof(l_lTempHeader), sceneFile ) == sizeof(l_lTempHeader) )
+			{
+				interact.startOffset = l_lTempHeader[0];
+				interact.numSceneInteract = l_lTempHeader[1];
+
+				if( interact.numSceneInteract > 0 && interact.numSceneInteract < 4096 && interact.startOffset > 0 )
+				{
+					interact.sceneInteract = new scene_interact[ interact.numSceneInteract ];
+					for( k = 0; k < interact.numSceneInteract; k++ )
+					{
+						interact.sceneInteract[k].verts = NULL;
+						interact.sceneInteract[k].numVerts = 0;
+						memset( interact.sceneInteract[k].cameraViews, 0, sizeof(interact.sceneInteract[k].cameraViews) );
+					}
+
+					l_lCurOffset = interact.startOffset;
+					for( k = 0; k < interact.numSceneInteract; k++ )
+					{
+						long l_lNumVerts = 0;
+
+						if( l_lCurOffset <= 0 )
+							break;
+
+						fseek( sceneFile, bOffset + l_lCurOffset, SEEK_SET );
+						if( fread( &l_sBase, 1, sizeof(l_sBase), sceneFile ) < sizeof(l_sBase) )
+							break;
+
+						interact.sceneInteract[k].transMat = l_sBase.transMat;
+						interact.sceneInteract[k].maybeID = l_sBase.maybeID;
+						interact.sceneInteract[k].q1 = l_sBase.q1;
+						interact.sceneInteract[k].fa1[0] = l_sBase.fa1[0];
+						interact.sceneInteract[k].fa1[1] = l_sBase.fa1[1];
+						interact.sceneInteract[k].vertOffset = l_sBase.vertOffset;
+						interact.sceneInteract[k].floatDataOffset = l_sBase.floatDataOffset;
+						interact.sceneInteract[k].nextInteractionOffset = l_sBase.nextInteractionOffset;
+						interact.sceneInteract[k].f2 = l_sBase.f2;
+						interact.sceneInteract[k].fa3[0] = l_sBase.fa3[0];
+						interact.sceneInteract[k].fa3[1] = l_sBase.fa3[1];
+						interact.sceneInteract[k].fa3[2] = l_sBase.fa3[2];
+						interact.sceneInteract[k].fa3[3] = l_sBase.fa3[3];
+
+						if( l_sBase.floatDataOffset > l_sBase.vertOffset && l_sBase.vertOffset > 0 )
+						{
+							l_lNumVerts = (l_sBase.floatDataOffset - l_sBase.vertOffset) / sizeof(vertex4f);
+							if( l_lNumVerts > 0 && l_lNumVerts < 100000 )
+							{
+								interact.sceneInteract[k].numVerts = (int)l_lNumVerts;
+								interact.sceneInteract[k].verts = new vertex4f[ l_lNumVerts ];
+								fseek( sceneFile, bOffset + l_lCurOffset + l_sBase.vertOffset, SEEK_SET );
+								if( fread( interact.sceneInteract[k].verts, sizeof(vertex4f), l_lNumVerts, sceneFile ) != (size_t)l_lNumVerts )
+								{
+									SAFEDELETE( interact.sceneInteract[k].verts );
+									interact.sceneInteract[k].numVerts = 0;
+								}
+							}
+						}
+
+						if( l_sBase.floatDataOffset > 0 )
+						{
+							fseek( sceneFile, bOffset + l_lCurOffset + l_sBase.floatDataOffset, SEEK_SET );
+							fread( interact.sceneInteract[k].cameraViews, 1, sizeof(camera_data) * 4, sceneFile );
+						}
+
+						l_lLoadedInteract++;
+						l_lCurOffset = l_sBase.nextInteractionOffset;
+						if( l_lCurOffset <= 0 )
+							break;
+					}
+
+					interact.numSceneInteract = l_lLoadedInteract;
+				}
+				else
+				{
+					interact.startOffset = 0;
+					interact.numSceneInteract = 0;
+				}
+			}
 
 		}
 			
@@ -1534,6 +2128,9 @@ int SceneMap::loadScene( FILE *sceneFile, long bOffset )
 
 	do
 	{
+		long l_lPrimitiveStartOffset = nextSceneOffset;
+		long l_lPrimitiveReadEnd = -1;
+		int l_iLoadedPrimIndex = -1;
 
 		if(debugMode)
 			LogFile(ERROR_LOG,"*******************\nPrimitive: %d\tOffset: %ld\n********************",numScenePrimitives,nextSceneOffset);
@@ -1580,7 +2177,8 @@ int SceneMap::loadScene( FILE *sceneFile, long bOffset )
 				{
 					if((curTexID = loadTex(sceneFile,&curTH)) != 0 )
 						textureMgr.AddTex(string(texStr),curTexID,0);
-
+					else
+						LogFile(ERROR_LOG, "ERROR: Failed to load texture for scene - TexNumLoc: %d\tTexNum: %d", curTH.texNumLoc, curTH.texNum);
 					if(debugMode)
 						LogFile(ERROR_LOG,"loadScene - CurTexID is %ud",curTexID);
 				}
@@ -1652,12 +2250,15 @@ int SceneMap::loadScene( FILE *sceneFile, long bOffset )
 														 curPH.numVerts-2,(curRH.renderFlag2 == 196608 || (curRH.renderFlag2 == 65536 && curSH.shaderNum == 0))?1:0,
 														 (curPH.alphaBlendFlag == 124)?1:0,(stencilSwitch && curRH.renderFlag2 == 0)?0:64,
 														 (stencilSwitch && curRH.renderFlag2 == 0)?21:curSH.shaderNum,(curPH.stencilSwitch == 3)?curPH.seqNum:0);
+				l_iLoadedPrimIndex = numScenePrimitives;
+				tSP[l_iLoadedPrimIndex].sourceOffset = l_lPrimitiveStartOffset;
+				l_lPrimitiveReadEnd = ftell(sceneFile);
 				LogFile( ERROR_LOG, "Data Comparison:\n----------------------------------------------\n"
 									"  Primitive: %ld\n  TexID: %ld\n  #prim: %ld\n  alphaBld: %ld\n  alphaTest: %ld\n  Shader#: %ld"
-									"  Start Vert#: %ld\n  stencilRef: %ld\n  Trans#: %ld",
+									"  Start Vert#: %ld\n  stencilRef: %ld\n  Trans#: %ld\n  Offset: %ld",
 									numScenePrimitives, curTexID,tSP[numScenePrimitives].numPrim,tSP[numScenePrimitives].alphaBlend,tSP[numScenePrimitives].alphaTest,
 									tSP[numScenePrimitives].shaderNum, tSP[numScenePrimitives].startVert,tSP[numScenePrimitives].stencilRef,
-									tSP[numScenePrimitives].transformNum);
+									tSP[numScenePrimitives].transformNum, nextSceneOffset);
 				tSP[numScenePrimitives].computeMinMax( );
 
 				numScenePrimitives++;
@@ -1684,6 +2285,17 @@ int SceneMap::loadScene( FILE *sceneFile, long bOffset )
 
 				if(debugMode)
 					LogFile(ERROR_LOG,"--------------------------\nnextSceneOffset: %ld\n--------------------------",nextSceneOffset);
+			}
+
+			if( l_iLoadedPrimIndex >= 0 )
+			{
+				long l_lSizeByNextOffset = 0;
+				long l_lSizeByReadEnd = 0;
+				if( nextSceneOffset > l_lPrimitiveStartOffset )
+					l_lSizeByNextOffset = nextSceneOffset - l_lPrimitiveStartOffset;
+				if( l_lPrimitiveReadEnd > (bOffset + l_lPrimitiveStartOffset) )
+					l_lSizeByReadEnd = l_lPrimitiveReadEnd - (bOffset + l_lPrimitiveStartOffset);
+				tSP[l_iLoadedPrimIndex].sourceSize = (l_lSizeByNextOffset > 0) ? l_lSizeByNextOffset : l_lSizeByReadEnd;
 			}
 
 		}
@@ -1850,9 +2462,25 @@ bool SceneMap::isMainSceneHeader( main_scene_header *h )
 //--      of multiple sections. The section skipping code in the main module --/
 //--      will need to be changed - the textures will be incorrectly deleted --/
 //-----------------------------------------------------------------------------/
-void SceneMap::renderScene( )
+void SceneMap::renderScene( bool selectMode, unsigned int sectionIndex )
 {
 	int k, j;
+
+#define DRAW_PICK_PRIMITIVE(_primRef) \
+	do { \
+		if( (_primRef).verts && (_primRef).numPrim >= 0 ) \
+		{ \
+			long _pickVertCount = (long)(_primRef).numPrim + 2; \
+			if( _pickVertCount > 1 && _pickVertCount < 1000000 ) \
+			{ \
+				long _pv; \
+				glBegin(GL_TRIANGLE_STRIP); \
+				for( _pv = 0; _pv < _pickVertCount; _pv++ ) \
+					glVertex3fv( &((_primRef).verts[_pv].vert.x) ); \
+				glEnd(); \
+			} \
+		} \
+	} while(0)
 	
 	glMatrixMode(GL_MODELVIEW);
 
@@ -1861,6 +2489,12 @@ void SceneMap::renderScene( )
 
 	for( k = 0; k < numScenePrimitives; k++ )
 	{
+		if( !selectMode && !g_bSH3SceneRenderAll && k != g_iSH3ScenePrimIndex )
+			continue;
+
+		if( selectMode )
+			glLoadName( ((sectionIndex & 0xFFFF) << 16) | (k & 0xFFFF) );
+
 		if( sceneData[k].transformNum 
 			&& (( onlyVar && !onlyStatic && sceneData[k].transformNum % 2 == 0 ) ||
 				( !onlyVar && onlyStatic && sceneData[k].transformNum % 2 == 1 )))
@@ -1874,7 +2508,7 @@ void SceneMap::renderScene( )
 		//		glMultMatrixf(sceneTransform[j].transMat.mat);
 			else
 				LogFile(ERROR_LOG,"RENDER ERROR: Couldn't find scene transform for primitive %d with transform num %d",k,sceneData[k].transformNum);
-/*NEW*/		sceneData[k].draw();
+/*NEW*/		if( selectMode ) DRAW_PICK_PRIMITIVE(sceneData[k]); else sceneData[k].draw();
 /*NEW*/		glPopMatrix();
 		}
 /*NEW*/	else if( !sceneData[k].transformNum )
@@ -1888,7 +2522,7 @@ void SceneMap::renderScene( )
 /*REMOVE*///			glMultMatrixf(mainHeader.transMat.mat);
 /*REMOVE*///		}
 
-			sceneData[k].draw();
+			if( selectMode ) DRAW_PICK_PRIMITIVE(sceneData[k]); else sceneData[k].draw();
 /*NEW*/	}
 
 //NEW		if( sceneData[k].transformNum )
@@ -1900,6 +2534,123 @@ void SceneMap::renderScene( )
 	glPopMatrix();
 	
 
+#undef DRAW_PICK_PRIMITIVE
+}
+
+void SceneMap::dumpDebugData( const char *label )
+{
+	long k, j;
+	const char *sceneLabel = (label && label[0]) ? label : "<unnamed>";
+
+	LogFile(TEST_LOG,"============================================================");
+	LogFile(TEST_LOG,"SceneMap::dumpDebugData - %s", sceneLabel);
+	LogFile(TEST_LOG,"Scene Filename: %s", sceneFilename);
+	LogFile(TEST_LOG,"Base Offset: %ld", baseOffset);
+	LogFile(TEST_LOG,"numScenePrimitives: %ld", numScenePrimitives);
+	LogFile(TEST_LOG,"numSceneTransform: %ld", numSceneTransform);
+
+	LogFile(TEST_LOG,"-- main_scene_header --");
+	LogFile(TEST_LOG,"mainHeaderSegMarker=%ld mainHeaderSize=%ld texSegOffset=%ld altTexSegOffset=%ld",
+		mainHeader.mainHeaderSegMarker, mainHeader.mainHeaderSize, mainHeader.texSegOffset, mainHeader.altTexSegOffset);
+	LogFile(TEST_LOG,"totalMainHeaderSize=%ld sceneStartHeaderOffset=%ld transMatOffset=%ld someWeirdDataOffset=%ld",
+		mainHeader.totalMainHeaderSize, mainHeader.sceneStartHeaderOffset, mainHeader.transMatOffset, mainHeader.someWeirdDataOffset);
+	LogFile(TEST_LOG,"maybeTotalTex=%d maybeLocalTexBaseIndex=%d numLocalTex=%d q1=%d",
+		(int)mainHeader.maybeTotalTex, (int)mainHeader.maybeLocalTexBaseIndex, (int)mainHeader.numLocalTex, (int)mainHeader.q1);
+
+	LogFile(TEST_LOG,"-- scene_interact_header --");
+	LogFile(TEST_LOG,"startOffset=%ld numSceneInteract=%ld sceneInteractPtr=0x%p",
+		interact.startOffset, interact.numSceneInteract, (void*)interact.sceneInteract);
+
+	if( interact.sceneInteract && interact.numSceneInteract > 0 )
+	{
+		for( k = 0; k < interact.numSceneInteract; k++ )
+		{
+			scene_interact &cur = interact.sceneInteract[k];
+			LogFile(TEST_LOG,"-- scene_interact_base [%ld] --", k);
+			LogFile(TEST_LOG,"maybeID=%ld q1=%ld vertOffset=%ld floatDataOffset=%ld nextInteractionOffset=%ld f2=%f",
+				cur.maybeID, cur.q1, cur.vertOffset, cur.floatDataOffset, cur.nextInteractionOffset, cur.f2);
+			LogFile(TEST_LOG,"numVerts=%d vertsPtr=0x%p", cur.numVerts, (void*)cur.verts);
+			for( j = 0; j < 4; j++ )
+			{
+				camera_data &cv = cur.cameraViews[j];
+				LogFile(TEST_LOG,"-- camera_data [%ld][%ld] --", k, j);
+				LogFile(TEST_LOG,"rangeVal=(%.6f, %.6f) cameraTilt=(%.6f, %.6f, %.6f) revCameraTile=(%.6f, %.6f, %.6f)",
+					cv.rangeVal[0], cv.rangeVal[1],
+					cv.cameraTilt.x, cv.cameraTilt.y, cv.cameraTilt.z,
+					cv.revCameraTile.x, cv.revCameraTile.y, cv.revCameraTile.z);
+				LogFile(TEST_LOG,"upDownFreeLookAngles=(%.6f, %.6f) leftRightFreeLookAngles=(%.6f, %.6f)",
+					cv.upDownFreeLookAngles[0], cv.upDownFreeLookAngles[1],
+					cv.leftRightFreeLookAngles[0], cv.leftRightFreeLookAngles[1]);
+			}
+		}
+	}
+	else
+	{
+		LogFile(TEST_LOG,"scene_interact data not loaded/populated for this scene.");
+	}
+
+	LogFile(TEST_LOG,"-- SceneMap primitive summary --");
+	for( k = 0; k < numScenePrimitives; k++ )
+	{
+		scenePrimitive &p = sceneData[k];
+		LogFile(TEST_LOG,"prim=%ld tex=%u numPrim=%d alphaBlend=%d alphaTest=%d shader=%d stencilRef=%d transform=%d min=(%.3f %.3f %.3f) max=(%.3f %.3f %.3f)",
+			k, p.texID, p.numPrim, p.alphaBlend, p.alphaTest, p.shaderNum, p.stencilRef, p.transformNum,
+			p.min.x, p.min.y, p.min.z, p.max.x, p.max.y, p.max.z);
+	}
+
+	LogFile(TEST_LOG,"============================================================");
+}
+
+void SceneMap::renderInteractDebug( )
+{
+	long k, j;
+
+	if( !interact.sceneInteract || interact.numSceneInteract <= 0 )
+		return;
+
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glMultMatrixf(mainHeader.transMat.mat);
+
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_BLEND);
+	glLineWidth(2.0f);
+
+	for( k = 0; k < interact.numSceneInteract; k++ )
+	{
+		scene_interact &si = interact.sceneInteract[k];
+		vertex l_vOrigin( si.transMat.mat[12], si.transMat.mat[13], si.transMat.mat[14] );
+
+		drawBasisMatrix( &si.transMat, 6.0f, (int)(k % 2), k );
+
+		if( si.verts && si.numVerts > 0 )
+		{
+			glColor3f(0.2f, 1.0f, 0.2f);
+			glBegin( (si.numVerts > 2) ? GL_LINE_LOOP : GL_LINE_STRIP );
+			for( j = 0; j < si.numVerts; j++ )
+				glVertex3fv( &(si.verts[j].x) );
+			glEnd();
+		}
+
+		for( j = 0; j < 4; j++ )
+		{
+			camera_data &cv = si.cameraViews[j];
+			vertex l_vDir = cv.cameraTilt;
+			if( fabs(l_vDir.x) + fabs(l_vDir.y) + fabs(l_vDir.z) < 0.0001f )
+				continue;
+			l_vDir.norm();
+			vertex l_vTip = l_vOrigin + l_vDir * 12.0f;
+
+			glColor3f(1.0f, 0.35f + 0.15f * j, 0.2f);
+			glBegin(GL_LINES);
+				glVertex3fv(&(l_vOrigin.x));
+				glVertex3fv(&(l_vTip.x));
+			glEnd();
+		}
+	}
+
+	glEnable(GL_TEXTURE_2D);
+	glPopMatrix();
 }
 
 

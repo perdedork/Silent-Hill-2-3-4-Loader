@@ -275,6 +275,7 @@
     <ClCompile Include="SH2_Model.cpp" />
     <ClCompile Include="SH3_ArcFilenames.cpp" />
     <ClCompile Include="SH3_Loader.cpp" />
+    <ClCompile Include="SH3_SDB_Loader.cpp" />
     <ClCompile Include="SH4_Loader.cpp" />
     <ClCompile Include="SH_Collision.cpp" />
     <ClCompile Include="SH_initial_loader.cpp" />
@@ -311,6 +312,7 @@
     <ClInclude Include="SH3_ArcFilenames.h" />
     <ClInclude Include="SH3_Loader.h" />
     <ClInclude Include="SH3_Mod.h" />
+    <ClInclude Include="SH3_SDB_Loader.h" />
     <ClInclude Include="SH4_Loader.h" />
     <ClInclude Include="SH_Collision.h" />
     <ClInclude Include="SH_Model_Anim.h" />

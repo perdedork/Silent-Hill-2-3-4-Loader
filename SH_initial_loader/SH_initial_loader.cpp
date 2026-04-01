@@ -210,6 +210,28 @@ vertex lightPos;
 LPSTR className="GL_TEST";
 bool testShit = true;
 bool g_bPostQuit = false;
+bool g_bMouseLookActive = false;
+bool g_bMouseRotateHeld = false;
+int g_iWindingDebugMode = 0;
+bool g_bShowCollisionOverlay = true;
+bool g_bHasCollisionOverlay = false;
+char g_cLastCollisionSceneArc[256] = "";
+int g_iLastCollisionSceneNum = -1;
+char g_cLastCollisionMapName[128] = "";
+char g_cLastCollisionCldName[128] = "";
+bool g_bShowInteractDebug = false;
+bool g_bPendingScenePick = false;
+int g_iPendingPickX = 0;
+int g_iPendingPickY = 0;
+char g_cLastPickInfo[256] = "";
+bool g_bDumpNextSH3LevelData = false;
+bool g_bSH3SceneRenderAll = true;
+int g_iSH3ScenePrimIndex = 0;
+bool g_bLeftMouseDown = false;
+bool g_bRightMouseDown = false;
+int g_iLeftDownX = 0;
+int g_iLeftDownY = 0;
+bool g_bLeftDragExceeded = false;
 
 int dirLooped;
 
@@ -235,6 +257,52 @@ void throttleSetRate( int rate );
 long curFrame = 0;
 
 int numTexLoaded=0;
+
+enum MenuCommandId
+{
+	IDM_FILE_EXIT = 10001,
+	IDM_ACTION_DUMP = 10002,
+	IDM_ACTION_F3 = 10003,
+	IDM_ACTION_TOGGLE_MODE = 10004,
+	IDM_ACTION_PREV_FRAME = 10005,
+	IDM_ACTION_NEXT_FRAME = 10006,
+	IDM_ACTION_TOGGLE_STATIC = 10007,
+	IDM_ACTION_TOGGLE_VAR = 10008,
+	IDM_MODE_SH2 = 10009,
+	IDM_MODE_SH3 = 10010,
+	IDM_MODE_SH4 = 10011,
+	IDM_VIEW_TOGGLE_MATRICES = 10012,
+	IDM_VIEW_CYCLE_WINDING = 10013
+};
+
+enum PendingActionFlags
+{
+	PA_NONE = 0,
+	PA_DUMP = 1 << 0,
+	PA_NEXT_ANIM_OR_DEBUG = 1 << 1,
+	PA_TOGGLE_MODE = 1 << 2,
+	PA_PREV_FRAME = 1 << 3,
+	PA_NEXT_FRAME = 1 << 4,
+	PA_TOGGLE_STATIC = 1 << 5,
+	PA_TOGGLE_VAR = 1 << 6,
+	PA_SWITCH_SH2 = 1 << 7,
+	PA_SWITCH_SH3 = 1 << 8,
+	PA_SWITCH_SH4 = 1 << 9,
+	PA_TOGGLE_MATRICES = 1 << 10,
+	PA_CYCLE_WINDING = 1 << 11
+};
+
+unsigned int g_pendingActions = PA_NONE;
+
+bool ConsumePendingAction( unsigned int actionFlag )
+{
+	if( g_pendingActions & actionFlag )
+	{
+		g_pendingActions &= ~actionFlag;
+		return true;
+	}
+	return false;
+}
 //-----------------------------------------------------------------------------
 // PROTOTYPES
 //-----------------------------------------------------------------------------
@@ -260,6 +328,11 @@ void Load_SH2_ModelFile( char *fileToLoad );
 void Process_SH2_ModelKeyInput( );
 void Load_SH4_File( char *fileToLoad );
 void Process_SH4_KeyInput( );
+void Load_SH3_CollisionForScene( char *sceneArcFilename, int sceneNum );
+void Render_SH3_CollisionOverlay( );
+void Process_SH3_ScenePick( );
+void DumpCurrentSH3LevelRawData( );
+void DumpCurrentSH3SelectedPrimitiveRawData( );
 void CleanDirectoryFilelist(int numNames, char ***pppFileName);
 int GetDirectoryFilelist(char *fileDirExt,char *fileExt, char ***foundFileName);
 int GetSH2DirectoryFilelist(char *fileDirExt,char *fileExt, char ***foundFileName, bool getFiles = false);
@@ -359,7 +432,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	numSH4Files		= GetDirectoryFilelist( baseSH4dir, "*.bin",&allSH4Files);
 
 //readFileDataAtLocation("C:\\Users\\Mike\\Desktop\\fuckMS\\samples\\Silent Hill 2\\data\\chr\\agl\\p_agl.anm",1000, 0 );
-//testMode = true;
+testMode = true;
 	if( testMode )
 	{
 animDebugMode = true;
@@ -454,6 +527,15 @@ debugMode = true;
 		else
 		{
 			unsigned char testAscii[256];
+
+			if (false)
+			{
+				SH3_ArcArchive arc;
+				arc.LoadArchive("C:\\Program Files (x86)\\KONAMI\\SILENT HILL 3\\data\\sdb.arc");
+				arc.ExtractAll(".\\msg_extracted");
+				return 0;
+			}
+
 			for( k = 0; k < 128; k++ )
 				testAscii[ k ] = k+128;
 			testAscii[ k ] = 0;
@@ -466,7 +548,7 @@ debugMode = true;
 			arc_index_data arcFile;
 			long numMsgs;
 
-			numMsgs = arcFile.LoadFullData( baseSH3dir, "chren" );
+			numMsgs = arcFile.LoadFullData( baseSH3dir, "sdb" );
 			LogFile( ERROR_LOG, "CHECK: arcfile returned %ld loaded internal filenames", numMsgs );
 			LogFile( ERROR_LOG, "CHECK: The actual totals are: %ld index, and %ld internal names",arcFile.numIndex, arcFile.internalFilenames.size( ));
 
@@ -480,10 +562,33 @@ debugMode = true;
 				else
 					LogFile( ERROR_LOG, "%ld -\t%s\t\t%ld\t%ld\t%ld\t%ld",k,arcFile.internalFilenames[ k ].c_str(),0,0,0, 0 );
 			}
-			LogFile( ERROR_LOG, "Go fuck your mom yourself - I'm getting sick of it   =(");
-//			readFileDataAtLocation("C:\\Program Files\\KONAMI\\SILENT HILL 3\\data\\bgam.arc",932, 67670 );
-//			readFileDataAtLocation("C:\\Program Files\\KONAMI\\SILENT HILL 3\\data\\bgam.arc",5000, 56650692 );
-	numMsgs = testMsg.LoadAll( baseSH3dir, MSG_LANG_ENGLISH );
+			LogFile( ERROR_LOG, "Burritos  =(");
+			LogFile(ERROR_LOG, "MSG FIle for apart in msg.arc");
+			readFileDataAtLocation("C:\\Program Files (x86)\\KONAMI\\SILENT HILL 3\\data\\msg.arc",2448 , 56396);
+			/*
+			LogFile(ERROR_LOG, "CAM File for am11 in bgam.arc");
+			readFileDataAtLocation("C:\\Program Files (x86)\\KONAMI\\SILENT HILL 3\\data\\bgam.arc",224, 61780);
+			LogFile(ERROR_LOG, "DED File for am11 in bgam.arc");
+			readFileDataAtLocation("C:\\Program Files (x86)\\KONAMI\\SILENT HILL 3\\data\\bgam.arc", 112, 76484);
+			LogFile(ERROR_LOG, "Apart.sdb file for bgam.arc");
+			readFileDataAtLocation("C:\\Program Files (x86)\\KONAMI\\SILENT HILL 3\\data\\bgam.arc", 432 , 73044);*/
+			/*
+			LogFile(ERROR_LOG, "CLD FIle for am11 in tp11.arc");
+			readFileDataAtLocation("C:\\Program Files (x86)\\KONAMI\\SILENT HILL 3\\data\\bgtp.arc", 6448, 21676);
+			LogFile(ERROR_LOG, "CAM File for am11 in tp11.arc");
+			readFileDataAtLocation("C:\\Program Files (x86)\\KONAMI\\SILENT HILL 3\\data\\bgtp.arc", 192, 2027244);
+			LogFile(ERROR_LOG, "DED File for tp11 in bgtp.arc");
+			readFileDataAtLocation("C:\\Program Files (x86)\\KONAMI\\SILENT HILL 3\\data\\bgtp.arc", 428, 2038508);
+			LogFile(ERROR_LOG, "amusement_west.sdb file for bgtp.arc");
+			readFileDataAtLocation("C:\\Program Files (x86)\\KONAMI\\SILENT HILL 3\\data\\bgtp.arc", 912, 1836300);
+
+			LogFile(ERROR_LOG, "amusement_east.sdb file for bgtp.arc");
+			readFileDataAtLocation("C:\\Program Files (x86)\\KONAMI\\SILENT HILL 3\\data\\bgtp.arc", 1200, 1900652);
+
+			LogFile(ERROR_LOG, "amusement_south.sdb file for bgtp.arc");
+			readFileDataAtLocation("C:\\Program Files (x86)\\KONAMI\\SILENT HILL 3\\data\\bgtp.arc", 528, 1905452);
+			*/
+	numMsgs = testMsg.LoadAll( baseSH3dir, MSG_LANG_SPANISH);
 	for( k = 0; k < numMsgs; k++)
 	{
 		int j;
@@ -495,6 +600,7 @@ debugMode = true;
 				testMsg.m_pcAllMsg[k].m_pcMessages[j].m_pcMsg);
 		}
 	}
+	return 0;
 	
 //	LogFile( ERROR_LOG, "CHECK: I have loaded %ld message files", numMsgs );
 
@@ -729,6 +835,58 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 			FPSTime=lastTime;
 		}
 		break;
+	case WM_KILLFOCUS:
+		{
+			g_bLeftMouseDown = false;
+			g_bRightMouseDown = false;
+			g_bLeftDragExceeded = false;
+			g_bMouseRotateHeld = false;
+			g_bMouseLookActive = false;
+			ReleaseCapture();
+		}
+		break;
+	case WM_LBUTTONDOWN:
+		{
+			g_bLeftMouseDown = true;
+			g_bMouseRotateHeld = true;
+			SetCapture(hWnd);
+		}
+		break;
+	case WM_RBUTTONDOWN:
+		{
+			g_bRightMouseDown = true;
+			g_bLeftDragExceeded = false;
+			g_iLeftDownX = (int)LOWORD(lParam);
+			g_iLeftDownY = (int)HIWORD(lParam);
+			SetCapture(hWnd);
+		}
+		break;
+	case WM_LBUTTONUP:
+		{
+			g_bLeftMouseDown = false;
+			g_bMouseRotateHeld = false;
+			if( !g_bRightMouseDown )
+			{
+				ReleaseCapture();
+			}
+		}
+		break;
+	case WM_RBUTTONUP:
+		{
+			int upX = (int)LOWORD(lParam);
+			int upY = (int)HIWORD(lParam);
+			if( g_bRightMouseDown && !g_bLeftDragExceeded )
+			{
+				g_iPendingPickX = upX;
+				g_iPendingPickY = upY;
+				g_bPendingScenePick = true;
+			}
+			g_bRightMouseDown = false;
+			g_bMouseLookActive = false;
+			if( !g_bLeftMouseDown )
+				ReleaseCapture();
+		}
+		break;
 	case WM_CHAR:
 		{
 			switch( wParam )
@@ -761,6 +919,54 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 			//	LogFile(ERROR_LOG,"Check bad exit - default: %ld or '%c'",wParam,wParam);
 		}
         break;
+	case WM_COMMAND:
+		{
+			switch( LOWORD(wParam) )
+			{
+			case IDM_FILE_EXIT:
+				PostQuitMessage(0);
+				return 0;
+			case IDM_ACTION_DUMP:
+				g_pendingActions |= PA_DUMP;
+				return 0;
+			case IDM_ACTION_F3:
+				g_pendingActions |= PA_NEXT_ANIM_OR_DEBUG;
+				return 0;
+			case IDM_ACTION_TOGGLE_MODE:
+				g_pendingActions |= PA_TOGGLE_MODE;
+				return 0;
+			case IDM_ACTION_PREV_FRAME:
+				g_pendingActions |= PA_PREV_FRAME;
+				return 0;
+			case IDM_ACTION_NEXT_FRAME:
+				g_pendingActions |= PA_NEXT_FRAME;
+				return 0;
+			case IDM_ACTION_TOGGLE_STATIC:
+				g_pendingActions |= PA_TOGGLE_STATIC;
+				return 0;
+			case IDM_ACTION_TOGGLE_VAR:
+				g_pendingActions |= PA_TOGGLE_VAR;
+				return 0;
+			case IDM_MODE_SH2:
+				g_pendingActions |= PA_SWITCH_SH2;
+				return 0;
+			case IDM_MODE_SH3:
+				g_pendingActions |= PA_SWITCH_SH3;
+				return 0;
+			case IDM_MODE_SH4:
+				g_pendingActions |= PA_SWITCH_SH4;
+				return 0;
+			case IDM_VIEW_TOGGLE_MATRICES:
+				g_pendingActions |= PA_TOGGLE_MATRICES;
+				return 0;
+			case IDM_VIEW_CYCLE_WINDING:
+				g_pendingActions |= PA_CYCLE_WINDING;
+				return 0;
+			default:
+				break;
+			}
+		}
+		break;
 	case WM_PAINT:
 		{
 
@@ -817,36 +1023,92 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 				g_fCurTime = 0.0f;
 				if( sh3_mode )
 				{
-					if (g_bHasAnim && GetAsyncKeyState(VK_F3) & 0x8000){ testActAnim.LoadNextAnim( ); curFrame = 0; }
-					if (g_bHasAnim && GetAsyncKeyState(VK_F5) & 0x8000){ if( curFrame == 0 )curFrame = testActAnim.m_lNumSets; --curFrame; testActAnim.ApplyAnimFrame( curFrame ); }
-					if (g_bHasAnim && GetAsyncKeyState(VK_F6) & 0x8000){ curFrame = (curFrame+1)%testActAnim.m_lNumSets; testActAnim.ApplyAnimFrame( curFrame );}
+					if (g_bHasAnim && ((GetAsyncKeyState(VK_F3) & 0x8000) || ConsumePendingAction(PA_NEXT_ANIM_OR_DEBUG))){ testActAnim.LoadNextAnim( ); curFrame = 0; }
+					if (g_bHasAnim && ((GetAsyncKeyState(VK_F5) & 0x8000) || ConsumePendingAction(PA_PREV_FRAME))){ if( curFrame == 0 )curFrame = testActAnim.m_lNumSets; --curFrame; testActAnim.ApplyAnimFrame( curFrame ); }
+					if (g_bHasAnim && ((GetAsyncKeyState(VK_F6) & 0x8000) || ConsumePendingAction(PA_NEXT_FRAME))){ curFrame = (curFrame+1)%testActAnim.m_lNumSets; testActAnim.ApplyAnimFrame( curFrame );}
 				}
 				else if( sh2_mode )
 				{
-					if (GetAsyncKeyState(VK_F5) & 0x8000){ sh2Act.prevFrame( ); }
-					if (GetAsyncKeyState(VK_F6) & 0x8000){ sh2Act.nextFrame( ); }
+					if ((GetAsyncKeyState(VK_F5) & 0x8000) || ConsumePendingAction(PA_PREV_FRAME)){ sh2Act.prevFrame( ); }
+					if ((GetAsyncKeyState(VK_F6) & 0x8000) || ConsumePendingAction(PA_NEXT_FRAME)){ sh2Act.nextFrame( ); }
 				}
 			}
 
 
 			if( !throttleKey )
 			{
-				if (GetAsyncKeyState(VK_F7) & 0x8000)
+				if ((GetAsyncKeyState(VK_F7) & 0x8000) || ConsumePendingAction(PA_TOGGLE_STATIC))
 				{
 					onlyStatic = !onlyStatic;
 					throttleOn();
 				}
 
-				if (GetAsyncKeyState(VK_F8) & 0x8000)
+				if ((GetAsyncKeyState(VK_F8) & 0x8000) || ConsumePendingAction(PA_TOGGLE_VAR))
 				{
 					onlyVar = !onlyVar;
 					throttleOn();
 				}
 
-				if (GetAsyncKeyState(VK_F12) & 0x8000)
+				if ((GetAsyncKeyState(VK_F12) & 0x8000) || ConsumePendingAction(PA_TOGGLE_MATRICES))
 				{
 					displayMatrix = !displayMatrix;
 					throttleOn();
+				}
+
+				if ((GetAsyncKeyState('V') & 0x8000) || ConsumePendingAction(PA_CYCLE_WINDING))
+				{
+					g_iWindingDebugMode = (g_iWindingDebugMode + 1) % 4;
+					throttleOn();
+				}
+
+				if (GetAsyncKeyState('D') & 0x8000)
+				{
+					DumpCurrentSH3SelectedPrimitiveRawData( );
+					throttleOn();
+				}
+
+				if (GetAsyncKeyState('C') & 0x8000)
+				{
+					g_bShowCollisionOverlay = !g_bShowCollisionOverlay;
+					throttleOn();
+				}
+
+				if (GetAsyncKeyState('I') & 0x8000)
+				{
+					g_bShowInteractDebug = !g_bShowInteractDebug;
+					throttleOn();
+				}
+
+				if (GetAsyncKeyState('L') & 0x8000)
+				{
+					DumpCurrentSH3LevelRawData( );
+					throttleOn();
+				}
+
+				if( sh3_mode && scene_mode && !testMode )
+				{
+					if( GetAsyncKeyState('P') & 0x8000 )
+					{
+						g_bSH3SceneRenderAll = !g_bSH3SceneRenderAll;
+						throttleOn();
+					}
+
+					if( !g_bSH3SceneRenderAll && testScene2 && numScenes > 0 && testScene2[0] && testScene2[0]->numScenePrimitives > 0 )
+					{
+						int l_iMaxPrim = testScene2[0]->numScenePrimitives;
+						if (GetAsyncKeyState(VK_F5) & 0x8000)
+						{
+							g_iSH3ScenePrimIndex--;
+							if( g_iSH3ScenePrimIndex < 0 )
+								g_iSH3ScenePrimIndex = l_iMaxPrim - 1;
+							throttleOn();
+						}
+						if (GetAsyncKeyState(VK_F6) & 0x8000)
+						{
+							g_iSH3ScenePrimIndex = (g_iSH3ScenePrimIndex + 1) % l_iMaxPrim;
+							throttleOn();
+						}
+					}
 				}
 
 				if( sh2_mode && !testMode )
@@ -883,7 +1145,7 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 					if (GetAsyncKeyState(VK_INSERT) & 0x8000){  if(modelPart < 1) modelPart = testAct.numPrimitives; modelPart--; throttleOn();}
 				}
 
-				if( ( numSH2SceneDirs || numSH2ModelDirs ) && GetAsyncKeyState(VK_F9) & 0x8000 && !sh2_mode && !testMode )
+				if( ( numSH2SceneDirs || numSH2ModelDirs ) && !sh2_mode && !testMode && ((GetAsyncKeyState(VK_F9) & 0x8000) || ConsumePendingAction(PA_SWITCH_SH2)) )
 				{
 					sh2_mode = true;
 					sh3_mode = false;
@@ -897,7 +1159,7 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 						Load_SH2_SceneFile( sceneSH2Dirs[curSH2SceneDir] );
 					throttleOn();
 				}
-				else if( ( numSceneFiles || numModelFiles ) && GetAsyncKeyState(VK_F10) & 0x8000 && !sh3_mode && !testMode )
+				else if( ( numSceneFiles || numModelFiles ) && !sh3_mode && !testMode && ((GetAsyncKeyState(VK_F10) & 0x8000) || ConsumePendingAction(PA_SWITCH_SH3)) )
 				{
 					if( debugMode )LogFile(ERROR_LOG,"WM_PAINT - Switching Mode to SH3 - About to delete SH2/4 Tex");
 					DeleteAllData( );
@@ -911,7 +1173,7 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 						Load_SH3_SceneFile( sceneFiles[curSceneFile] );
 					throttleOn();
 				}
-				else if( numModelFiles && GetAsyncKeyState(VK_F11) & 0x8000 && !sh3_modelMode && !testMode )
+				else if( numModelFiles && !sh3_modelMode && !testMode && ((GetAsyncKeyState(VK_F11) & 0x8000) || ConsumePendingAction(PA_SWITCH_SH4)) )
 				{
 					if( debugMode )LogFile(ERROR_LOG,"WM_PAINT - Switching Mode to SH4 - About to delete SH2/3 Tex");
 					DeleteAllData( );
@@ -924,7 +1186,7 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 					throttleOn();
 				}
 
-				if( model_mode && GetAsyncKeyState(VK_F4) & 0x8000)
+				if( model_mode && ((GetAsyncKeyState(VK_F4) & 0x8000) || ConsumePendingAction(PA_TOGGLE_MODE)))
 				{
 					if( debugMode )LogFile(ERROR_LOG,"WM_PAINT - Switching to SCENE MODE");
 					scene_mode = true;
@@ -945,7 +1207,7 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 					}
 					throttleOn();
 				}
-				else if( scene_mode && GetAsyncKeyState(VK_F4) & 0x8000)
+				else if( scene_mode && ((GetAsyncKeyState(VK_F4) & 0x8000) || ConsumePendingAction(PA_TOGGLE_MODE)))
 				{
 					if( debugMode )LogFile(ERROR_LOG,"WM_PAINT - Switching to MODEL MODE");
 					scene_mode = false;
@@ -983,13 +1245,29 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 			//if (GetAsyncKeyState(VK_END) & 0x8000 )
 			
 			//-- Viewer Camera Update --/
-			GetCursorPos(&screenLoc);              //Calculate the movement of the mouse for free viewing
+			bool mouseLookRequested = g_bMouseRotateHeld;
+			if( mouseLookRequested )
+			{
+				if( !g_bMouseLookActive )
+				{
+					g_bMouseLookActive = true;
+					SetCursorPos(halfWidth,halfHeight);
+				}
+				else
+				{
+					GetCursorPos(&screenLoc);              //Calculate the movement of the mouse for free viewing
 
-			//--[ Set Timestep Based On Mouse Movement ]--/
+					//--[ Set Timestep Based On Mouse Movement ]--/
 
-			xrot+=halfWidth - screenLoc.x;
-			yrot+=screenLoc.y - halfHeight;
-			SetCursorPos(halfWidth,halfHeight);
+					xrot+=halfWidth - screenLoc.x;
+					yrot+=screenLoc.y - halfHeight;
+					SetCursorPos(halfWidth,halfHeight);
+				}
+			}
+			else
+			{
+				g_bMouseLookActive = false;
+			}
 
 		//	xRotStep += 400.0f * timeStep * fMouseRate * (float)(halfWidth - screenLoc.x);
 		//	yRotStep += 400.0f * timeStep * fMouseRate * (float)(screenLoc.y - halfHeight);
@@ -1044,6 +1322,28 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 			viewCam.camView();
 
 			glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+
+			switch( g_iWindingDebugMode )
+			{
+			case 1: // Front faces only
+				glEnable(GL_CULL_FACE);
+				glCullFace(GL_BACK);
+				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+				break;
+			case 2: // Back faces only
+				glEnable(GL_CULL_FACE);
+				glCullFace(GL_FRONT);
+				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+				break;
+			case 3: // Wireframe
+				glDisable(GL_CULL_FACE);
+				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+				break;
+			default: // Normal
+				glDisable(GL_CULL_FACE);
+				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+				break;
+			}
 
 			if( sh2_mode && !testMode )
 			{
@@ -1130,6 +1430,17 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 						if(testScene2[k])
 							testScene2[k]->renderScene();
 					}
+					if( g_bShowInteractDebug )
+					{
+						for( k = 0; k < numScenes; k++ )
+						{
+							if( testScene2[k] )
+								testScene2[k]->renderInteractDebug();
+						}
+					}
+
+					Render_SH3_CollisionOverlay( );
+					Process_SH3_ScenePick( );
 				}
 				glFlush();
 
@@ -1163,9 +1474,9 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 							if (GetAsyncKeyState(VK_F6) & 0x8000){ sh2Act.nextFrame( ); }
 						}
 						else
-						{	if (GetAsyncKeyState(VK_F3) & 0x8000){ testActAnim.LoadNextAnim( ); curFrame = 0; }
-							if (GetAsyncKeyState(VK_F5) & 0x8000){ if( curFrame == 0 )curFrame = testActAnim.m_lNumSets; --curFrame; testActAnim.ApplyAnimFrame( curFrame ); }
-							if (GetAsyncKeyState(VK_F6) & 0x8000){ curFrame = (curFrame+1)%testActAnim.m_lNumSets; testActAnim.ApplyAnimFrame( curFrame );}
+						{	if ((GetAsyncKeyState(VK_F3) & 0x8000) || ConsumePendingAction(PA_NEXT_ANIM_OR_DEBUG)){ testActAnim.LoadNextAnim( ); curFrame = 0; }
+							if ((GetAsyncKeyState(VK_F5) & 0x8000) || ConsumePendingAction(PA_PREV_FRAME)){ if( curFrame == 0 )curFrame = testActAnim.m_lNumSets; --curFrame; testActAnim.ApplyAnimFrame( curFrame ); }
+							if ((GetAsyncKeyState(VK_F6) & 0x8000) || ConsumePendingAction(PA_NEXT_FRAME)){ curFrame = (curFrame+1)%testActAnim.m_lNumSets; testActAnim.ApplyAnimFrame( curFrame );}
 						}				
 					}
 
@@ -1261,6 +1572,51 @@ glDisable( GL_TEXTURE_2D );
 
 			sprintf( statStr,"Pos: X: %.2f   Y: %.2f   Z: %.2f",viewCam.from.x, viewCam.from.y, viewCam.from.z );
 			printText(0, 48, 0, statStr, &white);
+
+			sprintf( statStr, "Winding Debug [V]: %s",
+				(g_iWindingDebugMode == 0) ? "Normal" :
+				(g_iWindingDebugMode == 1) ? "Cull Back (Front Faces)" :
+				(g_iWindingDebugMode == 2) ? "Cull Front (Back Faces)" :
+				"Wireframe" );
+			printText(0, 88, 0, statStr, &white);
+
+			sprintf( statStr, "Collision Overlay [C]: %s", g_bShowCollisionOverlay ? "ON" : "OFF" );
+			printText(0, 108, 0, statStr, &white);
+			sprintf( statStr, "Interact Debug [I]: %s", g_bShowInteractDebug ? "ON" : "OFF" );
+			printText(0, 188, 0, statStr, &white);
+			if( sh3_mode && scene_mode && !testMode && numScenes > 0 && testScene2 && testScene2[0] )
+			{
+				sprintf( statStr, "Interact Parsed: %ld  startOffset: %ld",
+					testScene2[0]->interact.numSceneInteract, testScene2[0]->interact.startOffset );
+			}
+			else
+			{
+				sprintf( statStr, "Interact Parsed: <n/a>" );
+			}
+			printText(0, 208, 0, statStr, &white);
+			sprintf( statStr, "Dump SH3 Primitive [D]: %s",
+				(g_bSH3SceneRenderAll || g_iSH3ScenePrimIndex == 0) ? "N/A (ALL or PRIM 0)" : "READY" );
+			printText(0, 168, 0, statStr, &white);
+
+			sprintf( statStr, "Collision Data: %s  map:%s  cld:%s",
+				g_bHasCollisionOverlay ? "LOADED" : "NOT FOUND",
+				(g_cLastCollisionMapName[0]) ? g_cLastCollisionMapName : "<none>",
+				(g_cLastCollisionCldName[0]) ? g_cLastCollisionCldName : "<none>" );
+			printText(0, 128, 0, statStr, &white);
+			if( sh3_mode && scene_mode && !testMode && testScene2 && numScenes > 0 && testScene2[0] )
+			{
+				sprintf( statStr, "SH3 Scene Prim [P]: %s  Cur: %d / %d",
+					g_bSH3SceneRenderAll ? "ALL" : "SINGLE",
+					g_iSH3ScenePrimIndex,
+					(testScene2[0]->numScenePrimitives > 0) ? (testScene2[0]->numScenePrimitives - 1) : 0 );
+				printText(0, 228, 0, statStr, &white);
+			}
+
+			if( g_cLastPickInfo[0] )
+				printText(0, 148, 0, g_cLastPickInfo, &white);
+
+			if( sh3_mode && scene_mode && !testMode && testScene2 && numScenes > 0 && testScene2[0] && testScene2[0]->numScenePrimitives > 0 )
+				g_iSH3ScenePrimIndex %= testScene2[0]->numScenePrimitives;
 			
 			sprintf( statStr,"Dir: X: %.2f   Y: %.2f   Z: %.2f",viewCam.at.x - viewCam.from.x, viewCam.at.y- viewCam.from.y, viewCam.at.z - viewCam.from.z );
 			printText(0, 68, 0, statStr, &white);
@@ -1269,7 +1625,7 @@ glDisable( GL_TEXTURE_2D );
 			printText(0,708,0,fpsString,&white);
 
 			//if (GetAsyncKeyState(VK_F4) & 0x8000)dumpScene = dumpModel = !dumpScene;
-			if (GetAsyncKeyState(VK_F3) & 0x8000)debugMode = !debugMode;
+			if ((GetAsyncKeyState(VK_F3) & 0x8000) || (!g_bHasAnim && ConsumePendingAction(PA_NEXT_ANIM_OR_DEBUG)))debugMode = !debugMode;
 
 			//sprintf(statStr,"Dump Scene: %s   Dump Model: %s   Debug Mode: %s",(dumpScene)?"Yes":"No",(dumpModel)?"Yes":"No",(debugMode)?"Yes":"No");
 			//printText(0,728,0,statStr,&white);
@@ -1282,7 +1638,7 @@ glDisable( GL_TEXTURE_2D );
 				sprintf(statStr,"Tex In Mem: %3.3ld",textureMgr.textures.size());
 			printText(0,728,0,statStr,&white);
 
-			printText(0,10,0,"Hold 'HOME' For Help",&white);
+			printText(0,10,0,"Use top menus (or hold 'HOME') for help",&white);
 
 			if( sh2_mode && scene_mode && !testMode )
 			{
@@ -1333,8 +1689,24 @@ glDisable( GL_TEXTURE_2D );
 				printText(300,440,0,statStr,&white);
 				sprintf( statStr,"F11 - Switch to SH4 Mode");
 				printText(300,420,0,statStr,&white);
-				sprintf( statStr,"F12 - Display Matricies for Models (if possible)");
-				printText(300,400,0,statStr,&white);
+					sprintf( statStr,"F12 - Display Matricies for Models (if possible)");
+					printText(300,400,0,statStr,&white);
+					sprintf( statStr,"V   - Cycle Winding Debug Modes");
+					printText(300,340,0,statStr,&white);
+					sprintf( statStr,"C   - Toggle Collision Overlay");
+					printText(300,320,0,statStr,&white);
+					sprintf( statStr,"I   - Toggle Interact/Camera Debug Draw");
+					printText(300,260,0,statStr,&white);
+					sprintf( statStr,"P   - Toggle SH3 Scene Prim: All/Single");
+					printText(300,240,0,statStr,&white);
+					sprintf( statStr,"F5/F6 - Prev/Next SH3 Scene Primitive");
+					printText(300,220,0,statStr,&white);
+					sprintf( statStr,"RMB - Pick Primitive (logs to TEST_LOG)");
+					printText(300,300,0,statStr,&white);
+					sprintf( statStr,"D   - Dump selected SH3 primitive raw data");
+					printText(300,280,0,statStr,&white);
+					sprintf( statStr,"L   - Dump current SH3 scene raw data");
+					printText(300,200,0,statStr,&white);
 				sprintf( statStr,"L/R CTRL - Cycle Through Files/Dirs");
 				printText(300,380,0,statStr,&white);
 				sprintf( statStr,"L/R SHFT - Cycle Through Models/Levels");
@@ -1372,6 +1744,11 @@ dumpModel = false;
 			int mouseX=(int)LOWORD(lParam);
 			int mouseY=(int)HIWORD(lParam);
 			int buttons=(int)wParam;
+			int dx = mouseX - g_iLeftDownX;
+			int dy = mouseY - g_iLeftDownY;
+
+			if( g_bRightMouseDown && (dx*dx + dy*dy) > 9 )
+				g_bLeftDragExceeded = true;
 		
 			if(buttons&MK_LBUTTON)
 			{
@@ -1669,6 +2046,40 @@ int init( void )
 		LogFile(ERROR_LOG,"init( %d ) - ERROR: Couldn't create the Windo\n\t...Exiting",__LINE__);
 		return 0;
   	}
+
+	if( !fullScreen )
+	{
+		HMENU hMainMenu = CreateMenu();
+		HMENU hFileMenu = CreatePopupMenu();
+		HMENU hActionMenu = CreatePopupMenu();
+		HMENU hModeMenu = CreatePopupMenu();
+		HMENU hViewMenu = CreatePopupMenu();
+
+		AppendMenu(hFileMenu, MF_STRING, IDM_FILE_EXIT, "Exit\tEsc");
+
+		AppendMenu(hActionMenu, MF_STRING, IDM_ACTION_DUMP, "Dump Model/Scene\tF2");
+		AppendMenu(hActionMenu, MF_STRING, IDM_ACTION_F3, "Load Next Anim / Toggle Debug\tF3");
+		AppendMenu(hActionMenu, MF_STRING, IDM_ACTION_TOGGLE_MODE, "Toggle Model/Scene\tF4");
+		AppendMenu(hActionMenu, MF_STRING, IDM_ACTION_PREV_FRAME, "Prev Frame\tF5");
+		AppendMenu(hActionMenu, MF_STRING, IDM_ACTION_NEXT_FRAME, "Next Frame\tF6");
+		AppendMenu(hActionMenu, MF_STRING, IDM_ACTION_TOGGLE_STATIC, "Toggle Static Prim\tF7");
+		AppendMenu(hActionMenu, MF_STRING, IDM_ACTION_TOGGLE_VAR, "Toggle Var Prim\tF8");
+
+		AppendMenu(hModeMenu, MF_STRING, IDM_MODE_SH2, "Switch to SH2\tF9");
+		AppendMenu(hModeMenu, MF_STRING, IDM_MODE_SH3, "Switch to SH3\tF10");
+		AppendMenu(hModeMenu, MF_STRING, IDM_MODE_SH4, "Switch to SH4\tF11");
+
+		AppendMenu(hViewMenu, MF_STRING, IDM_VIEW_TOGGLE_MATRICES, "Toggle Matrices\tF12");
+		AppendMenu(hViewMenu, MF_STRING, IDM_VIEW_CYCLE_WINDING, "Cycle Winding Debug\tV");
+
+		AppendMenu(hMainMenu, MF_POPUP, (UINT_PTR)hFileMenu, "File");
+		AppendMenu(hMainMenu, MF_POPUP, (UINT_PTR)hActionMenu, "Actions");
+		AppendMenu(hMainMenu, MF_POPUP, (UINT_PTR)hModeMenu, "Mode");
+		AppendMenu(hMainMenu, MF_POPUP, (UINT_PTR)hViewMenu, "View");
+
+		SetMenu(hwnd, hMainMenu);
+		DrawMenuBar(hwnd);
+	}
 
 
 	sprintf(errorString,"Requested: %dx%d:%d bpp @ %d, with %d and %d bits depth and stencil\n",
@@ -2752,7 +3163,7 @@ void Process_SH2_SceneKeyInput( )
 			//if (GetAsyncKeyState(VK_F6) & 0x8000)
 			//if (GetAsyncKeyState(VK_F3) & 0x8000)
 			//if (GetAsyncKeyState(VK_F4) & 0x8000) 
-	if(GetAsyncKeyState(VK_F2) & 0x8000)
+	if((GetAsyncKeyState(VK_F2) & 0x8000) || ConsumePendingAction(PA_DUMP))
 	{
 		dumpModel = true;
 		int k;
@@ -2815,6 +3226,375 @@ void Process_SH2_SceneKeyInput( )
 
 }
 
+
+
+//----------------------------------------------------------------------------/
+//-                                                                          -/
+//-                                                                          -/
+//----------------------------------------------------------------------------/
+void Process_SH3_ScenePick( )
+{
+	const unsigned int l_kPickBufSize = 65536;
+	GLuint l_aSelectBuf[ l_kPickBufSize ];
+	GLint l_aViewport[4];
+	GLdouble l_aProj[16];
+	GLint l_iHits;
+	GLuint *l_pCur;
+	GLuint l_iBestName = 0;
+	GLuint l_iBestDepth = 0xFFFFFFFF;
+	long k;
+
+	if( !g_bPendingScenePick || !sh3_mode || model_mode || testMode )
+		return;
+
+	g_bPendingScenePick = false;
+	g_cLastPickInfo[0] = '\0';
+
+	glGetIntegerv(GL_VIEWPORT, l_aViewport);
+	glGetDoublev(GL_PROJECTION_MATRIX, l_aProj);
+
+	glSelectBuffer( l_kPickBufSize, l_aSelectBuf );
+	glRenderMode( GL_SELECT );
+	glInitNames( );
+	glPushName( 0 );
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix( );
+	glLoadIdentity( );
+	gluPickMatrix( (GLdouble)g_iPendingPickX, (GLdouble)(l_aViewport[3] - g_iPendingPickY), 5.0, 5.0, l_aViewport );
+	glMultMatrixd( l_aProj );
+
+	glMatrixMode(GL_MODELVIEW);
+	viewCam.camView( );
+	glScalef( .10f, -.10f, -.10f );
+
+	for( k = 0; k < numScenes; k++ )
+	{
+		if( testScene2[k] )
+			testScene2[k]->renderScene( true, (unsigned int)k );
+	}
+
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix( );
+	glMatrixMode(GL_MODELVIEW);
+
+	l_iHits = glRenderMode( GL_RENDER );
+	if( l_iHits < 0 )
+	{
+		strcpy( g_cLastPickInfo, "PICK overflow/error" );
+		LogFile( TEST_LOG, "%s", g_cLastPickInfo );
+		return;
+	}
+	l_pCur = l_aSelectBuf;
+
+	for( k = 0; k < l_iHits; k++ )
+	{
+		GLuint l_iNameCount = *l_pCur++;
+		GLuint l_iMinDepth = *l_pCur++;
+		l_pCur++; //max depth
+		if( l_iNameCount > 0 && l_iMinDepth < l_iBestDepth )
+		{
+			l_iBestDepth = l_iMinDepth;
+			l_iBestName = l_pCur[ l_iNameCount - 1 ];
+		}
+		l_pCur += l_iNameCount;
+	}
+
+	if( l_iHits > 0 )
+	{
+		int l_iSceneIndex = (int)((l_iBestName >> 16) & 0xFFFF);
+		int l_iPrimIndex = (int)(l_iBestName & 0xFFFF);
+
+		if( l_iSceneIndex >= 0 && l_iSceneIndex < numScenes && testScene2[l_iSceneIndex]
+			&& l_iPrimIndex >= 0 && l_iPrimIndex < testScene2[l_iSceneIndex]->numScenePrimitives )
+		{
+			scenePrimitive &l_rPrim = testScene2[l_iSceneIndex]->sceneData[ l_iPrimIndex ];
+			sprintf( g_cLastPickInfo,
+				"PICK scene=%d prim=%d tex=%u primCount=%d alphaBlend=%d alphaTest=%d shader=%d stencilRef=%d transform=%d",
+				l_iSceneIndex, l_iPrimIndex, l_rPrim.texID, l_rPrim.numPrim, l_rPrim.alphaBlend, l_rPrim.alphaTest,
+				l_rPrim.shaderNum, l_rPrim.stencilRef, l_rPrim.transformNum );
+
+			LogFile( TEST_LOG, "%s", g_cLastPickInfo );
+			LogFile( TEST_LOG, "PICK bounds min(%.3f, %.3f, %.3f) max(%.3f, %.3f, %.3f)",
+				l_rPrim.min.x, l_rPrim.min.y, l_rPrim.min.z, l_rPrim.max.x, l_rPrim.max.y, l_rPrim.max.z );
+		}
+	}
+	else
+	{
+		strcpy( g_cLastPickInfo, "PICK miss" );
+		LogFile( TEST_LOG, "%s", g_cLastPickInfo );
+	}
+}
+
+void DumpCurrentSH3LevelRawData( )
+{
+	const int l_kMaxDumpLongs = 50000;
+	char l_cArcBaseName[256];
+	const char *l_pcArcFile;
+	char *l_pcDot;
+	arc_index_data l_cArcIndex;
+	long l_lNumFiles;
+	long l_lOffset;
+	long l_lSize;
+	int l_iDumpLongs;
+
+	if( !sh3_mode || !scene_mode || model_mode || testMode )
+		return;
+
+	if( !sceneFiles || curSceneFile < 0 || curSceneFile >= numSceneFiles || !sceneFiles[curSceneFile] )
+		return;
+
+	l_pcArcFile = strrchr(sceneFiles[curSceneFile], '\\');
+	if( !l_pcArcFile ) l_pcArcFile = strrchr(sceneFiles[curSceneFile], '/');
+	l_pcArcFile = (l_pcArcFile) ? (l_pcArcFile + 1) : sceneFiles[curSceneFile];
+
+	strncpy(l_cArcBaseName, l_pcArcFile, sizeof(l_cArcBaseName) - 1);
+	l_cArcBaseName[ sizeof(l_cArcBaseName) - 1 ] = '\0';
+	l_pcDot = strrchr(l_cArcBaseName, '.');
+	if( l_pcDot ) *l_pcDot = '\0';
+
+	l_lNumFiles = l_cArcIndex.LoadFullData( baseSH3dir, l_cArcBaseName );
+	if( l_lNumFiles < 1 || !l_cArcIndex.index || sceneModelNum < 0 || sceneModelNum >= l_cArcIndex.numIndex )
+	{
+		LogFile( ERROR_LOG, "DumpCurrentSH3LevelRawData( ) - ERROR: Could not resolve current SH3 scene index data for %s scene %d",
+			sceneFiles[curSceneFile], sceneModelNum );
+		return;
+	}
+
+	l_lOffset = l_cArcIndex.index[sceneModelNum].offset;
+	l_lSize = l_cArcIndex.index[sceneModelNum].size;
+	if( l_lOffset <= 0 || l_lSize <= 0 )
+	{
+		LogFile( ERROR_LOG, "DumpCurrentSH3LevelRawData( ) - ERROR: Invalid scene offset/size (%ld/%ld) for %s scene %d",
+			l_lOffset, l_lSize, sceneFiles[curSceneFile], sceneModelNum );
+		return;
+	}
+
+	l_iDumpLongs = (int)(l_lSize / 4);
+	if( l_iDumpLongs <= 0 )
+	{
+		LogFile( ERROR_LOG, "DumpCurrentSH3LevelRawData( ) - ERROR: Computed invalid long count from size %ld", l_lSize );
+		return;
+	}
+
+	if( l_iDumpLongs > l_kMaxDumpLongs )
+	{
+		LogFile( ERROR_LOG, "DumpCurrentSH3LevelRawData( ) - NOTE: Scene size is %ld bytes (%d longs). Truncating dump to %d longs",
+			l_lSize, l_iDumpLongs, l_kMaxDumpLongs );
+		l_iDumpLongs = l_kMaxDumpLongs;
+	}
+
+	LogFile( ERROR_LOG, "DumpCurrentSH3LevelRawData( ) - Dumping current SH3 level data: file=%s scene=%d off=%ld size=%ld bytes longs=%d",
+		sceneFiles[curSceneFile], sceneModelNum, l_lOffset, l_lSize, l_iDumpLongs );
+	readFileDataAtLocation( sceneFiles[curSceneFile], l_iDumpLongs, l_lOffset );
+}
+
+void DumpCurrentSH3SelectedPrimitiveRawData( )
+{
+	const int l_kMaxDumpLongs = 50000;
+	SceneMap *l_pScene;
+	scenePrimitive *l_pPrim;
+	long l_lOffset;
+	long l_lSize;
+	int l_iDumpLongs;
+
+	if( !sh3_mode || !scene_mode || model_mode || testMode )
+		return;
+
+	if( g_bSH3SceneRenderAll || g_iSH3ScenePrimIndex == 0 )
+	{
+		LogFile( TEST_LOG, "DumpCurrentSH3SelectedPrimitiveRawData( ) - Cannot dump selected primitive while rendering ALL primitives or primitive 0 is selected." );
+		return;
+	}
+
+	if( !sceneFiles || curSceneFile < 0 || curSceneFile >= numSceneFiles || !sceneFiles[curSceneFile] )
+		return;
+	if( !testScene2 || numScenes <= 0 || !testScene2[0] )
+		return;
+
+	l_pScene = testScene2[0];
+	if( g_iSH3ScenePrimIndex < 0 || g_iSH3ScenePrimIndex >= l_pScene->numScenePrimitives )
+	{
+		LogFile( TEST_LOG, "DumpCurrentSH3SelectedPrimitiveRawData( ) - Invalid selected primitive index %d (max %d).",
+			g_iSH3ScenePrimIndex, (l_pScene->numScenePrimitives > 0) ? (l_pScene->numScenePrimitives - 1) : 0 );
+		return;
+	}
+
+	l_pPrim = &(l_pScene->sceneData[g_iSH3ScenePrimIndex]);
+	l_lOffset = l_pScene->baseOffset + l_pPrim->sourceOffset;
+	l_lSize = l_pPrim->sourceSize;
+	if( l_pPrim->sourceOffset <= 0 || l_lSize <= 0 )
+	{
+		LogFile( TEST_LOG, "DumpCurrentSH3SelectedPrimitiveRawData( ) - No primitive offset/size available for primitive %d (off=%ld size=%ld).",
+			g_iSH3ScenePrimIndex, l_pPrim->sourceOffset, l_lSize );
+		return;
+	}
+
+	l_iDumpLongs = (int)(l_lSize / 4);
+	if( l_iDumpLongs <= 0 )
+		l_iDumpLongs = 1;
+	if( l_iDumpLongs > l_kMaxDumpLongs )
+		l_iDumpLongs = l_kMaxDumpLongs;
+
+	LogFile( TEST_LOG, "DumpCurrentSH3SelectedPrimitiveRawData( ) - Dumping selected primitive: file=%s scene=%d prim=%d off=%ld size=%ld bytes longs=%d",
+		sceneFiles[curSceneFile], sceneModelNum, g_iSH3ScenePrimIndex, l_lOffset, l_lSize, l_iDumpLongs );
+	readFileDataAtLocation( sceneFiles[curSceneFile], l_iDumpLongs, l_lOffset );
+}
+
+
+//----------------------------------------------------------------------------/
+//-                                                                          -/
+//-                                                                          -/
+//----------------------------------------------------------------------------/
+void Load_SH3_CollisionForScene( char *sceneArcFilename, int sceneNum )
+{
+	char l_cArcBaseName[256];
+	char l_cMapPathNoExt[256];
+	char l_cMapLeafBase[256];
+	arc_index_data l_cArcIndex;
+	long l_lRes;
+	long k;
+	int l_iCldIndex = -1;
+	const char *l_pcCurrentInternalName;
+	const char *l_pcExt;
+
+	if( !sceneArcFilename || sceneNum < 0 )
+	{
+		g_bHasCollisionOverlay = false;
+		g_cLastCollisionMapName[0] = '\0';
+		g_cLastCollisionCldName[0] = '\0';
+		return;
+	}
+
+	if( strcmp(g_cLastCollisionSceneArc, sceneArcFilename) == 0 && g_iLastCollisionSceneNum == sceneNum )
+		return;
+
+	g_cLastCollisionSceneArc[0] = '\0';
+	g_iLastCollisionSceneNum = -1;
+	g_bHasCollisionOverlay = false;
+	g_cLastCollisionMapName[0] = '\0';
+	g_cLastCollisionCldName[0] = '\0';
+
+	const char *l_pcArcFile = strrchr(sceneArcFilename, '\\');
+	if( !l_pcArcFile ) l_pcArcFile = strrchr(sceneArcFilename, '/');
+	l_pcArcFile = (l_pcArcFile) ? (l_pcArcFile + 1) : sceneArcFilename;
+
+	strncpy(l_cArcBaseName, l_pcArcFile, sizeof(l_cArcBaseName) - 1);
+	l_cArcBaseName[ sizeof(l_cArcBaseName) - 1 ] = '\0';
+	char *l_pcDot = strrchr(l_cArcBaseName, '.');
+	if( l_pcDot ) *l_pcDot = '\0';
+
+	l_lRes = l_cArcIndex.LoadFullData( baseSH3dir, l_cArcBaseName );
+	if( l_lRes < 1 || !l_cArcIndex.index || sceneNum >= l_cArcIndex.numIndex || sceneNum >= (int)l_cArcIndex.internalFilenames.size() )
+		return;
+
+	l_pcCurrentInternalName = l_cArcIndex.internalFilenames[ sceneNum ].c_str();
+	if( !l_pcCurrentInternalName )
+		return;
+	l_pcExt = strrchr(l_pcCurrentInternalName, '.');
+	if( !l_pcExt || _stricmp(l_pcExt, ".map") != 0 )
+		return;
+
+	strncpy(g_cLastCollisionMapName, l_pcCurrentInternalName, sizeof(g_cLastCollisionMapName) - 1);
+	g_cLastCollisionMapName[ sizeof(g_cLastCollisionMapName) - 1 ] = '\0';
+
+	strncpy(l_cMapPathNoExt, l_pcCurrentInternalName, sizeof(l_cMapPathNoExt) - 1);
+	l_cMapPathNoExt[ sizeof(l_cMapPathNoExt) - 1 ] = '\0';
+	l_pcDot = strrchr(l_cMapPathNoExt, '.');
+	if( l_pcDot ) *l_pcDot = '\0';
+
+	const char *l_pcMapLeaf = strrchr(l_cMapPathNoExt, '/');
+	if( !l_pcMapLeaf ) l_pcMapLeaf = strrchr(l_cMapPathNoExt, '\\');
+	l_pcMapLeaf = (l_pcMapLeaf) ? (l_pcMapLeaf + 1) : l_cMapPathNoExt;
+	strncpy(l_cMapLeafBase, l_pcMapLeaf, sizeof(l_cMapLeafBase) - 1);
+	l_cMapLeafBase[ sizeof(l_cMapLeafBase) - 1 ] = '\0';
+
+	for( k = 0; k < l_cArcIndex.numIndex && k < (long)l_cArcIndex.internalFilenames.size(); k++ )
+	{
+		const char *l_pcName = l_cArcIndex.internalFilenames[ k ].c_str();
+		char l_cTempPathNoExt[256];
+		char l_cTempLeafBase[256];
+		char *l_pcTempDot;
+		const char *l_pcTempExt;
+
+		if( !l_pcName )
+			continue;
+
+		l_pcTempExt = strrchr(l_pcName, '.');
+		if( !l_pcTempExt || _stricmp(l_pcTempExt, ".cld") != 0 )
+			continue;
+
+		strncpy(l_cTempPathNoExt, l_pcName, sizeof(l_cTempPathNoExt) - 1);
+		l_cTempPathNoExt[ sizeof(l_cTempPathNoExt) - 1 ] = '\0';
+		l_pcTempDot = strrchr(l_cTempPathNoExt, '.');
+		if( l_pcTempDot ) *l_pcTempDot = '\0';
+
+		const char *l_pcTempLeaf = strrchr(l_cTempPathNoExt, '/');
+		if( !l_pcTempLeaf ) l_pcTempLeaf = strrchr(l_cTempPathNoExt, '\\');
+		l_pcTempLeaf = (l_pcTempLeaf) ? (l_pcTempLeaf + 1) : l_cTempPathNoExt;
+		strncpy(l_cTempLeafBase, l_pcTempLeaf, sizeof(l_cTempLeafBase) - 1);
+		l_cTempLeafBase[ sizeof(l_cTempLeafBase) - 1 ] = '\0';
+
+		if( _stricmp(l_cTempLeafBase, l_cMapLeafBase) == 0 )
+		{
+			l_iCldIndex = (int)k;
+			strncpy(g_cLastCollisionCldName, l_pcName, sizeof(g_cLastCollisionCldName) - 1);
+			g_cLastCollisionCldName[ sizeof(g_cLastCollisionCldName) - 1 ] = '\0';
+			break;
+		}
+	}
+
+	if( l_iCldIndex < 0 || l_cArcIndex.index[ l_iCldIndex ].offset <= 0 )
+		return;
+
+	if( testCollision.Load( sceneArcFilename, l_cArcIndex.index[ l_iCldIndex ].offset ) > 0 )
+	{
+		g_bHasCollisionOverlay = true;
+		strncpy(g_cLastCollisionSceneArc, sceneArcFilename, sizeof(g_cLastCollisionSceneArc) - 1);
+		g_cLastCollisionSceneArc[ sizeof(g_cLastCollisionSceneArc) - 1 ] = '\0';
+		g_iLastCollisionSceneNum = sceneNum;
+	}
+}
+
+void Render_SH3_CollisionOverlay( )
+{
+	long k;
+
+	if( !g_bShowCollisionOverlay || !g_bHasCollisionOverlay )
+		return;
+
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_CULL_FACE);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	for( k = 0; k < 5; k++ )
+	{
+		long j;
+		for( j = 0; j < (long)testCollision.m_caCldData[ k ].m_vPrimData.size( ); j++ )
+		{
+			const SH3_CldPrim &prim = testCollision.m_caCldData[ k ].m_vPrimData[ j ];
+			if( !prim.m_pcVerts || prim.m_sVertHeader.s_lNumVerts < 4 )
+				continue;
+
+			glBegin( GL_TRIANGLES );
+				glColor4f( 1.0f, 0.15f * (float)(k+1), 0.15f, 0.65f );
+				glVertex3fv( &( prim.m_pcVerts[ 0 ].x ) );
+				glVertex3fv( &( prim.m_pcVerts[ 1 ].x ) );
+				glVertex3fv( &( prim.m_pcVerts[ 2 ].x ) );
+
+				glVertex3fv( &( prim.m_pcVerts[ 0 ].x ) );
+				glVertex3fv( &( prim.m_pcVerts[ 2 ].x ) );
+				glVertex3fv( &( prim.m_pcVerts[ 3 ].x ) );
+			glEnd( );
+		}
+	}
+
+	glDisable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
+}
 
 
 //----------------------------------------------------------------------------/
@@ -2933,6 +3713,22 @@ void Load_SH3_SceneFile( char *fileToLoad )
 			testScene2[numLoaded] = NULL;
 
 		}
+	}
+
+	Load_SH3_CollisionForScene( fileToLoad, sceneModelNum );
+
+	if( g_bDumpNextSH3LevelData )
+	{
+		for( numLoaded = 0; numLoaded < numScenes; numLoaded++ )
+		{
+			if( testScene2[numLoaded] )
+			{
+				char l_cLabel[128];
+				sprintf( l_cLabel, "SH3 scene file=%s sceneModelNum=%d section=%d", fileToLoad, sceneModelNum, numLoaded );
+				testScene2[numLoaded]->dumpDebugData( l_cLabel );
+			}
+		}
+		g_bDumpNextSH3LevelData = false;
 	}
 }
 
@@ -3139,7 +3935,7 @@ void Process_SH3_SceneKeyInput( )
 	
 			//if (GetAsyncKeyState(VK_F3) & 0x8000)
 			//if (GetAsyncKeyState(VK_F4) & 0x8000) 
-	if(GetAsyncKeyState(VK_F2) & 0x8000)
+	if((GetAsyncKeyState(VK_F2) & 0x8000) || ConsumePendingAction(PA_DUMP))
 	{
 		dumpScene = true;
 		int k,j;
@@ -3183,6 +3979,7 @@ void Process_SH3_SceneKeyInput( )
 		textureMgr.checkResident();
 	}
 
+	Load_SH3_CollisionForScene( sceneFiles[curSceneFile], sceneModelNum );
 	sprintf(curFileInfo,"FILE: %s  SCENE: %d of [%d - %d]",sceneFiles[curSceneFile], sceneModelNum,minSceneNum,maxSceneNum-1);
 }
 
@@ -3426,7 +4223,7 @@ void Process_SH3_ModelKeyInput( )
 		}
 	}
 
-	if(GetAsyncKeyState(VK_F2) & 0x8000)
+	if((GetAsyncKeyState(VK_F2) & 0x8000) || ConsumePendingAction(PA_DUMP))
 	{
 		dumpModel = true;
 		for( long k = textureMgr.textures.size(); k > 0; k-- )
@@ -3789,7 +4586,7 @@ void Process_SH2_ModelKeyInput( )
 	}
 
 	
-	if(GetAsyncKeyState(VK_F2) & 0x8000)
+	if((GetAsyncKeyState(VK_F2) & 0x8000) || ConsumePendingAction(PA_DUMP))
 	{
 		dumpModel = true;
 		/*
@@ -4068,7 +4865,7 @@ void Process_SH4_KeyInput( )
 	}
 
 	
-	if(GetAsyncKeyState(VK_F2) & 0x8000)
+	if((GetAsyncKeyState(VK_F2) & 0x8000) || ConsumePendingAction(PA_DUMP))
 	{
 		dumpModel = true;
 		/*

@@ -1,7 +1,8 @@
 ﻿################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
-
+**/.vs/
+*_extracted/
 /.vs/SH_loader/copilot-chat/bc34c64c/sessions
 /.vs/SH_loader/CopilotIndices/17.14.698.11175
 /.vs/SH_loader/FileContentIndex/*.*
@@ -11,7 +12,8 @@
 /SH_initial_loader/Release/*
 /SH_initial_loader/x64/Debug/*
 /SH_initial_loader/x64/Release/*
-/.vs/Silent-Hill-2-3-4-Loader/v17
+/SH_initial_loader/.vs/*
+.vs/Silent-Hill-2-3-4-Loader/v17
 *.tga
 /SH_initial_loader/Error.txt
 /SH_initial_loader/Test.txt
