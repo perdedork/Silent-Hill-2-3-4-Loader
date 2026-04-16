@@ -3,6 +3,7 @@
 #include <mvector.h>
 #include <errno.h>
 #include <limits.h>
+#include <gl\gl.h>
 
 #include "SH3_Loader.h"
 #include "SH3_SDB_Loader.h"
@@ -220,6 +221,75 @@ long SH3_Sdb::Load(char* filename, long _offset)
 
 	fclose(inFile);
 	return l_lTotalRead;
+}
+
+
+void SH3_Sdb::Draw( )
+{
+	long k;
+
+	if( m_vRecords.empty( ) )
+		return;
+
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_CULL_FACE);
+	glDisable(GL_BLEND);
+	glDisable(GL_DEPTH_TEST);
+	glLineWidth(2.0f);
+	glColor3f(0.2f, 0.35f, 1.0f);
+
+	for( k = 0; k < (long)m_vRecords.size( ); k++ )
+	{
+		float l_fMinX = m_vRecords[ k ].m_sRecord.s_fX1;
+		float l_fMinZ = m_vRecords[ k ].m_sRecord.s_fZ1;
+		float l_fMaxX = m_vRecords[ k ].m_sRecord.s_fX2;
+		float l_fMaxZ = m_vRecords[ k ].m_sRecord.s_fZ2;
+		float l_fMinY = m_vRecords[ k ].m_sRecord.s_fYOrFloor;
+		float l_fMaxY = m_vRecords[ k ].m_sRecord.s_fHeightOrRadius;
+		float l_fTmp;
+
+		if( l_fMinX > l_fMaxX )
+		{
+			l_fTmp = l_fMinX;
+			l_fMinX = l_fMaxX;
+			l_fMaxX = l_fTmp;
+		}
+		if( l_fMinY > l_fMaxY )
+		{
+			l_fTmp = l_fMinY;
+			l_fMinY = l_fMaxY;
+			l_fMaxY = l_fTmp;
+		}
+		if( l_fMinZ > l_fMaxZ )
+		{
+			l_fTmp = l_fMinZ;
+			l_fMinZ = l_fMaxZ;
+			l_fMaxZ = l_fTmp;
+		}
+
+		glBegin(GL_LINE_LOOP);
+			glVertex3f(l_fMinX, l_fMinY, l_fMinZ);
+			glVertex3f(l_fMaxX, l_fMinY, l_fMinZ);
+			glVertex3f(l_fMaxX, l_fMinY, l_fMaxZ);
+			glVertex3f(l_fMinX, l_fMinY, l_fMaxZ);
+		glEnd();
+
+		glBegin(GL_LINE_LOOP);
+			glVertex3f(l_fMinX, l_fMaxY, l_fMinZ);
+			glVertex3f(l_fMaxX, l_fMaxY, l_fMinZ);
+			glVertex3f(l_fMaxX, l_fMaxY, l_fMaxZ);
+			glVertex3f(l_fMinX, l_fMaxY, l_fMaxZ);
+		glEnd();
+
+		glBegin(GL_LINES);
+			glVertex3f(l_fMinX, l_fMinY, l_fMinZ); glVertex3f(l_fMinX, l_fMaxY, l_fMinZ);
+			glVertex3f(l_fMaxX, l_fMinY, l_fMinZ); glVertex3f(l_fMaxX, l_fMaxY, l_fMinZ);
+			glVertex3f(l_fMaxX, l_fMinY, l_fMaxZ); glVertex3f(l_fMaxX, l_fMaxY, l_fMaxZ);
+			glVertex3f(l_fMinX, l_fMinY, l_fMaxZ); glVertex3f(l_fMinX, l_fMaxY, l_fMaxZ);
+		glEnd();
+	}
+
+	glEnable(GL_DEPTH_TEST);
 }
 
 

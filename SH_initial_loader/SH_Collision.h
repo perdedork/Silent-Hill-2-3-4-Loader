@@ -41,6 +41,16 @@ typedef struct
 }
 sh3_cld_vert_header;
 
+typedef struct
+{
+	long	s_lType;
+	long	s_lCount;
+	long	s_lStride;
+	long	s_lZero;
+	vertex4f	s_aExtentVerts[ 4 ];
+}
+sh3_cld_unknown_extent_block;
+
 
 
 class SH3_CldIndex
@@ -67,9 +77,9 @@ public:
 	SH3_CldPrim( ){ SetNullAll( ); }
 	SH3_CldPrim( const SH3_CldPrim & rhs ){ SetNullAll( ); operator=( rhs ); }
 	~SH3_CldPrim( ){ DeleteData( ); }
-	SH3_CldPrim & operator=( const SH3_CldPrim & rhs ){ if( &rhs != this ){ DeleteData( ); structMemcpy( m_sVertHeader ); dynamicDataCopy( m_pcVerts, vertex4f, m_sVertHeader.s_lNumVerts ); fieldCopy( m_lSectionRelativeOffset ); fieldCopy( m_lVertexDataOffset ); fieldCopy( m_lUnknownDataOffset ); fieldCopy( m_lTotalSize ); fieldCopy( m_vUnknownData ); } return *this; }
+	SH3_CldPrim & operator=( const SH3_CldPrim & rhs ){ if( &rhs != this ){ DeleteData( ); structMemcpy( m_sVertHeader ); dynamicDataCopy( m_pcVerts, vertex4f, m_sVertHeader.s_lNumVerts ); fieldCopy( m_lSectionRelativeOffset ); fieldCopy( m_lVertexDataOffset ); fieldCopy( m_lUnknownDataOffset ); fieldCopy( m_lTotalSize ); fieldCopy( m_vUnknownData ); fieldCopy( m_bHasExtentBlock ); structMemcpy( m_sExtentBlock ); } return *this; }
 
-	void SetNullAll( ){ structMemClear( m_sVertHeader ); m_pcVerts = NULL; m_lSectionRelativeOffset = 0; m_lVertexDataOffset = 0; m_lUnknownDataOffset = 0; m_lTotalSize = 0; m_vUnknownData.clear( ); }
+	void SetNullAll( ){ structMemClear( m_sVertHeader ); m_pcVerts = NULL; m_lSectionRelativeOffset = 0; m_lVertexDataOffset = 0; m_lUnknownDataOffset = 0; m_lTotalSize = 0; m_vUnknownData.clear( ); m_bHasExtentBlock = false; structMemClear( m_sExtentBlock ); }
 	void DeleteData( ){ delete [] m_pcVerts; SetNullAll( ); }
 
 	long LoadData( FILE *inFile, long _lSectionRelativeOffset = 0, long _lPrimSize = 0, long _lUnknownSize = 0 );
@@ -81,6 +91,8 @@ public:
 	long				m_lUnknownDataOffset;
 	long				m_lTotalSize;
 	vector<BYTE>		m_vUnknownData;
+	bool				m_bHasExtentBlock;
+	sh3_cld_unknown_extent_block	m_sExtentBlock;
 };
 
 

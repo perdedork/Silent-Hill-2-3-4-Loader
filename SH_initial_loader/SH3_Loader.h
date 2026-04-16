@@ -749,6 +749,7 @@ public:
 	int  loadArcScene( char *filename, int sceneNum );	//Loads scene from arc file - uses loadScene
 	int  getMinScene( char *filename );					//Determines first scene offset
 	int  getMaxScene( char *filename );					//Returns last scene offset
+	int  getSdbScene( char *filename );					//Returns the first .sdb entry index in the arc file
 	bool isSceneValid(){ return (numScenePrimitives > 0 && sceneData );}	//Determines if a scene is loaded
 	bool isMainSceneHeader( main_scene_header *h );		//Determines if a main header is actually a main header
 

@@ -2,6 +2,7 @@
 #define __SH_SDB_H__
 
 #include <windows.h>
+#include <gl\gl.h>
 #include <mvector.h>
 #include "utils.h"
 
@@ -101,6 +102,7 @@ public:
 	}
 
 	long Load(char* filename, long _offset = 0);
+	void Draw( );
 
 	sh3_sdb_header			m_sHeader;
 	mvector<SH3_SdbRecord>	m_vRecords;

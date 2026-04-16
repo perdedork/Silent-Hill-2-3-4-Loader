@@ -39,6 +39,7 @@
 #include "SH2_Model.h"
 #include "SH_Msg.h"
 #include "SH_Collision.h"
+#include "SH3_SDB_Loader.h"
 
 #include "OBJ_Exporter.h"
 
@@ -133,6 +134,7 @@ lightAttrib pointLight;
 AABB box;
 
 SH3_Collision testCollision;
+SH3_Sdb testSdb;
 SceneMap testScene;
 SceneMap **testScene2 = NULL;
 SH2_MapLoader **testSceneSH2 = NULL;
@@ -215,7 +217,9 @@ bool g_bMouseRotateHeld = false;
 int g_iWindingDebugMode = 0;
 bool g_bShowCollisionOverlay = true;
 bool g_bHasCollisionOverlay = false;
+bool g_bHasSdb = false;
 char g_cLastCollisionSceneArc[256] = "";
+char g_cLastSdbArc[256] = "";
 int g_iLastCollisionSceneNum = -1;
 char g_cLastCollisionMapName[128] = "";
 char g_cLastCollisionCldName[128] = "";
@@ -329,8 +333,10 @@ void Process_SH2_ModelKeyInput( );
 void Load_SH4_File( char *fileToLoad );
 void Process_SH4_KeyInput( );
 void Load_SH3_CollisionForScene( char *sceneArcFilename, int sceneNum );
+void Load_SH3_SdbForArc( char *sceneArcFilename );
 void Render_SH3_CollisionOverlay( );
 void Process_SH3_ScenePick( );
+void Dump_SH3_CameraSpaceDiagnostics( const char *pcLabel );
 void DumpCurrentSH3LevelRawData( );
 void DumpCurrentSH3SelectedPrimitiveRawData( );
 void CleanDirectoryFilelist(int numNames, char ***pppFileName);
@@ -432,7 +438,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	numSH4Files		= GetDirectoryFilelist( baseSH4dir, "*.bin",&allSH4Files);
 
 //readFileDataAtLocation("C:\\Users\\Mike\\Desktop\\fuckMS\\samples\\Silent Hill 2\\data\\chr\\agl\\p_agl.anm",1000, 0 );
-testMode = true;
+testMode = false;
 	if( testMode )
 	{
 animDebugMode = true;
@@ -1440,6 +1446,8 @@ LRESULT CALLBACK WindowProc( HWND   hWnd,
 					}
 
 					Render_SH3_CollisionOverlay( );
+					if( g_bHasSdb )
+						testSdb.Draw( );
 					Process_SH3_ScenePick( );
 				}
 				glFlush();
@@ -3556,6 +3564,50 @@ void Load_SH3_CollisionForScene( char *sceneArcFilename, int sceneNum )
 	}
 }
 
+void Load_SH3_SdbForArc( char *sceneArcFilename )
+{
+	FILE *infile;
+	int l_iSdbIndex;
+	long l_lOffset;
+
+	if( !sceneArcFilename )
+	{
+		g_bHasSdb = false;
+		g_cLastSdbArc[0] = '\0';
+		testSdb.DeleteData( );
+		return;
+	}
+
+	if( strcmp( g_cLastSdbArc, sceneArcFilename ) == 0 )
+		return;
+
+	g_bHasSdb = false;
+	g_cLastSdbArc[0] = '\0';
+	testSdb.DeleteData( );
+
+	l_iSdbIndex = testScene.getSdbScene( sceneArcFilename );
+	if( l_iSdbIndex < 0 )
+		return;
+
+	if((infile = fopen(sceneArcFilename,"rb")) == NULL)
+		return;
+
+	if(!getArcOffset(infile, l_iSdbIndex, &l_lOffset))
+	{
+		fclose( infile );
+		return;
+	}
+
+	fclose( infile );
+
+	if( testSdb.Load( sceneArcFilename, l_lOffset ) > 0 )
+	{
+		g_bHasSdb = true;
+		strncpy( g_cLastSdbArc, sceneArcFilename, sizeof(g_cLastSdbArc) - 1 );
+		g_cLastSdbArc[ sizeof(g_cLastSdbArc) - 1 ] = '\0';
+	}
+}
+
 void Render_SH3_CollisionOverlay( )
 {
 	long k;
@@ -3589,11 +3641,192 @@ void Render_SH3_CollisionOverlay( )
 				glVertex3fv( &( prim.m_pcVerts[ 2 ].x ) );
 				glVertex3fv( &( prim.m_pcVerts[ 3 ].x ) );
 			glEnd( );
+
+			if( prim.m_bHasExtentBlock )
+			{
+				float l_fR = 0.15f;
+				float l_fG = 1.0f;
+				float l_fB = 0.15f;
+				vertex l_vMin;
+				vertex l_vMax;
+				long l;
+
+				if( prim.m_sExtentBlock.s_lStride == 1 )
+				{
+					l_fR = 1.0f;
+					l_fG = 0.15f;
+					l_fB = 0.15f;
+				}
+				else if( prim.m_sExtentBlock.s_lStride == 32 )
+				{
+					l_fR = 1.0f;
+					l_fG = 0.55f;
+					l_fB = 0.1f;
+				}
+				else if( prim.m_sExtentBlock.s_lStride == 128 )
+				{
+					l_fR = 1.0f;
+					l_fG = 1.0f;
+					l_fB = 0.15f;
+				}
+
+				l_vMin = prim.m_sExtentBlock.s_aExtentVerts[ 0 ];
+				l_vMax = prim.m_sExtentBlock.s_aExtentVerts[ 0 ];
+				for( l = 1; l < 4; l++ )
+				{
+					vertex l_vCur = prim.m_sExtentBlock.s_aExtentVerts[ l ];
+					l_vMin.setMins( l_vCur );
+					l_vMax.setMaxs( l_vCur );
+				}
+
+				glLineWidth(2.0f);
+				glColor4f( l_fR, l_fG, l_fB, 1.0f );
+
+				glBegin( GL_LINE_LOOP );
+					glVertex3f( l_vMin.x, l_vMin.y, l_vMin.z );
+					glVertex3f( l_vMax.x, l_vMin.y, l_vMin.z );
+					glVertex3f( l_vMax.x, l_vMin.y, l_vMax.z );
+					glVertex3f( l_vMin.x, l_vMin.y, l_vMax.z );
+				glEnd( );
+
+				glBegin( GL_LINE_LOOP );
+					glVertex3f( l_vMin.x, l_vMax.y, l_vMin.z );
+					glVertex3f( l_vMax.x, l_vMax.y, l_vMin.z );
+					glVertex3f( l_vMax.x, l_vMax.y, l_vMax.z );
+					glVertex3f( l_vMin.x, l_vMax.y, l_vMax.z );
+				glEnd( );
+
+				glBegin( GL_LINES );
+					glVertex3f( l_vMin.x, l_vMin.y, l_vMin.z ); glVertex3f( l_vMin.x, l_vMax.y, l_vMin.z );
+					glVertex3f( l_vMax.x, l_vMin.y, l_vMin.z ); glVertex3f( l_vMax.x, l_vMax.y, l_vMin.z );
+					glVertex3f( l_vMax.x, l_vMin.y, l_vMax.z ); glVertex3f( l_vMax.x, l_vMax.y, l_vMax.z );
+					glVertex3f( l_vMin.x, l_vMin.y, l_vMax.z ); glVertex3f( l_vMin.x, l_vMax.y, l_vMax.z );
+				glEnd( );
+
+				glBegin( GL_LINE_LOOP );
+					for( l = 0; l < 4; l++ )
+						glVertex3fv( &( prim.m_sExtentBlock.s_aExtentVerts[ l ].x ) );
+				glEnd( );
+			}
 		}
 	}
 
 	glDisable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
+}
+
+
+void Dump_SH3_CameraSpaceDiagnostics( const char *pcLabel )
+{
+	SceneMap *l_pScene;
+	scenePrimitive *l_pPrim;
+	vertex l_vLocalMin;
+	vertex l_vLocalMax;
+	vertex l_vWorldMin;
+	vertex l_vWorldMax;
+	vertex l_vRenderMin;
+	vertex l_vRenderMax;
+	vertex l_vRenderCenter;
+	vertex l_vCamFrom;
+	vertex l_vCamAt;
+	vertex l_vCamDir;
+	const char *l_pcSceneLabel;
+
+	if( !sh3_mode || !scene_mode || model_mode || testMode )
+		return;
+	if( !testScene2 || numScenes <= 0 || !testScene2[0] || !testScene2[0]->sceneData || testScene2[0]->numScenePrimitives <= 1 )
+		return;
+
+	l_pScene = testScene2[0];
+	l_pPrim = &(l_pScene->sceneData[1]);
+	l_pcSceneLabel = ( pcLabel && pcLabel[0] ) ? pcLabel : "SH3 camera space";
+
+	l_vLocalMin = l_pPrim->min;
+	l_vLocalMax = l_pPrim->max;
+	MMULTVT( l_pScene->mainHeader.transMat, l_vLocalMin, l_vWorldMin );
+	MMULTVT( l_pScene->mainHeader.transMat, l_vLocalMax, l_vWorldMax );
+
+	l_vRenderMin = vertex( 0.1f * l_vWorldMin.x, -0.1f * l_vWorldMin.y, -0.1f * l_vWorldMin.z );
+	l_vRenderMax = vertex( 0.1f * l_vWorldMax.x, -0.1f * l_vWorldMax.y, -0.1f * l_vWorldMax.z );
+	l_vRenderCenter = ( l_vRenderMin + l_vRenderMax ) / 2.0f;
+
+	l_vCamFrom = viewCam.from;
+	l_vCamAt = viewCam.at;
+	l_vCamDir = l_vCamAt - l_vCamFrom;
+
+	LogFile( TEST_LOG, "============================================================" );
+	LogFile( TEST_LOG, "Dump_SH3_CameraSpaceDiagnostics - %s", l_pcSceneLabel );
+	LogFile( TEST_LOG, "Scene file=%s sceneModelNum=%d baseOffset=%ld primIndex=1 numScenePrimitives=%d",
+		sceneFiles && curSceneFile >= 0 && curSceneFile < numSceneFiles ? sceneFiles[curSceneFile] : "<unknown>",
+		sceneModelNum, l_pScene->baseOffset, l_pScene->numScenePrimitives );
+	LogFile( TEST_LOG, "mainHeader.transMat rows:" );
+	LogFile( TEST_LOG, "  [ %.6f %.6f %.6f %.6f ]",
+		l_pScene->mainHeader.transMat.mat[0], l_pScene->mainHeader.transMat.mat[1],
+		l_pScene->mainHeader.transMat.mat[2], l_pScene->mainHeader.transMat.mat[3] );
+	LogFile( TEST_LOG, "  [ %.6f %.6f %.6f %.6f ]",
+		l_pScene->mainHeader.transMat.mat[4], l_pScene->mainHeader.transMat.mat[5],
+		l_pScene->mainHeader.transMat.mat[6], l_pScene->mainHeader.transMat.mat[7] );
+	LogFile( TEST_LOG, "  [ %.6f %.6f %.6f %.6f ]",
+		l_pScene->mainHeader.transMat.mat[8], l_pScene->mainHeader.transMat.mat[9],
+		l_pScene->mainHeader.transMat.mat[10], l_pScene->mainHeader.transMat.mat[11] );
+	LogFile( TEST_LOG, "  [ %.6f %.6f %.6f %.6f ]",
+		l_pScene->mainHeader.transMat.mat[12], l_pScene->mainHeader.transMat.mat[13],
+		l_pScene->mainHeader.transMat.mat[14], l_pScene->mainHeader.transMat.mat[15] );
+
+	LogFile( TEST_LOG, "primitive[1] local min=(%.6f %.6f %.6f) max=(%.6f %.6f %.6f)",
+		l_vLocalMin.x, l_vLocalMin.y, l_vLocalMin.z, l_vLocalMax.x, l_vLocalMax.y, l_vLocalMax.z );
+	LogFile( TEST_LOG, "primitive[1] world via full transMat min=(%.6f %.6f %.6f) max=(%.6f %.6f %.6f)",
+		l_vWorldMin.x, l_vWorldMin.y, l_vWorldMin.z, l_vWorldMax.x, l_vWorldMax.y, l_vWorldMax.z );
+	LogFile( TEST_LOG, "primitive[1] render-space via scale/sign min=(%.6f %.6f %.6f) max=(%.6f %.6f %.6f) center=(%.6f %.6f %.6f)",
+		l_vRenderMin.x, l_vRenderMin.y, l_vRenderMin.z,
+		l_vRenderMax.x, l_vRenderMax.y, l_vRenderMax.z,
+		l_vRenderCenter.x, l_vRenderCenter.y, l_vRenderCenter.z );
+
+	LogFile( TEST_LOG, "camera from=(%.6f %.6f %.6f) at=(%.6f %.6f %.6f) dir=(%.6f %.6f %.6f)",
+		l_vCamFrom.x, l_vCamFrom.y, l_vCamFrom.z,
+		l_vCamAt.x, l_vCamAt.y, l_vCamAt.z,
+		l_vCamDir.x, l_vCamDir.y, l_vCamDir.z );
+	LogFile( TEST_LOG, "camera minus renderCenter fromDelta=(%.6f %.6f %.6f) atDelta=(%.6f %.6f %.6f)",
+		l_vCamFrom.x - l_vRenderCenter.x, l_vCamFrom.y - l_vRenderCenter.y, l_vCamFrom.z - l_vRenderCenter.z,
+		l_vCamAt.x - l_vRenderCenter.x, l_vCamAt.y - l_vRenderCenter.y, l_vCamAt.z - l_vRenderCenter.z );
+
+	if( g_bHasCollisionOverlay )
+	{
+		bool l_bLoggedCld = false;
+		long k, j;
+
+		for( k = 0; k < 5 && !l_bLoggedCld; k++ )
+		{
+			for( j = 0; j < (long)testCollision.m_caCldData[ k ].m_vPrimData.size( ); j++ )
+			{
+				const SH3_CldPrim &prim = testCollision.m_caCldData[ k ].m_vPrimData[ j ];
+				vertex l_vCldRaw;
+				vertex l_vCldRender;
+
+				if( !prim.m_pcVerts || prim.m_sVertHeader.s_lNumVerts <= 0 )
+					continue;
+
+				l_vCldRaw = prim.m_pcVerts[0];
+				l_vCldRender = vertex( 0.1f * l_vCldRaw.x, -0.1f * l_vCldRaw.y, -0.1f * l_vCldRaw.z );
+
+				LogFile( TEST_LOG, "collision sample set=%ld prim=%ld raw=(%.6f %.6f %.6f) render=(%.6f %.6f %.6f)",
+					k, j, l_vCldRaw.x, l_vCldRaw.y, l_vCldRaw.z, l_vCldRender.x, l_vCldRender.y, l_vCldRender.z );
+				LogFile( TEST_LOG, "collision minus renderCenter delta=(%.6f %.6f %.6f)",
+					l_vCldRender.x - l_vRenderCenter.x, l_vCldRender.y - l_vRenderCenter.y, l_vCldRender.z - l_vRenderCenter.z );
+				l_bLoggedCld = true;
+				break;
+			}
+		}
+
+		if( !l_bLoggedCld )
+			LogFile( TEST_LOG, "collision overlay loaded, but no collision primitive vertices were available for sampling" );
+	}
+	else
+	{
+		LogFile( TEST_LOG, "collision overlay not loaded for current scene" );
+	}
+
+	LogFile( TEST_LOG, "============================================================" );
 }
 
 
@@ -3716,6 +3949,8 @@ void Load_SH3_SceneFile( char *fileToLoad )
 	}
 
 	Load_SH3_CollisionForScene( fileToLoad, sceneModelNum );
+	Load_SH3_SdbForArc( fileToLoad );
+	Dump_SH3_CameraSpaceDiagnostics( "Load_SH3_SceneFile" );
 
 	if( g_bDumpNextSH3LevelData )
 	{
@@ -3980,6 +4215,8 @@ void Process_SH3_SceneKeyInput( )
 	}
 
 	Load_SH3_CollisionForScene( sceneFiles[curSceneFile], sceneModelNum );
+	Load_SH3_SdbForArc( sceneFiles[curSceneFile] );
+	//Dump_SH3_CameraSpaceDiagnostics( "Process_SH3_SceneKeyInput" );
 	sprintf(curFileInfo,"FILE: %s  SCENE: %d of [%d - %d]",sceneFiles[curSceneFile], sceneModelNum,minSceneNum,maxSceneNum-1);
 }
 

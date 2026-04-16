@@ -109,6 +109,28 @@ static void SH3_DumpUnknownBlock( const char *pLabel, long lSectionOffset, long 
 	}
 }
 
+
+static bool SH3_ParseUnknownExtentBlock( const vector<BYTE> &vData, sh3_cld_unknown_extent_block *pOutBlock )
+{
+	sh3_cld_unknown_extent_block l_sBlock;
+
+	if( vData.size( ) < sizeof( sh3_cld_unknown_extent_block ) )
+		return false;
+
+	memcpy( &l_sBlock, &(vData[ 0 ]), sizeof( l_sBlock ) );
+
+	if( l_sBlock.s_lType != 1 || l_sBlock.s_lCount != 4 || l_sBlock.s_lZero != 0 )
+		return false;
+
+	if( l_sBlock.s_lStride != 256 && l_sBlock.s_lStride != 1 && l_sBlock.s_lStride != 128 && l_sBlock.s_lStride != 32 )
+		return false;
+
+	if( pOutBlock )
+		*pOutBlock = l_sBlock;
+
+	return true;
+}
+
 long SH3_CldIndex::LoadData( FILE *inFile, long _lDataSize )
 {
 	long	l_lRes;
@@ -212,6 +234,13 @@ long SH3_CldPrim::LoadData( FILE *inFile, long _lSectionRelativeOffset, long _lP
 			return 0;
 
 		l_lTotalRead += l_lRes;
+
+		if( SH3_ParseUnknownExtentBlock( m_vUnknownData, &m_sExtentBlock ) )
+		{
+			m_bHasExtentBlock = true;
+			LogFile( ERROR_LOG, "SH3_CldPrim::LoadData( ) - Parsed extent block at sectionRel=%ld unknownRel=%ld",
+				m_lSectionRelativeOffset, m_lUnknownDataOffset );
+		}
 	}
 
 	return l_lTotalRead;

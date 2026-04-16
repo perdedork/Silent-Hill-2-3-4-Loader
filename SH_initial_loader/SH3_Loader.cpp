@@ -2434,6 +2434,45 @@ int SceneMap::getMaxScene( char *filename )
 }
 
 
+//------------------------------------------------------------------------/
+//-- getSdbScene                                                        --/
+//--   Returns the first .sdb index in an arc file, or -1 if none       --/
+//------------------------------------------------------------------------/
+int SceneMap::getSdbScene( char *filename )
+{
+	arc_index_data index;
+	vector<string> vNames;
+	long k;
+
+	if( !filename )
+		return -1;
+
+	if( !index.LoadData( filename ) )
+	{
+		LogFile(ERROR_LOG,"SceneMap::getSdbScene:TERMINAL ERROR: Unable to get valid index data from '%s'... Exiting function",filename);
+		return -1;
+	}
+
+	if( !SH3_LoadArcFilenamesForArchive( filename, vNames, NULL ) )
+		return -1;
+
+	for( k = 0; k < index.numIndex && k < (long)vNames.size(); k++ )
+	{
+		const char *l_pcName = vNames[ k ].c_str();
+		const char *l_pcExt;
+
+		if( !l_pcName )
+			continue;
+
+		l_pcExt = strrchr( l_pcName, '.' );
+		if( l_pcExt && _stricmp( l_pcExt, ".sdb" ) == 0 && index.index[ k ].offset > 0 && index.index[ k ].size > 0 )
+			return (int)k;
+	}
+
+	return -1;
+}
+
+
 //-----------------------------------------------------------------------------/
 //-- SceneMap::isMainSceneHeader                                             --/
 //--      Using common fields among all scene headers, the current one is    --/
