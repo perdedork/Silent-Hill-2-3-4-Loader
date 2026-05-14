@@ -263,7 +263,7 @@ LogFile( ERROR_LOG, "Section name of file we are loading is %s",pcArcSection->se
 LogFile(ERROR_LOG,"START - sh3_dropList::buildList - Num Filenames: %ld",m_lNumFilenames);
 	m_pcFilename = new sh3_arc_filename[ m_lNumFilenames ];
 	if( m_pcFilename == NULL )
-		LogFile( ERROR_LOG,"OUT OF FUCKING EMEMOROSAIDFJSDJFSLKDJLKFJSLKDSJFKDKKKKKKKKKKKKKKKKKKKKK");
+		LogFile( ERROR_LOG,"OUT OF MEMORY");
 
 	for( k = 0; k < pcArcSection->nameCount; k++ )
 	{

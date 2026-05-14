@@ -210,7 +210,7 @@ vertex zeroVec(0.0f, 20.0f, 0.0f);
 vertex lightPos;
 
 LPSTR className="GL_TEST";
-bool testShit = true;
+bool testFlag = true;
 bool g_bPostQuit = false;
 bool g_bMouseLookActive = false;
 bool g_bMouseRotateHeld = false;
@@ -437,7 +437,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	numModelFiles	= GetDirectoryFilelist( baseSH3dir, "chr*.arc",&modelFiles);
 	numSH4Files		= GetDirectoryFilelist( baseSH4dir, "*.bin",&allSH4Files);
 
-//readFileDataAtLocation("C:\\Users\\Mike\\Desktop\\fuckMS\\samples\\Silent Hill 2\\data\\chr\\agl\\p_agl.anm",1000, 0 );
+//readFileDataAtLocation("C:\\Users\\Mike\\Desktop\\sample_workspace\\samples\\Silent Hill 2\\data\\chr\\agl\\p_agl.anm",1000, 0 );
 testMode = false;
 	if( testMode )
 	{

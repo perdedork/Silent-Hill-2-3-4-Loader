@@ -9,10 +9,10 @@ TEST: command [                                                                 
 init( ) - ERROR: Config command '                                                                                                                                                                    ' not recognized
 	...Ignored
 init(2088) - WARNING: Failed to load OpenGL extension procedures
-GetSH2DirectoryFilelistAux( ) - ERROR: Unable to find any files that match the search path [C:\Users\Mike\Desktop\fuckMS\samples\Silent Hill 2\data\*]
-GetSH2DirectoryFilelistAux( ) - ERROR: Unable to find any files that match the search path [C:\Users\Mike\Desktop\fuckMS\samples\Silent Hill 2\data\*]
-GetSH2DirectoryFilelistAux( ) - ERROR: Unable to find any files that match the search path [C:\Users\Mike\Desktop\fuckMS\samples\Silent Hill 2\data\*]
-GetDirectoryFilelist( ) - ERROR: Unable to find any files that match the search path [C:\Users\Mike\Desktop\fuckMS\samples\SILENT_HILL_4_bin\*.bin]
+GetSH2DirectoryFilelistAux( ) - ERROR: Unable to find any files that match the search path [C:\Users\Mike\Desktop\sample_workspace\samples\Silent Hill 2\data\*]
+GetSH2DirectoryFilelistAux( ) - ERROR: Unable to find any files that match the search path [C:\Users\Mike\Desktop\sample_workspace\samples\Silent Hill 2\data\*]
+GetSH2DirectoryFilelistAux( ) - ERROR: Unable to find any files that match the search path [C:\Users\Mike\Desktop\sample_workspace\samples\Silent Hill 2\data\*]
+GetDirectoryFilelist( ) - ERROR: Unable to find any files that match the search path [C:\Users\Mike\Desktop\sample_workspace\samples\SILENT_HILL_4_bin\*.bin]
 TESTARONI:
           1         2         3         4         5         6         7         8         9         0         1         2
 0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789

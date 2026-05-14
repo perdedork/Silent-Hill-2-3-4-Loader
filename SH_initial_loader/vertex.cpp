@@ -302,7 +302,7 @@ vertex operator/(const vertex & a,const vert_type &b)
 
 //---------------------------------------------------------------------/
 //--           Vertex4f                                              --/
-//--  This is the section for the vertex4f shit                      --/
+//--  This is the section for the vertex4f helpers                   --/
 //---------------------------------------------------------------------/
 
 

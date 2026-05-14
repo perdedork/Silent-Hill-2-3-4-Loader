@@ -1388,7 +1388,7 @@ a bunch of people?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0ae4d9c2	_id = 1999
 SH3_Msg::GetMsg( ) - Endpoint of message is 30
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1999 : 4096 or 4096, the length is 31, and the message is:
-		[Oh, how could I be so stupid!?]
+		[Oh, how could I be so foolish!?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0ae4d9e6	_id = 1999
 SH3_Msg::GetMsg( ) - Endpoint of message is 56
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1999 : 4096 or 4096, the length is 57, and the message is:
@@ -1701,7 +1701,7 @@ SH3_Msg::GetMsg( ) - DEBUG: The message set is 3630 : -32768 or 32768, the lengt
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0ae4e58c	_id = 3655
 SH3_Msg::GetMsg( ) - Endpoint of message is 44
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 3655 : -32768 or 32768, the length is 45, and the message is:
-		[Stupid kid got himself shot robbing 
+		[foolish kid got himself shot robbing 
 a bank.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0ae4e5be	_id = 3669
 SH3_Msg::GetMsg( ) - Endpoint of message is 8
@@ -1817,7 +1817,7 @@ SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0ae4ea12	_id = 4206
 SH3_Msg::GetMsg( ) - Endpoint of message is 54
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 4206 : -28672 or 36864, the length is 55, and the message is:
 		[But it's not doing anything. 
-Damn, it must be broken.]
+darn, it must be broken.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0ae4ea4e	_id = 4236
 SH3_Msg::GetMsg( ) - Endpoint of message is 16
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 4236 : -28672 or 36864, the length is 17, and the message is:
@@ -3266,7 +3266,7 @@ though.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0ae54712	_id = 1170
 SH3_Msg::GetMsg( ) - Endpoint of message is 22
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1170 : 4096 or 4096, the length is 23, and the message is:
-		[What the hell is this?]
+		[what in the world is this?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0ae5472e	_id = 1170
 SH3_Msg::GetMsg( ) - Endpoint of message is 55
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1170 : 4096 or 4096, the length is 56, and the message is:
@@ -4128,7 +4128,7 @@ SH3_Msg::GetMsg( ) - DEBUG: The message set is 1820 : -32768 or 32768, the lengt
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0ae39752	_id = 1835
 SH3_Msg::GetMsg( ) - Endpoint of message is 56
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1835 : -32768 or 32768, the length is 57, and the message is:
-		[I don't know what kind of hell 
+		[I don't know what kind of heck 
 is waiting for me there,]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0ae39790	_id = 1848
 SH3_Msg::GetMsg( ) - Endpoint of message is 29
@@ -4538,7 +4538,7 @@ SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0ae3a734	_id = 3849
 SH3_Msg::GetMsg( ) - Endpoint of message is 51
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 3849 : 4096 or 4096, the length is 52, and the message is:
 		[What's this doing here! 
-That really pisses me off.]
+That really annoys me.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0ae3a76e	_id = 3849
 SH3_Msg::GetMsg( ) - Endpoint of message is 52
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 3849 : 4096 or 4096, the length is 53, and the message is:
@@ -4553,7 +4553,7 @@ SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0ae3a7e8	_id = 3881
 SH3_Msg::GetMsg( ) - Endpoint of message is 30
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 3881 : -28672 or 36864, the length is 31, and the message is:
 		[It's locked.  
-That bitch....!]
+That jerk....!]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0ae3a80c	_id = 3971
 SH3_Msg::GetMsg( ) - Endpoint of message is 22
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 3971 : 4096 or 4096, the length is 23, and the message is:
@@ -4701,7 +4701,7 @@ SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0ae3ae68	_id = 4636
 SH3_Msg::GetMsg( ) - Endpoint of message is 56
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 4636 : -28672 or 36864, the length is 57, and the message is:
 		[I always liked that line, but now 
-it just seems stupid.]
+it just seems foolish.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0ae3aea6	_id = 4714
 SH3_Msg::GetMsg( ) - Endpoint of message is 25
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 4714 : -28672 or 36864, the length is 26, and the message is:
@@ -5083,7 +5083,7 @@ I can't quite follow the story.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0ae93cd0	_id = 1560
 SH3_Msg::GetMsg( ) - Endpoint of message is 47
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1560 : -28672 or 36864, the length is 48, and the message is:
-		[This is end of that crappy fairy 
+		[This is end of that cheap fairy 
 tale I found.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0ae93d06	_id = 1627
 SH3_Msg::GetMsg( ) - Endpoint of message is 45
@@ -5294,7 +5294,7 @@ isn't working.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0ae94804	_id = 3019
 SH3_Msg::GetMsg( ) - Endpoint of message is 17
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 3019 : 4096 or 4096, the length is 18, and the message is:
-		[What the hell...?]
+		[what in the world...?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0ae9481c	_id = 3019
 SH3_Msg::GetMsg( ) - Endpoint of message is 70
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 3019 : 4096 or 4096, the length is 71, and the message is:
@@ -7186,7 +7186,7 @@ machine.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0ae51d18	_id = 1687
 SH3_Msg::GetMsg( ) - Endpoint of message is 26
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1687 : 4096 or 4096, the length is 27, and the message is:
-		[Who the hell put it there?]
+		[who in the world put it there?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0ae51d38	_id = 1687
 SH3_Msg::GetMsg( ) - Endpoint of message is 56
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1687 : -28672 or 36864, the length is 57, and the message is:
@@ -8197,7 +8197,7 @@ SH3_Msg::GetMsg( ) - DEBUG: The message set is 1957 : 4096 or 4096, the length i
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0ae51f4a	_id = 1957
 SH3_Msg::GetMsg( ) - Endpoint of message is 70
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1957 : -28672 or 36864, the length is 71, and the message is:
-		[What the hell kind of title is that? 
+		[what in the world kind of title is that? 
 I don't get this picture at all.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0ae51f96	_id = 2010
 SH3_Msg::GetMsg( ) - Endpoint of message is 78
@@ -9220,7 +9220,7 @@ SH3_Msg::GetMsg( ) - DEBUG: The message set is 1743 : -32768 or 32768, the lengt
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aeac508	_id = 1759
 SH3_Msg::GetMsg( ) - Endpoint of message is 25
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1759 : -32768 or 32768, the length is 26, and the message is:
-		[You're damned right I do.]
+		[You're absolutely right I do.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aeac528	_id = 1775
 SH3_Msg::GetMsg( ) - Endpoint of message is 12
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1775 : -32768 or 32768, the length is 13, and the message is:
@@ -10346,7 +10346,7 @@ SH3_Msg::GetMsg( ) - DEBUG: The message set is 2321 : -32768 or 32768, the lengt
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aebc89e	_id = 2359
 SH3_Msg::GetMsg( ) - Endpoint of message is 20
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2359 : -32768 or 32768, the length is 21, and the message is:
-		[You will go to Hell.]
+		[You will go to heck.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aebc8b8	_id = 2374
 SH3_Msg::GetMsg( ) - Endpoint of message is 15
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2374 : -32768 or 32768, the length is 16, and the message is:
@@ -10392,7 +10392,7 @@ SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aebca6c	_id = 2568
 SH3_Msg::GetMsg( ) - Endpoint of message is 45
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2568 : -32768 or 32768, the length is 46, and the message is:
 		[Heather, go ahead and kill this 
-crazy bitch.]
+awful jerk.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aebcaa0	_id = 2605
 SH3_Msg::GetMsg( ) - Endpoint of message is 40
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2605 : -32768 or 32768, the length is 41, and the message is:
@@ -10406,7 +10406,7 @@ You can kill her now.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aebcafe	_id = 2654
 SH3_Msg::GetMsg( ) - Endpoint of message is 18
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2654 : -32768 or 32768, the length is 19, and the message is:
-		[You'll go to Hell!]
+		[You'll go to heck!]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aebcb16	_id = 2678
 SH3_Msg::GetMsg( ) - Endpoint of message is 16
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2678 : -32768 or 32768, the length is 17, and the message is:
@@ -10474,7 +10474,7 @@ Happy ending?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aebce08	_id = 3047
 SH3_Msg::GetMsg( ) - Endpoint of message is 22
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 3047 : -32768 or 32768, the length is 23, and the message is:
-		[I'd rather go to Hell.]
+		[I'd rather go to heck.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aebce24	_id = 3067
 SH3_Msg::GetMsg( ) - Endpoint of message is 32
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 3067 : -32768 or 32768, the length is 33, and the message is:
@@ -10511,7 +10511,7 @@ SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aebcf6a	_id = 3218
 SH3_Msg::GetMsg( ) - Endpoint of message is 58
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 3218 : -32768 or 32768, the length is 59, and the message is:
 		[If you feel so guilty about it, why 
-don't you go to Hell!]
+don't you go to heck!]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aebcfaa	_id = 3244
 SH3_Msg::GetMsg( ) - Endpoint of message is 22
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 3244 : -32768 or 32768, the length is 23, and the message is:
@@ -10527,7 +10527,7 @@ SH3_Msg::GetMsg( ) - DEBUG: The message set is 3290 : -32768 or 32768, the lengt
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aebcff0	_id = 3297
 SH3_Msg::GetMsg( ) - Endpoint of message is 30
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 3297 : -32768 or 32768, the length is 31, and the message is:
-		[Now your stupid dream is over!]
+		[Now your foolish dream is over!]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aebd014	_id = 3311
 SH3_Msg::GetMsg( ) - Endpoint of message is 32
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 3311 : -32768 or 32768, the length is 33, and the message is:
@@ -10593,7 +10593,7 @@ SH3_Msg::GetMsg( ) - DEBUG: The message set is 3565 : -32768 or 32768, the lengt
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aebd232	_id = 3593
 SH3_Msg::GetMsg( ) - Endpoint of message is 32
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 3593 : -32768 or 32768, the length is 33, and the message is:
-		[Shut your stinking mouth, bitch!]
+		[Shut your mouth, jerk!]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aebd258	_id = 3600
 SH3_Msg::GetMsg( ) - Endpoint of message is 4
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 3600 : -32768 or 32768, the length is 5, and the message is:
@@ -11356,7 +11356,7 @@ SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aebf966	_id = 8512
 SH3_Msg::GetMsg( ) - Endpoint of message is 53
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 8512 : 4096 or 4096, the length is 54, and the message is:
 		[Scarlett and... 
-Damn, I forgot the other one's name.]
+darn, I forgot the other one's name.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aebf9a2	_id = 8512
 SH3_Msg::GetMsg( ) - Endpoint of message is 50
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 8512 : -28672 or 36864, the length is 51, and the message is:
@@ -11985,7 +11985,7 @@ your Golden Gates.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aed1df8	_id = 1166
 SH3_Msg::GetMsg( ) - Endpoint of message is 42
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1166 : -32768 or 32768, the length is 43, and the message is:
-		[Deliver me not to Hell, but to 
+		[Deliver me not to heck, but to 
 Purgatory.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aed1e28	_id = 1195
 SH3_Msg::GetMsg( ) - Endpoint of message is 37
@@ -12693,7 +12693,7 @@ but I choose not to be right now.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aed4232	_id = 5749
 SH3_Msg::GetMsg( ) - Endpoint of message is 74
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 5749 : -28672 or 36864, the length is 75, and the message is:
-		[If I fretted over every damn thing, I 
+		[If I fretted over every darn thing, I 
 would have serious mental overload.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aed4282	_id = 5780
 SH3_Msg::GetMsg( ) - Endpoint of message is 23
@@ -14871,7 +14871,7 @@ SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aecae96	_id = 1857
 SH3_Msg::GetMsg( ) - Endpoint of message is 120
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1857 : 4096 or 4096, the length is 121, and the message is:
 		[&B&cThe sweet blood on his laughing lips 
-Now calls him to the gates of Hell 
+Now calls him to the gates of heck 
 There burns evermore that soulless shell&w]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aecaf14	_id = 1857
 SH3_Msg::GetMsg( ) - Endpoint of message is 83
@@ -14954,7 +14954,7 @@ I can't even make it budge.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aecb30c	_id = 2643
 SH3_Msg::GetMsg( ) - Endpoint of message is 15
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2643 : -28672 or 36864, the length is 16, and the message is:
-		[What the hell?!]
+		[what in the world?!]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aecb322	_id = 2669
 SH3_Msg::GetMsg( ) - Endpoint of message is 30
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2669 : -28672 or 36864, the length is 31, and the message is:
@@ -16925,7 +16925,7 @@ SH3_Msg::GetMsg( ) - Endpoint of message is 98
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1829 : 4096 or 4096, the length is 99, and the message is:
 		[&B&cThe key is behind the shelves in 
 the underground garage. 
-Why there? Ask that idiot doctor.&w]
+Why there? Ask that fool doctor.&w]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aedfbc6	_id = 1829
 SH3_Msg::GetMsg( ) - Endpoint of message is 125
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1829 : 4096 or 4096, the length is 126, and the message is:
@@ -17593,7 +17593,7 @@ marks.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aee1308	_id = 1270
 SH3_Msg::GetMsg( ) - Endpoint of message is 48
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1270 : -28672 or 36864, the length is 49, and the message is:
-		[What the hell could they have been 
+		[what in the world could they have been 
 shooting at?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aee133e	_id = 1332
 SH3_Msg::GetMsg( ) - Endpoint of message is 61
@@ -18103,7 +18103,7 @@ SH3_Msg::GetMsg( ) - DEBUG: The message set is 1783 : -28672 or 36864, the lengt
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aee1704	_id = 1807
 SH3_Msg::GetMsg( ) - Endpoint of message is 37
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1807 : 4096 or 4096, the length is 38, and the message is:
-		[What the hell? 
+		[what in the world? 
 Was I daydreaming...?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aee1730	_id = 1807
 SH3_Msg::GetMsg( ) - Endpoint of message is 54
@@ -20342,7 +20342,7 @@ SH3_Msg::GetMsg( ) - DEBUG: The message set is 1739 : -28672 or 36864, the lengt
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aef0d6e	_id = 1762
 SH3_Msg::GetMsg( ) - Endpoint of message is 71
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1762 : 4096 or 4096, the length is 72, and the message is:
-		[A radio.... What the hell is this 
+		[A radio.... what in the world is this 
 doing falling down from the ceiling?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aef0dbc	_id = 1762
 SH3_Msg::GetMsg( ) - Endpoint of message is 59
@@ -21320,12 +21320,12 @@ SH3_Msg::GetMsg( ) - DEBUG: The message set is 969 : 4096 or 4096, the length is
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aedc0f2	_id = 969
 SH3_Msg::GetMsg( ) - Endpoint of message is 45
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 969 : 4096 or 4096, the length is 46, and the message is:
-		[Who the hell would make something 
+		[who in the world would make something 
 like this?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aedc126	_id = 969
 SH3_Msg::GetMsg( ) - Endpoint of message is 40
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 969 : 4096 or 4096, the length is 41, and the message is:
-		[Furthermore, who the hell would 
+		[Furthermore, who in the world would 
 eat it?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aedc154	_id = 969
 SH3_Msg::GetMsg( ) - Endpoint of message is 40
@@ -21340,7 +21340,7 @@ about here...]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aedc1b4	_id = 1110
 SH3_Msg::GetMsg( ) - Endpoint of message is 81
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1110 : 4096 or 4096, the length is 82, and the message is:
-		[Other than "who the hell is sick 
+		[Other than "who in the world is sick 
 enough to do something like this?", 
 that is...]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aedc20c	_id = 1110
@@ -21817,11 +21817,11 @@ SH3_Msg::GetMsg( ) - DEBUG: The message set is 1400 : -32768 or 32768, the lengt
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aef2aa8	_id = 1415
 SH3_Msg::GetMsg( ) - Endpoint of message is 26
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1415 : -32768 or 32768, the length is 27, and the message is:
-		[Get the hell away from me!]
+		[Get away from me!]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aef2ac8	_id = 1423
 SH3_Msg::GetMsg( ) - Endpoint of message is 28
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1423 : -32768 or 32768, the length is 29, and the message is:
-		[What the hell is this thing?]
+		[what in the world is this thing?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aef2aea	_id = 1439
 SH3_Msg::GetMsg( ) - Endpoint of message is 36
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1439 : 4096 or 4096, the length is 37, and the message is:
@@ -21941,7 +21941,7 @@ what happened here?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aef2f66	_id = 2000
 SH3_Msg::GetMsg( ) - Endpoint of message is 45
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2000 : -32768 or 32768, the length is 46, and the message is:
-		[And that monster, what the hell 
+		[And that monster, what in the world 
 was that...?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aef2f9a	_id = 2030
 SH3_Msg::GetMsg( ) - Endpoint of message is 34
@@ -22017,7 +22017,7 @@ SH3_Msg::GetMsg( ) - DEBUG: The message set is 2389 : -32768 or 32768, the lengt
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aef326e	_id = 2406
 SH3_Msg::GetMsg( ) - Endpoint of message is 15
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2406 : -32768 or 32768, the length is 16, and the message is:
-		[Hell if I know.]
+		[I have no idea.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aef3284	_id = 2418
 SH3_Msg::GetMsg( ) - Endpoint of message is 32
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2418 : -28672 or 36864, the length is 33, and the message is:
@@ -22058,7 +22058,7 @@ really me, just an imitator.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aef342a	_id = 2529
 SH3_Msg::GetMsg( ) - Endpoint of message is 54
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2529 : 4096 or 4096, the length is 55, and the message is:
-		[I know how stupid that sounds, 
+		[I know how foolish that sounds, 
 but that's how I feel.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aef3466	_id = 2529
 SH3_Msg::GetMsg( ) - Endpoint of message is 61
@@ -22819,7 +22819,7 @@ SH3_Msg::GetMsg( ) - DEBUG: The message set is 3103 : 4096 or 4096, the length i
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aef3854	_id = 3103
 SH3_Msg::GetMsg( ) - Endpoint of message is 54
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 3103 : 4096 or 4096, the length is 55, and the message is:
-		[Hell, I might still be sleeping here, 
+		[heck, I might still be sleeping here, 
 for all I know.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aef3890	_id = 3103
 SH3_Msg::GetMsg( ) - Endpoint of message is 17
@@ -23331,7 +23331,7 @@ SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aef3afc	_id = 2673
 SH3_Msg::GetMsg( ) - Endpoint of message is 76
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2673 : 4096 or 4096, the length is 77, and the message is:
 		[&B&cThere's a monster in the water. The 
-bastard's killed 2 of my buddies.&w]
+brute's killed 2 of my buddies.&w]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aef3b4e	_id = 2673
 SH3_Msg::GetMsg( ) - Endpoint of message is 107
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2673 : 4096 or 4096, the length is 108, and the message is:
@@ -23343,7 +23343,7 @@ SH3_Msg::GetMsg( ) - Endpoint of message is 88
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2673 : 4096 or 4096, the length is 89, and the message is:
 		[&B&cBut no one believes me. They were 
 drunk and slipped? We're not that 
-damn stupid.&w]
+darn foolish.&w]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aef3c1e	_id = 2673
 SH3_Msg::GetMsg( ) - Endpoint of message is 114
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2673 : 4096 or 4096, the length is 115, and the message is:
@@ -23966,7 +23966,7 @@ SH3_Msg::GetMsg( ) - Endpoint of message is 98
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 7627 : 4096 or 4096, the length is 99, and the message is:
 		[&B&cThe key is behind the shelves in 
 the underground garage. 
-Why there? Ask that idiot doctor.&w]
+Why there? Ask that fool doctor.&w]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aef63fe	_id = 7627
 SH3_Msg::GetMsg( ) - Endpoint of message is 125
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 7627 : 4096 or 4096, the length is 126, and the message is:
@@ -24191,7 +24191,7 @@ SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aef70a8	_id = 9370
 SH3_Msg::GetMsg( ) - Endpoint of message is 120
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 9370 : 4096 or 4096, the length is 121, and the message is:
 		[&B&cThe sweet blood on his laughing lips 
-Now calls him to the gates of Hell 
+Now calls him to the gates of heck 
 There burns evermore that soulless shell&w]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aef7126	_id = 9370
 SH3_Msg::GetMsg( ) - Endpoint of message is 83
@@ -26443,7 +26443,7 @@ receive salvation. ]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0af0a0d8	_id = 1383
 SH3_Msg::GetMsg( ) - Endpoint of message is 27
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1383 : -32768 or 32768, the length is 28, and the message is:
-		[You'll go to Hell, Vincent.]
+		[You'll go to heck, Vincent.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0af0a0fa	_id = 1411
 SH3_Msg::GetMsg( ) - Endpoint of message is 57
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1411 : -32768 or 32768, the length is 58, and the message is:
@@ -27055,7 +27055,7 @@ SH3_Msg::GetMsg( ) - DEBUG: The message set is 1848 : 4096 or 4096, the length i
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aef94e2	_id = 1848
 SH3_Msg::GetMsg( ) - Endpoint of message is 36
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1848 : 4096 or 4096, the length is 37, and the message is:
-		[Where the hell did it all come from?]
+		[where in the world did it all come from?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aef950c	_id = 1848
 SH3_Msg::GetMsg( ) - Endpoint of message is 68
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1848 : -28672 or 36864, the length is 69, and the message is:
@@ -27107,7 +27107,7 @@ SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aef9776	_id = 2169
 SH3_Msg::GetMsg( ) - Endpoint of message is 76
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2169 : 4096 or 4096, the length is 77, and the message is:
 		[&B&cThere's a monster in the water. The 
-bastard's killed 2 of my buddies.&w]
+brute's killed 2 of my buddies.&w]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aef97c8	_id = 2169
 SH3_Msg::GetMsg( ) - Endpoint of message is 107
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2169 : 4096 or 4096, the length is 108, and the message is:
@@ -27119,7 +27119,7 @@ SH3_Msg::GetMsg( ) - Endpoint of message is 88
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2169 : 4096 or 4096, the length is 89, and the message is:
 		[&B&cBut no one believes me. They were 
 drunk and slipped? We're not that 
-damn stupid.&w]
+darn foolish.&w]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0aef9898	_id = 2169
 SH3_Msg::GetMsg( ) - Endpoint of message is 114
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2169 : 4096 or 4096, the length is 115, and the message is:
@@ -28168,7 +28168,7 @@ SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0af09d7c	_id = 955
 SH3_Msg::GetMsg( ) - Endpoint of message is 74
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 955 : 4096 or 4096, the length is 75, and the message is:
 		[It's a nothing little occult magazine. 
-Seemed like a bunch of crap to me.]
+Seemed like a bunch of junk to me.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0af09dcc	_id = 955
 SH3_Msg::GetMsg( ) - Endpoint of message is 53
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 955 : 4096 or 4096, the length is 54, and the message is:
@@ -28593,7 +28593,7 @@ SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0af0e7f2	_id = 1411
 SH3_Msg::GetMsg( ) - Endpoint of message is 74
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1411 : 4096 or 4096, the length is 75, and the message is:
 		[It's a nothing little occult magazine. 
-Seemed like a bunch of crap to me.]
+Seemed like a bunch of junk to me.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0af0e842	_id = 1411
 SH3_Msg::GetMsg( ) - Endpoint of message is 53
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1411 : 4096 or 4096, the length is 54, and the message is:
@@ -32421,7 +32421,7 @@ explain all the blood in this room?
 Message: ID=001999   Alt=004096  Could it be that the guy who 
 committed suicide really did kill 
 a bunch of people?
-Message: ID=001999   Alt=004096  Oh, how could I be so stupid!?
+Message: ID=001999   Alt=004096  Oh, how could I be so foolish!?
 Message: ID=001999   Alt=004096  This is a haunted mansion.  
 Of course it's all made up.
 Message: ID=001999   Alt=-028672  What was I thinking, anyway?
@@ -32524,7 +32524,7 @@ Message: ID=003576   Alt=-032768  You... you remind me of my son.
 Message: ID=003611   Alt=-032768  You said nobody was going to 
 cry for you...
 Message: ID=003630   Alt=-032768  Dead people don't cry.
-Message: ID=003655   Alt=-032768  Stupid kid got himself shot robbing 
+Message: ID=003655   Alt=-032768  foolish kid got himself shot robbing 
 a bank.
 Message: ID=003669   Alt=-032768  But why?
 Message: ID=003694   Alt=-032768  Maybe cause his pop was a 
@@ -32565,7 +32565,7 @@ Message: ID=004166   Alt=004096  The switch is off.
 Message: ID=004166   Alt=-032768  Will you turn on the switch?&P
 Message: ID=004206   Alt=004096  The switch is on.
 Message: ID=004206   Alt=-028672  But it's not doing anything. 
-Damn, it must be broken.
+darn, it must be broken.
 Message: ID=004236   Alt=-028672  &cSWING ROCKET&w
 Message: ID=004278   Alt=004096  The door doesn't seem locked, 
 but I can't open it.
@@ -33049,7 +33049,7 @@ Message: ID=001090   Alt=004096  This must be some gadget to
 control a roller coaster.
 Message: ID=001090   Alt=-028672  I don't know how to make it work, 
 though.
-Message: ID=001170   Alt=004096  What the hell is this?
+Message: ID=001170   Alt=004096  what in the world is this?
 Message: ID=001170   Alt=004096  I feel like I'd catch something nasty 
 if I touched it.
 Message: ID=001170   Alt=-028672  I really better not mess with it. 
@@ -33271,7 +33271,7 @@ Message: ID=001780   Alt=-032768  What's in Silent Hill?
 Message: ID=001796   Alt=-032768  I don't know.
 Message: ID=001810   Alt=-032768  Do you think it's safe?
 Message: ID=001820   Alt=-032768  Of course it isn't!
-Message: ID=001835   Alt=-032768  I don't know what kind of hell 
+Message: ID=001835   Alt=-032768  I don't know what kind of heck 
 is waiting for me there,
 Message: ID=001848   Alt=-032768  but I've got no other choice.
 Message: ID=001879   Alt=-032768  I don't care about God or Paradise... 
@@ -33402,13 +33402,13 @@ I don't think I need to go out there.
 Message: ID=003811   Alt=-028672  I don't need to be here. 
 Besides, there's no one around.
 Message: ID=003849   Alt=004096  What's this doing here! 
-That really pisses me off.
+That really annoys me.
 Message: ID=003849   Alt=004096  It's like having someone spit on 
 your sacred place.
 Message: ID=003849   Alt=-028672  Looking at that makes me head hurt. 
 What does it mean...?
 Message: ID=003881   Alt=-028672  It's locked.  
-That bitch....!
+That jerk....!
 Message: ID=003971   Alt=004096  I can't just run away!
 Message: ID=003971   Alt=-028672  That thing killed my father.... 
 I won't let it get away with that.
@@ -33463,7 +33463,7 @@ Message: ID=004636   Alt=004096  &c"But if your eyes are closed,
 Message: ID=004636   Alt=004096  That's the hero's line from this 
 movie.
 Message: ID=004636   Alt=-028672  I always liked that line, but now 
-it just seems stupid.
+it just seems foolish.
 Message: ID=004714   Alt=-028672  It's just a movie poster.
 Message: ID=004834   Alt=-028672  I got a &gstun gun&w.
 Message: ID=004850   Alt=-028672  I got a &gphotograph&w.
@@ -33574,7 +33574,7 @@ fairy tale I found.
 Message: ID=001038   Alt=-028672  I think I must have missed 
 something. 
 I can't quite follow the story.
-Message: ID=001560   Alt=-028672  This is end of that crappy fairy 
+Message: ID=001560   Alt=-028672  This is end of that cheap fairy 
 tale I found.
 Message: ID=001627   Alt=004096  It looks like some pages torn out 
 of a book.
@@ -33668,7 +33668,7 @@ worthy of mention.
 Message: ID=002963   Alt=-028672  I push the button but nothing 
 happens. I guess this elevator 
 isn't working.
-Message: ID=003019   Alt=004096  What the hell...?
+Message: ID=003019   Alt=004096  what in the world...?
 Message: ID=003019   Alt=004096  I don't want to get too close, but I 
 don't think it'll attack me now.
 Message: ID=003019   Alt=004096  Why not? 
@@ -34217,7 +34217,7 @@ Message: ID=001666   Alt=-028672  &cGreen Ridge Mental Health Clinic&w
 Message: ID=001687   Alt=004096  That old familiar pattern is on a 
 piece of paper stuck to the vending 
 machine.
-Message: ID=001687   Alt=004096  Who the hell put it there?
+Message: ID=001687   Alt=004096  who in the world put it there?
 Message: ID=001687   Alt=-028672  It's not like it's the latest fad or 
 anything... right?
 Message: ID=001708   Alt=-028672  It doesn't look like there's anything 
@@ -34508,7 +34508,7 @@ Message: ID=001907   Alt=004096  There's a guest registration notebook
 on the reception desk.
 Message: ID=001907   Alt=-028672  I think I can ignore it for now.
 Message: ID=001957   Alt=004096  Its title is "Repressor of Memories."
-Message: ID=001957   Alt=-028672  What the hell kind of title is that? 
+Message: ID=001957   Alt=-028672  what in the world kind of title is that? 
 I don't get this picture at all.
 Message: ID=002010   Alt=004096  Looks like there was a picture 
 here before. Only the caption's 
@@ -34787,7 +34787,7 @@ Message: ID=001697   Alt=-032768  You self-righteous witch!
 No one asked you to help!
 Message: ID=001713   Alt=-032768  God is growing within you.
 Message: ID=001743   Alt=-032768  You despise me, don't you?
-Message: ID=001759   Alt=-032768  You're damned right I do.
+Message: ID=001759   Alt=-032768  You're absolutely right I do.
 Message: ID=001775   Alt=-032768  That's good.
 Message: ID=001791   Alt=004096  &B&c1. Origin&w
 Message: ID=001791   Alt=-028672  &B&cIn the beginning, people 
@@ -35074,7 +35074,7 @@ Message: ID=002269   Alt=-032768  Just like Alessa 17 years ago.
 Message: ID=002303   Alt=-032768  If this really is the work of God, 
 then I'd say She has lousy taste.
 Message: ID=002321   Alt=-032768  You mock God!? Traitor.
-Message: ID=002359   Alt=-032768  You will go to Hell.
+Message: ID=002359   Alt=-032768  You will go to heck.
 Message: ID=002374   Alt=-032768  Not that again!
 Message: ID=002387   Alt=-032768  Who do you think you are, 
 claiming to know God's will!?
@@ -35090,12 +35090,12 @@ Message: ID=002534   Alt=-032768  Then you'll kill me?
 Message: ID=002555   Alt=-032768  Well, the guest of honor has arrived. 
 Let's get this party started.
 Message: ID=002568   Alt=-032768  Heather, go ahead and kill this 
-crazy bitch.
+awful jerk.
 Message: ID=002605   Alt=-032768  This demon who claims to speak 
 for God.
 Message: ID=002631   Alt=-032768  The time has come.  
 You can kill her now.
-Message: ID=002654   Alt=-032768  You'll go to Hell!
+Message: ID=002654   Alt=-032768  You'll go to heck!
 Message: ID=002678   Alt=-032768  What did you do?
 Message: ID=002690   Alt=-032768  Oh, nothing important.
 Message: ID=002701   Alt=-032768  You're not going to run?  
@@ -35121,7 +35121,7 @@ world? You know that only God
 can save us.
 Message: ID=003005   Alt=-032768  And save you too?  
 Happy ending?
-Message: ID=003047   Alt=-032768  I'd rather go to Hell.
+Message: ID=003047   Alt=-032768  I'd rather go to heck.
 Message: ID=003067   Alt=-032768  No, I don't expect to be saved. 
 Message: ID=003081   Alt=-032768  That's fine.
 Message: ID=003100   Alt=-032768  Alessa, my dearest.
@@ -35134,11 +35134,11 @@ hasten the day of Her arrival.
 Message: ID=003184   Alt=-032768  Sacrifices were made, and those 
 are my sins.
 Message: ID=003218   Alt=-032768  If you feel so guilty about it, why 
-don't you go to Hell!
+don't you go to heck!
 Message: ID=003244   Alt=-032768  Heather, use the Seal!
 Message: ID=003276   Alt=-032768  Vincent?
 Message: ID=003290   Alt=-032768  The Seal of Metatron!
-Message: ID=003297   Alt=-032768  Now your stupid dream is over!
+Message: ID=003297   Alt=-032768  Now your foolish dream is over!
 Message: ID=003311   Alt=-032768  Oh. That's just a piece of junk.
 Message: ID=003329   Alt=-032768  What do you think you can do 
 with that?
@@ -35159,7 +35159,7 @@ the coming of this day.
 Message: ID=003532   Alt=-032768  I knew I would be a witness to it. 
 Judgment Day!
 Message: ID=003565   Alt=-032768  Alessa!
-Message: ID=003593   Alt=-032768  Shut your stinking mouth, bitch!
+Message: ID=003593   Alt=-032768  Shut your mouth, jerk!
 Message: ID=003600   Alt=-032768  Aah!
 Message: ID=003619   Alt=-032768  Alessa...
 Message: ID=003624   Alt=-032768  Oh God...
@@ -35496,7 +35496,7 @@ That made her cry.
 Message: ID=008512   Alt=004096  I used to take these dolls with me 
 when I went to bed.
 Message: ID=008512   Alt=004096  Scarlett and... 
-Damn, I forgot the other one's name.
+darn, I forgot the other one's name.
 Message: ID=008512   Alt=-028672  In fact, I don't even know which 
 one is Scarlett.
 Message: ID=008587   Alt=004096  Hmm, a memo book. 
@@ -35663,7 +35663,7 @@ Message: ID=001098   Alt=-032768  But please grant me just a small
 piece of your everlasting mercy.
 Message: ID=001130   Alt=-032768  Let me see my child once within 
 your Golden Gates.
-Message: ID=001166   Alt=-032768  Deliver me not to Hell, but to 
+Message: ID=001166   Alt=-032768  Deliver me not to heck, but to 
 Purgatory.
 Message: ID=001195   Alt=-032768  Allow me to atone for my sins 
 there.
@@ -35963,7 +35963,7 @@ Nope. I won't even peek.
 Message: ID=005749   Alt=004096  Nothing important here.
 Message: ID=005749   Alt=004096  It's not that I'm not concerned, 
 but I choose not to be right now.
-Message: ID=005749   Alt=-028672  If I fretted over every damn thing, I 
+Message: ID=005749   Alt=-028672  If I fretted over every darn thing, I 
 would have serious mental overload.
 Message: ID=005780   Alt=-028672  Nothing important here.
 Message: ID=005872   Alt=-028672  This bookshelf is nothing special.
@@ -36612,7 +36612,7 @@ Make it wind, dancing in the sky
 That bottomless gut now a cloud, 
   now a sigh&w
 Message: ID=001857   Alt=004096  &B&cThe sweet blood on his laughing lips 
-Now calls him to the gates of Hell 
+Now calls him to the gates of heck 
 There burns evermore that soulless shell&w
 Message: ID=001857   Alt=-028672  &B&cFour bodies return to ashes 
 Thus the door is opened 
@@ -36647,7 +36647,7 @@ Message: ID=002537   Alt=-028672  There's a dead body hanging from
 the ceiling.
 Message: ID=002643   Alt=004096  The door won't open. 
 I can't even make it budge.
-Message: ID=002643   Alt=-028672  What the hell?!
+Message: ID=002643   Alt=-028672  what in the world?!
 Message: ID=002669   Alt=-028672  Looks like an ordinary mirror.
 Message: ID=002708   Alt=-028672  I got a &gcremated key&w.
 Message: ID=002726   Alt=-028672  I put blood in the &gplastic bag&w.
@@ -37321,7 +37321,7 @@ I long to hold you in these hands
 of mine.&w
 Message: ID=001829   Alt=004096  &B&cThe key is behind the shelves in 
 the underground garage. 
-Why there? Ask that idiot doctor.&w
+Why there? Ask that fool doctor.&w
 Message: ID=001829   Alt=004096  &B&cThere's not a single person here 
 who's right in the head. 
 Not just in this hospital--- 
@@ -37591,7 +37591,7 @@ Message: ID=001233   Alt=-028672  Part of me wants to peek in,
 but then it's a little creepy, too.
 Message: ID=001270   Alt=004096  The wall is scarred with bullet 
 marks.
-Message: ID=001270   Alt=-028672  What the hell could they have been 
+Message: ID=001270   Alt=-028672  what in the world could they have been 
 shooting at?
 Message: ID=001332   Alt=-028672  It's a wheelchair. Where's the 
 person that was using it....?
@@ -37733,7 +37733,7 @@ child alive?
 Message: ID=001783   Alt=004096  This picture... this one doesn't make 
 my head hurt when I look at it.
 Message: ID=001783   Alt=-028672  But I know this one. It must be...
-Message: ID=001807   Alt=004096  What the hell? 
+Message: ID=001807   Alt=004096  what in the world? 
 Was I daydreaming...?
 Message: ID=001807   Alt=004096  No, it was more like watching 
 a video in a dark room.
@@ -38425,7 +38425,7 @@ elevator doesn't do anything.
 Message: ID=001703   Alt=-028672  There are no buttons for the 
 elevator.
 Message: ID=001739   Alt=-028672  There's no way to open this door.
-Message: ID=001762   Alt=004096  A radio.... What the hell is this 
+Message: ID=001762   Alt=004096  A radio.... what in the world is this 
 doing falling down from the ceiling?
 Message: ID=001762   Alt=004096  Anyway, I guess that explains 
 the static from just before.
@@ -38711,15 +38711,15 @@ Message: ID=000960   Alt=-028672  &cAnd the final destination
 has become real 
 Though not a blessed beginning&w
 Message: ID=000969   Alt=004096  What is this...barbecued dog?
-Message: ID=000969   Alt=004096  Who the hell would make something 
+Message: ID=000969   Alt=004096  who in the world would make something 
 like this?
-Message: ID=000969   Alt=004096  Furthermore, who the hell would 
+Message: ID=000969   Alt=004096  Furthermore, who in the world would 
 eat it?
 Message: ID=000969   Alt=-028672  There's something in the dog's 
 stomach.
 Message: ID=001110   Alt=004096  There's nothing else to worry 
 about here...
-Message: ID=001110   Alt=004096  Other than "who the hell is sick 
+Message: ID=001110   Alt=004096  Other than "who in the world is sick 
 enough to do something like this?", 
 that is...
 Message: ID=001110   Alt=-028672  And even that, I'd really just rather 
@@ -38833,8 +38833,8 @@ Message: ID=001359   Alt=-032768  Are you still following me?
 Do I have to scream?
 Message: ID=001372   Alt=-032768  Sorry... I'll wait here.
 Message: ID=001400   Alt=-032768  Stay back!
-Message: ID=001415   Alt=-032768  Get the hell away from me!
-Message: ID=001423   Alt=-032768  What the hell is this thing?
+Message: ID=001415   Alt=-032768  Get away from me!
+Message: ID=001423   Alt=-032768  what in the world is this thing?
 Message: ID=001439   Alt=004096  I can tell from here that it's dead.
 Message: ID=001439   Alt=004096  Should I call the police?
 Message: ID=001439   Alt=-028672  Not like they'd believe me if I said, 
@@ -38873,7 +38873,7 @@ Message: ID=001943   Alt=-032768  I'm not on anybody's side.
 Message: ID=001964   Alt=-032768  I don't know anything about this.
 Message: ID=001980   Alt=-032768  Why don't you start by telling me 
 what happened here?
-Message: ID=002000   Alt=-032768  And that monster, what the hell 
+Message: ID=002000   Alt=-032768  And that monster, what in the world 
 was that...?
 Message: ID=002030   Alt=-032768  I don't know any more than you do.
 Message: ID=002056   Alt=-032768  All I know is that things are getting 
@@ -38898,7 +38898,7 @@ Message: ID=002359   Alt=-032768  Nothing.
 Message: ID=002369   Alt=-032768  Where are you going?
 Message: ID=002376   Alt=-032768  I'm taking the subway home.
 Message: ID=002389   Alt=-032768  What should I do?
-Message: ID=002406   Alt=-032768  Hell if I know.
+Message: ID=002406   Alt=-032768  I have no idea.
 Message: ID=002418   Alt=-028672  I got the &gshopping mall map&w.
 Message: ID=002429   Alt=-028672  That weird old detective is out 
 there, so I'm not leaving.
@@ -38912,7 +38912,7 @@ Message: ID=002529   Alt=004096  It's almost like there's an unknown
 world right on the other side.
 Message: ID=002529   Alt=004096  And the person staring at me isn't 
 really me, just an imitator.
-Message: ID=002529   Alt=004096  I know how stupid that sounds, 
+Message: ID=002529   Alt=004096  I know how foolish that sounds, 
 but that's how I feel.
 Message: ID=002529   Alt=-028672  But if I keep thinking about it, 
 it just makes me feel sick.
@@ -39158,7 +39158,7 @@ Message: ID=003070   Alt=004096  The phone doesn't work.
 Well, we all have our hopes.
 Message: ID=003070   Alt=-028672  Wish I could get ahold of Dad.
 Message: ID=003103   Alt=004096  This is where I was sleeping earlier.
-Message: ID=003103   Alt=004096  Hell, I might still be sleeping here, 
+Message: ID=003103   Alt=004096  heck, I might still be sleeping here, 
 for all I know.
 Message: ID=003103   Alt=-028672  ...I wish I were.
 Message: ID=003151   Alt=-028672  This is where I was sleeping earlier.
@@ -39334,13 +39334,13 @@ That is, if you don't want it
 to happen to you, too...&w
 Message: ID=002301   Alt=-032768  &ROccult magazine
 Message: ID=002673   Alt=004096  &B&cThere's a monster in the water. The 
-bastard's killed 2 of my buddies.&w
+brute's killed 2 of my buddies.&w
 Message: ID=002673   Alt=004096  &B&cI should never have doubted that 
 old urban legend about alligators 
 in the sewers. That was no myth.&w
 Message: ID=002673   Alt=004096  &B&cBut no one believes me. They were 
 drunk and slipped? We're not that 
-damn stupid.&w
+darn foolish.&w
 Message: ID=002673   Alt=004096  &B&cEven calling it a monster isn't quite 
 right. This is something else. All I 
 know is...something's in there.&w
@@ -39672,7 +39672,7 @@ I long to hold you in these hands
 of mine.&w
 Message: ID=007627   Alt=004096  &B&cThe key is behind the shelves in 
 the underground garage. 
-Why there? Ask that idiot doctor.&w
+Why there? Ask that fool doctor.&w
 Message: ID=007627   Alt=004096  &B&cThere's not a single person here 
 who's right in the head. 
 Not just in this hospital--- 
@@ -39777,7 +39777,7 @@ Make it wind, dancing in the sky
 That bottomless gut now a cloud, 
   now a sigh&w
 Message: ID=009370   Alt=004096  &B&cThe sweet blood on his laughing lips 
-Now calls him to the gates of Hell 
+Now calls him to the gates of heck 
 There burns evermore that soulless shell&w
 Message: ID=009370   Alt=-028672  &B&cFour bodies return to ashes 
 Thus the door is opened 
@@ -40566,7 +40566,7 @@ Message: ID=001328   Alt=-032768  But surely it's a good thing. It means
 he was one of God's beloved, no?
 Message: ID=001344   Alt=-032768  Those who mock God will never 
 receive salvation. 
-Message: ID=001383   Alt=-032768  You'll go to Hell, Vincent.
+Message: ID=001383   Alt=-032768  You'll go to heck, Vincent.
 Message: ID=001411   Alt=-032768  You'll never feel the joy of God's 
 everlasting paradise.
 Message: ID=001428   Alt=-032768  And you think God is going to save 
@@ -40744,7 +40744,7 @@ looks like nothing's happening.
 Message: ID=001810   Alt=-028672  But I'm using it. 
 I think I'll hold onto it after all.
 Message: ID=001848   Alt=004096  Now that's a lot of garbage.
-Message: ID=001848   Alt=004096  Where the hell did it all come from?
+Message: ID=001848   Alt=004096  where in the world did it all come from?
 Message: ID=001848   Alt=-028672  I guess this is all the stuff that gets 
 tossed out into the sewers.
 Message: ID=001879   Alt=-028672  What kind of machine is this? 
@@ -40766,13 +40766,13 @@ wheelchair be thrown out here?
 Message: ID=002169   Alt=004096  There's something written on 
 the notebook.
 Message: ID=002169   Alt=004096  &B&cThere's a monster in the water. The 
-bastard's killed 2 of my buddies.&w
+brute's killed 2 of my buddies.&w
 Message: ID=002169   Alt=004096  &B&cI should never have doubted that 
 old urban legend about alligators 
 in the sewers. That was no myth.&w
 Message: ID=002169   Alt=004096  &B&cBut no one believes me. They were 
 drunk and slipped? We're not that 
-damn stupid.&w
+darn foolish.&w
 Message: ID=002169   Alt=004096  &B&cEven calling it a monster isn't quite 
 right. This is something else. All I 
 know is...something's in there.&w
@@ -41085,7 +41085,7 @@ Message: ID=000920   Alt=-032768  You  cannot load the game at this point.
 Message: ID=000932   Alt=-032768  Load failed.
 Message: ID=000955   Alt=004096  I read this a long time ago.
 Message: ID=000955   Alt=004096  It's a nothing little occult magazine. 
-Seemed like a bunch of crap to me.
+Seemed like a bunch of junk to me.
 Message: ID=000955   Alt=004096  It's not so bad if you just read it 
 for fun, though.
 Message: ID=000955   Alt=004096  &B&cThe souls of those who died 
@@ -41221,7 +41221,7 @@ Message: ID=001396   Alt=-028672  The nut is screwed on tight.
 I can't turn it with my hands.
 Message: ID=001411   Alt=004096  I read this a long time ago.
 Message: ID=001411   Alt=004096  It's a nothing little occult magazine. 
-Seemed like a bunch of crap to me.
+Seemed like a bunch of junk to me.
 Message: ID=001411   Alt=004096  It's not so bad if you just read it 
 for fun, though.
 Message: ID=001411   Alt=004096  &B&cThe souls of those who died 

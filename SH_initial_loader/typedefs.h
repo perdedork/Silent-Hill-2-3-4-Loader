@@ -25,7 +25,7 @@
 
 
 //####################################################################
-//##########   A WHOLE BUNCH OF SHIT THAT NEEDS TO CHANGE IN HERE
+//##########   Legacy type definitions that still need cleanup
 //####  MOST OF IT ISN'T USED ANYWAYS... CHECK TO SEE, AND CHANGE ACCORDINGLY, AND
 //############## PLACE IN APPROPRIATE OTHER CLASSES, ie CollisionDetection, Texture,
 //#######  Geometry Data Structs, ect..

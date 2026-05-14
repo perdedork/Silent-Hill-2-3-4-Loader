@@ -16,7 +16,7 @@ class mvector
 public:
 	typedef tObj **iterator;
 
-	tObj	m_tEmpty;		//Empty Element Placeholder.  Used to let users check if operator[] returned crap.
+	tObj	m_tEmpty;		//Empty element placeholder used to detect invalid operator[] results.
 
 	mvector( long _lCapacity = 10):m_lCapacity( _lCapacity ){ fill_empty( ); _allocate( _lCapacity ); }
 	mvector( const mvector & rhs ){ fill_empty( ); mvector::operator=( rhs ); }

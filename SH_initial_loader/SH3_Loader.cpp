@@ -1619,7 +1619,7 @@ GLuint SceneMap::loadTex( FILE *infile, scene_tex_header *h )
 
 	//	figure out how to find other texture file (how, I can't tell yet)
 		if(	loadArcIndex( infile, &arcIndex ) == 0 )
-			LogFile(ERROR_LOG,"FUCKFUCKFUCKFUCKFUCKFUCKFUCKFUCK");
+			LogFile(ERROR_LOG,"Failed to load arc index");
 
 		k = 0; 
 		while( k < arcIndex.numIndex)

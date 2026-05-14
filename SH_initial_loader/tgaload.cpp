@@ -315,7 +315,7 @@ void tgaDebugHeader(tgaHeader_t *info)
 
 void tgaGetImageHeader ( FILE *file, tgaHeader_t *info )
 {
-   /*   Stupid byte alignment means that we have to fread each field
+   /*   Awkward byte alignment means that we have to fread each field
         individually.  I tried splitting tgaHeader into 3 structures, no matter
         how you arrange them, colour_map_entry_size comes out as 2 bytes instead
         1 as it should be.  Grrr.  Gotta love optimising compilers - theres a pragma

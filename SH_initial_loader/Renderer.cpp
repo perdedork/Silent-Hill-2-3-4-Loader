@@ -225,7 +225,7 @@ GLuint TexMgr::GetTexture( string & texName )
 	newTex.texName = tempString;
 	if( (newTex.texID = tgaLoadAndBind( texName.c_str(), TGA_FREE | TGA_NO_MIPMAPS, &(newTex.flags) ))==0)
 		return 0;
-LogFile(ERROR_LOG,"TexMgr::GetTexture - what the hell did it load?");
+LogFile(ERROR_LOG,"TexMgr::GetTexture - WHAT DID IT LOAD? - %s",texName.c_str());
 	newTex.flags |= TEXM_2D_TEX;
 
 	textures.push_back( newTex );

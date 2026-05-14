@@ -115,7 +115,7 @@ SH_AnimSet & SH_AnimSet::operator=( const SH_AnimSet & rhs )
 {
 	if( &rhs != this )
 	{
-//LogFile(ERROR_LOG,"STUPID PIECE OF SHIT - m_plFlags = %08x\tm_pcMatrixSet = %08x",m_plFlags,m_pcMatrixSet);
+//LogFile(ERROR_LOG,"DEBUG - m_plFlags = %08x\tm_pcMatrixSet = %08x",m_plFlags,m_pcMatrixSet);
 		DeleteAllData( );
 		
 		m_lNumFlags = rhs.m_lNumFlags;
@@ -126,7 +126,7 @@ SH_AnimSet & SH_AnimSet::operator=( const SH_AnimSet & rhs )
 //		m_pcMatrixSet2 = new matrix[ rhs.m_lNumMatrix2 ];
 		m_pcQuatSet = new QuatAnim[ rhs.m_lNumMatrix ];
 		m_plFlags = new unsigned long[ rhs.m_lNumFlags ];
-//LogFile(ERROR_LOG,"STUPID PIECE OF SHIT - #Flag = %ld\t#Mat = %ld",m_lNumFlags,m_lNumMatrix);
+//LogFile(ERROR_LOG,"DEBUG - #Flag = %ld\t#Mat = %ld",m_lNumFlags,m_lNumMatrix);
 		memcpy( (void *)m_plFlags, (void *)rhs.m_plFlags, sizeof( unsigned long ) * rhs.m_lNumFlags );
 		memcpy( (void *)m_pcMatrixSet, (void *)rhs.m_pcMatrixSet, sizeof( matrix ) * rhs.m_lNumMatrix );
 //		memcpy( (void *)m_pcMatrixSet2, (void *)rhs.m_pcMatrixSet2, sizeof( matrix ) * rhs.m_lNumMatrix2 );
@@ -524,9 +524,9 @@ long SH_Anim_Loader::LoadAnim( FILE *inFile, unsigned char *ps_mSeq, long _lNumS
 
 		if( lastReadMat > 0 )
 		{
-//			LogFile(ERROR_LOG,"STUPID PIECE OF SHIT - numread = %d",lastReadMat);
+//			LogFile(ERROR_LOG,"DEBUG - numread = %d",lastReadMat);
 			animVec.push_back( curAnim );
-//			LogFile(ERROR_LOG,"STUPID PIECE OF SHIT - Section Size = %ld",sectionSize);
+//			LogFile(ERROR_LOG,"DEBUG - Section Size = %ld",sectionSize);
 			lCurOffset = ftell( inFile );
 			
 			if( debugMode )
@@ -1086,7 +1086,7 @@ void SH_Anim_Loader::RenderModel( long modelPart )
 			return;
 	}
 
-//LogFile(ERROR_LOG,"ApplyAnimFrame - STUPID PIECE OF SHIT - iteration");
+//LogFile(ERROR_LOG,"ApplyAnimFrame - DEBUG - iteration");
 	mSeq1 = m_pcModel_SH3->mSeq1;
 	mSeq2 = m_pcModel_SH3->mSeq2;
 	matSet1 = m_pcModel_SH3->matSet1;
@@ -1107,7 +1107,7 @@ void SH_Anim_Loader::RenderModel( long modelPart )
 	for( j = startPt; j < endPt; j++ )
 	{
 //		if(printData)LogFile( DATA_LOG, "Primitive %ld of %ld -------------------",j,endPt);
-//LogFile(ERROR_LOG,"ApplyAnimFrame - STUPID PIECE OF SHIT - outer iteration %ld",j);
+//LogFile(ERROR_LOG,"ApplyAnimFrame - DEBUG - outer iteration %ld",j);
 //		if(printData)
 //			LogFile(ERROR_LOG,"Num Verts: %d\tNum Index: %d\tTex ID: %d",m_pmPrimitive[j].vertHeader.numVerts,m_pmPrimitive[j].vertHeader.numIndex,m_pmPrimitive[j].texID);
 		dispVerts = new vertex4f[m_pmPrimitive[j].vertHeader.numVerts];
@@ -1164,7 +1164,7 @@ if( displayMatrix )
 		drawBasisMatrix( &( mPtr[ k ] ), 9.0f,1, k);
 	}
 }
-//LogFile(ERROR_LOG,"ApplyAnimFrame - STUPID PIECE OF SHIT - About to set 1st set of matricies");
+//LogFile(ERROR_LOG,"ApplyAnimFrame - DEBUG - about to set 1st set of matricies");
 		for( k = 0; k < m_pmPrimitive[j].vertHeader.numSeq1; k ++ )
 		{
 ///*WORKS*/	matArray[k] = matSet1[m_pmPrimitive[j].seqData1[k]];
@@ -1223,7 +1223,7 @@ if( displayMatrix )
 		for( k = 0; k < m_pmPrimitive[j].vertHeader.numVerts; k++ )
 		{
 			
-//LogFile(ERROR_LOG,"ApplyAnimFrame - STUPID PIECE OF SHIT - About to transform for %ld vert",k);
+//LogFile(ERROR_LOG,"ApplyAnimFrame - DEBUG - about to transform for %ld vert",k);
 		//	if(printData)
 		//	{
 		//		LogFile(ERROR_LOG,"%d: r0w: %6.6f\n  ( %6.6f %6.6f %6.6f) ( %6.6f %6.6f %6.6f ) [ %d %d %d %d ] ",k,r0w,m_pmPrimitive[j].verts[k].vert.x,m_pmPrimitive[j].verts[k].vert.y,m_pmPrimitive[j].verts[k].vert.z,m_pmPrimitive[j].verts[k].v1.x,m_pmPrimitive[j].verts[k].v1.y,m_pmPrimitive[j].verts[k].v1.z,
@@ -1408,7 +1408,7 @@ matrix bO;
 	l_pcFinalQuat = new QuatAnim[ m_lNumDispMat ];
 	l_pcForwardMat = new matrix[ m_lNumDispMat ];		//m_pcAnimSet[ m_lCurFrame ].m_lNumMatrix ];
 
-//LogFile(ERROR_LOG,"ApplyAnimFrame - STUPID PIECE OF SHIT - new m_pcDispMat = %08x",m_pcDispMat);
+//LogFile(ERROR_LOG,"ApplyAnimFrame - DEBUG - new m_pcDispMat = %08x",m_pcDispMat);
 	//---[ C O M P U T E   T H E   M A T R I X   S E T   F O R   C U R R E N T   F R A M E ]---/
 	
 	

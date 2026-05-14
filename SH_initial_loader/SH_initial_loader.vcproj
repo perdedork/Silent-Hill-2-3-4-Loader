@@ -145,7 +145,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;C:\Users\Mike\Desktop\fuckMS\My Code\SH3_Level_Viewer\test2005\SHloader-Release-VC6\SH_initial_loader&quot;;&quot;C:\Users\Mike\Desktop\fuckMS\My Code\SH3_Level_Viewer\test2005\SHloader-Release-VC6\SH_initial_loader\SMD&quot;;C:\Users\micha\source\repos\zlib;.;&quot;C:\Users\micha\source\repos\zlib&quot;"
+				AdditionalIncludeDirectories="&quot;C:\Users\Mike\Desktop\sample_workspace\My Code\SH3_Level_Viewer\test2005\SHloader-Release-VC6\SH_initial_loader&quot;;&quot;C:\Users\Mike\Desktop\sample_workspace\My Code\SH3_Level_Viewer\test2005\SHloader-Release-VC6\SH_initial_loader\SMD&quot;;C:\Users\micha\source\repos\zlib;.;&quot;C:\Users\micha\source\repos\zlib&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;SILENT_HILL3;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -756,7 +756,7 @@
 						>
 						<Tool
 							Name="VCCLCompilerTool"
-							AdditionalIncludeDirectories="&quot;C:\Users\Mike\Desktop\fuckMS\My Code\SH3_Level_Viewer\test2005\SHloader-Release-VC6\SH_initial_loader&quot;;&quot;C:\Users\Mike\Desktop\fuckMS\My Code\SH3_Level_Viewer\test2005\SHloader-Release-VC6\SH_initial_loader\SMD&quot;"
+							AdditionalIncludeDirectories="&quot;C:\Users\Mike\Desktop\sample_workspace\My Code\SH3_Level_Viewer\test2005\SHloader-Release-VC6\SH_initial_loader&quot;;&quot;C:\Users\Mike\Desktop\sample_workspace\My Code\SH3_Level_Viewer\test2005\SHloader-Release-VC6\SH_initial_loader\SMD&quot;"
 						/>
 					</FileConfiguration>
 				</File>

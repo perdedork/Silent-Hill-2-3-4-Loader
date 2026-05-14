@@ -6,7 +6,7 @@
 
 
 //######################################### FIX STUFF AFTER HERE
-// CLEAN THIS WHOLE DAMN FILE!!!!!!!!!!!!!!!
+// CLEAN THIS WHOLE FILE!!!!!!!!!!!!!!!
 
 
 int arrayMax(void *array,int numEl,e_type t)

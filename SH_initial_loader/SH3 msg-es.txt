@@ -3222,7 +3222,7 @@ SH3_Msg::GetMsg( ) - WARNING: Value of -45 or 211 (0xffffffd3) found at position
 SH3_Msg::GetMsg( ) - WARNING: Value of -38 or 218 (0xffffffda) found at position 82 of 211
 SH3_Msg::GetMsg( ) - WARNING: Value of -51 or 205 (0xffffffcd) found at position 183 of 211
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 3053 : -28672 or 36864, the length is 211, and the message is:
-		[&B&cManchados por los demonios de este 
+		[&B&cManchados por los rayos de este 
 mundo guardamos nuestros pesares. 
 S”lo t⁄ puedes curar nuestras heridas. 
 Cada maÒana, tarde y noche 
@@ -3662,7 +3662,7 @@ SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a489f06	_id = 1233
 SH3_Msg::GetMsg( ) - Endpoint of message is 22
 SH3_Msg::GetMsg( ) - WARNING: Value of -97 or 159 (0xffffff9f) found at position 1 of 23
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1233 : 4096 or 4096, the length is 23, and the message is:
-		[üQuÈ demonios es esto?]
+		[üQuÈ rayos es esto?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a489f22	_id = 1233
 SH3_Msg::GetMsg( ) - Endpoint of message is 38
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1233 : 4096 or 4096, the length is 39, and the message is:
@@ -3691,7 +3691,7 @@ SH3_Msg::GetMsg( ) - Endpoint of message is 71
 SH3_Msg::GetMsg( ) - WARNING: Value of -51 or 205 (0xffffffcd) found at position 45 of 72
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1355 : -28672 or 36864, the length is 72, and the message is:
 		[No quiero mirar en el interior. 
-Hay algo ahÕ que huele a mil demonios.]
+Hay algo ahÕ que huele a mil rayos.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a48a068	_id = 1379
 SH3_Msg::GetMsg( ) - Endpoint of message is 84
 SH3_Msg::GetMsg( ) - WARNING: Value of -97 or 159 (0xffffff9f) found at position 35 of 85
@@ -6041,7 +6041,7 @@ SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a48f12c	_id = 3110
 SH3_Msg::GetMsg( ) - Endpoint of message is 17
 SH3_Msg::GetMsg( ) - WARNING: Value of -97 or 159 (0xffffff9f) found at position 1 of 18
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 3110 : 4096 or 4096, the length is 18, and the message is:
-		[üQuÈ demonios...?]
+		[üQuÈ rayos...?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a48f144	_id = 3110
 SH3_Msg::GetMsg( ) - Endpoint of message is 71
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 3110 : 4096 or 4096, the length is 72, and the message is:
@@ -8239,7 +8239,7 @@ SH3_Msg::GetMsg( ) - Endpoint of message is 28
 SH3_Msg::GetMsg( ) - WARNING: Value of -97 or 159 (0xffffff9f) found at position 1 of 29
 SH3_Msg::GetMsg( ) - WARNING: Value of -51 or 205 (0xffffffcd) found at position 27 of 29
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1765 : 4096 or 4096, the length is 29, and the message is:
-		[üQuiÈn demonios lo puso ahÕ?]
+		[üQuiÈn rayos lo puso ahÕ?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a49d26e	_id = 1765
 SH3_Msg::GetMsg( ) - Endpoint of message is 53
 SH3_Msg::GetMsg( ) - WARNING: Value of -38 or 218 (0xffffffda) found at position 31 of 54
@@ -12588,7 +12588,7 @@ SH3_Msg::GetMsg( ) - WARNING: Value of -51 or 205 (0xffffffcd) found at position
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 5703 : -28672 or 36864, the length is 150, and the message is:
 		[&B&cPuede vaporizarse o aplicarse como 
 cataplasma para protegerse de los 
-demonios. Potente, pero al ser rara, 
+rayos. Potente, pero al ser rara, 
 extremadamente difÕcil de obtener.&w]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a4aada8	_id = 5753
 SH3_Msg::GetMsg( ) - Endpoint of message is 14
@@ -20119,7 +20119,7 @@ SH3_Msg::GetMsg( ) - WARNING: Value of -38 or 218 (0xffffffda) found at position
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1881 : 4096 or 4096, the length is 118, and the message is:
 		[&B&cLa llave est¡ detr¡s de los estantes 
 en el garage subterr¡neo. üPor quÈ 
-ahÕ? Preg⁄ntale al idiota del doctor.&w]
+ahÕ? Preg⁄ntale al tonto del doctor.&w]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a4dd2f6	_id = 1881
 SH3_Msg::GetMsg( ) - Endpoint of message is 119
 SH3_Msg::GetMsg( ) - WARNING: Value of -51 or 205 (0xffffffcd) found at position 8 of 120
@@ -20893,7 +20893,7 @@ SH3_Msg::GetMsg( ) - Endpoint of message is 36
 SH3_Msg::GetMsg( ) - WARNING: Value of -97 or 159 (0xffffff9f) found at position 1 of 37
 SH3_Msg::GetMsg( ) - WARNING: Value of -51 or 205 (0xffffffcd) found at position 22 of 37
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1304 : -28672 or 36864, the length is 37, and the message is:
-		[üA quÈ demonios estarÕan disparando?]
+		[üA quÈ rayos estarÕan disparando?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a4dca16	_id = 1367
 SH3_Msg::GetMsg( ) - Endpoint of message is 68
 SH3_Msg::GetMsg( ) - WARNING: Value of -97 or 159 (0xffffff9f) found at position 25 of 69
@@ -21495,7 +21495,7 @@ SH3_Msg::GetMsg( ) - Endpoint of message is 37
 SH3_Msg::GetMsg( ) - WARNING: Value of -97 or 159 (0xffffff9f) found at position 1 of 38
 SH3_Msg::GetMsg( ) - WARNING: Value of -97 or 159 (0xffffff9f) found at position 17 of 38
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1938 : 4096 or 4096, the length is 38, and the message is:
-		[üQuÈ demonios? 
+		[üQuÈ rayos? 
 üSoÒaba despierta...?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a4dced0	_id = 1938
 SH3_Msg::GetMsg( ) - Endpoint of message is 61
@@ -25183,13 +25183,13 @@ SH3_Msg::GetMsg( ) - WARNING: Value of -97 or 159 (0xffffff9f) found at position
 SH3_Msg::GetMsg( ) - WARNING: Value of -51 or 205 (0xffffffcd) found at position 20 of 32
 SH3_Msg::GetMsg( ) - WARNING: Value of -51 or 205 (0xffffffcd) found at position 30 of 32
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1039 : 4096 or 4096, the length is 32, and the message is:
-		[üQuiÈn demonios harÕa algo asÕ?]
+		[üQuiÈn rayos harÕa algo asÕ?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a49cd7e	_id = 1039
 SH3_Msg::GetMsg( ) - Endpoint of message is 45
 SH3_Msg::GetMsg( ) - WARNING: Value of -97 or 159 (0xffffff9f) found at position 15 of 46
 SH3_Msg::GetMsg( ) - WARNING: Value of -51 or 205 (0xffffffcd) found at position 43 of 46
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1039 : 4096 or 4096, the length is 46, and the message is:
-		[Y sobre todo, üquiÈn demonios se 
+		[Y sobre todo, üquiÈn rayos se 
 lo comerÕa?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a49cdb2	_id = 1039
 SH3_Msg::GetMsg( ) - Endpoint of message is 34
@@ -25207,7 +25207,7 @@ SH3_Msg::GetMsg( ) - Endpoint of message is 86
 SH3_Msg::GetMsg( ) - WARNING: Value of -63 or 193 (0xffffffc1) found at position 38 of 87
 SH3_Msg::GetMsg( ) - WARNING: Value of -51 or 205 (0xffffffcd) found at position 85 of 87
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1187 : 4096 or 4096, the length is 87, and the message is:
-		[...aparte de saber quiÈn demonios est¡ 
+		[...aparte de saber quiÈn rayos est¡ 
 lo bastante enfermo como para hacer 
 algo asÕ.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a49ce6a	_id = 1187
@@ -25749,7 +25749,7 @@ SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a4c549e	_id = 1480
 SH3_Msg::GetMsg( ) - Endpoint of message is 26
 SH3_Msg::GetMsg( ) - WARNING: Value of -97 or 159 (0xffffff9f) found at position 1 of 27
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1480 : -32768 or 32768, the length is 27, and the message is:
-		[üQuÈ demonios es esa cosa?]
+		[üQuÈ rayos es esa cosa?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a4c54be	_id = 1498
 SH3_Msg::GetMsg( ) - Endpoint of message is 32
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1498 : 4096 or 4096, the length is 33, and the message is:
@@ -25897,7 +25897,7 @@ lo que ha pasado aquÕ?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a4c5950	_id = 2068
 SH3_Msg::GetMsg( ) - Endpoint of message is 40
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2068 : -32768 or 32768, the length is 41, and the message is:
-		[Y ese monstruo, quÈ demonios 
+		[Y ese monstruo, quÈ rayos 
 era eso...]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a4c597e	_id = 2099
 SH3_Msg::GetMsg( ) - Endpoint of message is 31
@@ -25995,7 +25995,7 @@ SH3_Msg::GetMsg( ) - DEBUG: The message set is 2445 : -32768 or 32768, the lengt
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a4c5c3e	_id = 2461
 SH3_Msg::GetMsg( ) - Endpoint of message is 21
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2461 : -32768 or 32768, the length is 22, and the message is:
-		[Y quÈ demonios sÈ yo.]
+		[Y quÈ rayos sÈ yo.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a4c5c5a	_id = 2474
 SH3_Msg::GetMsg( ) - Endpoint of message is 39
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2474 : -28672 or 36864, the length is 40, and the message is:
@@ -27608,7 +27608,7 @@ SH3_Msg::GetMsg( ) - Endpoint of message is 70
 SH3_Msg::GetMsg( ) - WARNING: Value of -45 or 211 (0xffffffd3) found at position 49 of 71
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2887 : 4096 or 4096, the length is 71, and the message is:
 		[&B&cHay un monstruo en el agua. El 
-bastardo mat” a 2 de mis amigos.&w]
+bruto mat” a 2 de mis amigos.&w]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a4fa366	_id = 2887
 SH3_Msg::GetMsg( ) - Endpoint of message is 111
 SH3_Msg::GetMsg( ) - WARNING: Value of -51 or 205 (0xffffffcd) found at position 14 of 112
@@ -28429,7 +28429,7 @@ SH3_Msg::GetMsg( ) - WARNING: Value of -38 or 218 (0xffffffda) found at position
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 8038 : 4096 or 4096, the length is 118, and the message is:
 		[&B&cLa llave est¡ detr¡s de los estantes 
 en el garage subterr¡neo. üPor quÈ 
-ahÕ? Preg⁄ntale al idiota del doctor.&w]
+ahÕ? Preg⁄ntale al tonto del doctor.&w]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a4fcdb4	_id = 8038
 SH3_Msg::GetMsg( ) - Endpoint of message is 119
 SH3_Msg::GetMsg( ) - WARNING: Value of -51 or 205 (0xffffffcd) found at position 8 of 120
@@ -29424,7 +29424,7 @@ SH3_Msg::GetMsg( ) - WARNING: Value of -51 or 205 (0xffffffcd) found at position
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 14361 : -28672 or 36864, the length is 150, and the message is:
 		[&B&cPuede vaporizarse o aplicarse como 
 cataplasma para protegerse de los 
-demonios. Potente, pero al ser rara, 
+rayos. Potente, pero al ser rara, 
 extremadamente difÕcil de obtener.&w]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a4ffe4e	_id = 14376
 SH3_Msg::GetMsg( ) - Endpoint of message is 15
@@ -29793,7 +29793,7 @@ SH3_Msg::GetMsg( ) - WARNING: Value of -45 or 211 (0xffffffd3) found at position
 SH3_Msg::GetMsg( ) - WARNING: Value of -38 or 218 (0xffffffda) found at position 82 of 211
 SH3_Msg::GetMsg( ) - WARNING: Value of -51 or 205 (0xffffffcd) found at position 183 of 211
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 17216 : 4096 or 4096, the length is 211, and the message is:
-		[&B&cManchados por los demonios de este 
+		[&B&cManchados por los rayos de este 
 mundo guardamos nuestros pesares. 
 S”lo t⁄ puedes curar nuestras heridas. 
 Cada maÒana, tarde y noche 
@@ -33079,7 +33079,7 @@ SH3_Msg::GetMsg( ) - Endpoint of message is 29
 SH3_Msg::GetMsg( ) - WARNING: Value of -97 or 159 (0xffffff9f) found at position 1 of 30
 SH3_Msg::GetMsg( ) - WARNING: Value of -45 or 211 (0xffffffd3) found at position 6 of 30
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1855 : 4096 or 4096, the length is 30, and the message is:
-		[üDe d”nde demonios ha salido?]
+		[üDe d”nde rayos ha salido?]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a4ffb80	_id = 1855
 SH3_Msg::GetMsg( ) - Endpoint of message is 49
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 1855 : -28672 or 36864, the length is 50, and the message is:
@@ -33122,7 +33122,7 @@ Ser¡ mejor que me ponga en marcha.]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a4ffd0a	_id = 2011
 SH3_Msg::GetMsg( ) - Endpoint of message is 88
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2011 : -28672 or 36864, the length is 89, and the message is:
-		[Pero huele a mil demonios. 
+		[Pero huele a mil rayos. 
 El olor me penetra por la nariz y 
 se me sube a la cabeza...]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a4ffd68	_id = 2079
@@ -33143,7 +33143,7 @@ SH3_Msg::GetMsg( ) - Endpoint of message is 70
 SH3_Msg::GetMsg( ) - WARNING: Value of -45 or 211 (0xffffffd3) found at position 49 of 71
 SH3_Msg::GetMsg( ) - DEBUG: The message set is 2163 : 4096 or 4096, the length is 71, and the message is:
 		[&B&cHay un monstruo en el agua. El 
-bastardo mat” a 2 de mis amigos.&w]
+bruto mat” a 2 de mis amigos.&w]
 SH3_Msg::GetMsg( ) - Start: addy of _msg = 0x0a4ffe2e	_id = 2163
 SH3_Msg::GetMsg( ) - Endpoint of message is 111
 SH3_Msg::GetMsg( ) - WARNING: Value of -51 or 205 (0xffffffcd) found at position 14 of 112
@@ -38116,7 +38116,7 @@ Message: ID=002972   Alt=-028672  üNo querr¡n decir "tiovivo infeliz"?
 Message: ID=003002   Alt=-028672  &cTIOVIVO FELIZ ENTRAR&w
 Message: ID=003038   Alt=-028672  Es una tienda de helados. 
 Pero no hay nadie.
-Message: ID=003053   Alt=-028672  &B&cManchados por los demonios de este 
+Message: ID=003053   Alt=-028672  &B&cManchados por los rayos de este 
 mundo guardamos nuestros pesares. 
 S”lo t⁄ puedes curar nuestras heridas. 
 Cada maÒana, tarde y noche 
@@ -38221,7 +38221,7 @@ Message: ID=001135   Alt=-028672  Hay un interruptor a mano izquierda.
 Message: ID=001159   Alt=004096  Esto debe ser un artilugio para controlar 
 la montaÒa rusa.
 Message: ID=001159   Alt=-028672  Pero no sÈ c”mo hacerlo funcionar.
-Message: ID=001233   Alt=004096  üQuÈ demonios es esto?
+Message: ID=001233   Alt=004096  üQuÈ rayos es esto?
 Message: ID=001233   Alt=004096  Creo que si lo toco cojerÈ algo grave.
 Message: ID=001233   Alt=-028672  Ser¡ mejor que lo deje estar. 
 Adem¡s no me apetece tocarlo.
@@ -38230,7 +38230,7 @@ Message: ID=001355   Alt=004096  Es un disfraz de conejo gigante.
 üNo es esta la mascota del parque 
 de atracciones?
 Message: ID=001355   Alt=-028672  No quiero mirar en el interior. 
-Hay algo ahÕ que huele a mil demonios.
+Hay algo ahÕ que huele a mil rayos.
 Message: ID=001379   Alt=-028672  Es un disfraz de conejo gigante. 
 üNo es esta la mascota del parque 
 de atracciones?
@@ -38828,7 +38828,7 @@ Message: ID=003021   Alt=-028672  Aparte de ser asqueroso, no vale la
 pena hablar de ello.
 Message: ID=003057   Alt=-028672  Aprieto el bot”n pero no pasa nada. 
 Creo que este ascensor no funciona.
-Message: ID=003110   Alt=004096  üQuÈ demonios...?
+Message: ID=003110   Alt=004096  üQuÈ rayos...?
 Message: ID=003110   Alt=004096  No quiero acercarme demasiado, pero 
 no creo que vaya a atacarme ahora.
 Message: ID=003110   Alt=004096  üPor quÈ no? 
@@ -39366,7 +39366,7 @@ Message: ID=001748   Alt=-028672  &cClÕnica de salud mental Green Ridge&w
 Message: ID=001765   Alt=004096  Ese viejo y conocido dibujo aparece en 
 un trozo de papel pegado a la m¡quina 
 vendedora autom¡tica.
-Message: ID=001765   Alt=004096  üQuiÈn demonios lo puso ahÕ?
+Message: ID=001765   Alt=004096  üQuiÈn rayos lo puso ahÕ?
 Message: ID=001765   Alt=-028672  No es que sea precisamente la ⁄ltima 
 novedad... üno?
 Message: ID=001788   Alt=-028672  Por aquÕ no parece que haya nada importante.
@@ -40438,7 +40438,7 @@ espÕritus malignos. Se dice que crece
 en los desiertos de Arabia.&w
 Message: ID=005703   Alt=-028672  &B&cPuede vaporizarse o aplicarse como 
 cataplasma para protegerse de los 
-demonios. Potente, pero al ser rara, 
+rayos. Potente, pero al ser rara, 
 extremadamente difÕcil de obtener.&w
 Message: ID=005753   Alt=004096  Aglaophotis...
 Message: ID=005753   Alt=-028672  Eso se lo he debido oÕr a Pap¡ 
@@ -42569,7 +42569,7 @@ que espero con ansiedad tenerte
 entre mis manos.&w
 Message: ID=001881   Alt=004096  &B&cLa llave est¡ detr¡s de los estantes 
 en el garage subterr¡neo. üPor quÈ 
-ahÕ? Preg⁄ntale al idiota del doctor.&w
+ahÕ? Preg⁄ntale al tonto del doctor.&w
 Message: ID=001881   Alt=004096  &B&cAquÕ no hay una sola persona que 
 estÈ bien de la cabeza. 
 No s”lo en este hospital--- 
@@ -42836,7 +42836,7 @@ ascensor.
 Message: ID=001273   Alt=-028672  Parte de mÕ quiere echar un vistazo, 
 pero es un poco escalofriante.
 Message: ID=001304   Alt=004096  La pared tiene marcas de bala.
-Message: ID=001304   Alt=-028672  üA quÈ demonios estarÕan disparando?
+Message: ID=001304   Alt=-028672  üA quÈ rayos estarÕan disparando?
 Message: ID=001367   Alt=-028672  Es una silla de ruedas. üD”nde est¡ 
 la persona que la utilizaba...?
 Message: ID=001406   Alt=-028672  üEstar¡ en ese ascensor...?
@@ -42980,7 +42980,7 @@ viva a esta niÒa?
 Message: ID=001909   Alt=004096  Esta imagen... no hace que me duela 
 la cabeza cuando la miro.
 Message: ID=001909   Alt=-028672  Esta la conozco. Debe ser...
-Message: ID=001938   Alt=004096  üQuÈ demonios? 
+Message: ID=001938   Alt=004096  üQuÈ rayos? 
 üSoÒaba despierta...?
 Message: ID=001938   Alt=004096  No, era m¡s bien como ver un video 
 en una habitaci”n oscura.
@@ -43955,13 +43955,13 @@ gritos de dolor&w
 Message: ID=001028   Alt=-028672  &cY el destino final se ha hecho real 
 Aunque no es un principio bendito&w
 Message: ID=001039   Alt=004096  üQuÈ es esto... perro a la brasa?
-Message: ID=001039   Alt=004096  üQuiÈn demonios harÕa algo asÕ?
-Message: ID=001039   Alt=004096  Y sobre todo, üquiÈn demonios se 
+Message: ID=001039   Alt=004096  üQuiÈn rayos harÕa algo asÕ?
+Message: ID=001039   Alt=004096  Y sobre todo, üquiÈn rayos se 
 lo comerÕa?
 Message: ID=001039   Alt=-028672  Hay algo en el est”mago del perro.
 Message: ID=001187   Alt=004096  AquÕ ya no hay nada de lo que 
 preocuparse...
-Message: ID=001187   Alt=004096  ...aparte de saber quiÈn demonios est¡ 
+Message: ID=001187   Alt=004096  ...aparte de saber quiÈn rayos est¡ 
 lo bastante enfermo como para hacer 
 algo asÕ.
 Message: ID=001187   Alt=-028672  Y a⁄n asÕ, prefiero no saberlo...
@@ -44074,7 +44074,7 @@ Message: ID=001417   Alt=-032768  üTodavÕa me sigues?
 Message: ID=001430   Alt=-032768  Lo siento... EsperarÈ aquÕ.
 Message: ID=001456   Alt=-032768  ÅAtr¡s!
 Message: ID=001473   Alt=-032768  ÅNo te acerques a mÕ, maldito!
-Message: ID=001480   Alt=-032768  üQuÈ demonios es esa cosa?
+Message: ID=001480   Alt=-032768  üQuÈ rayos es esa cosa?
 Message: ID=001498   Alt=004096  Lo que sÈ es que es algo muerto.
 Message: ID=001498   Alt=004096  üDeberÕa llamar a la policÕa?
 Message: ID=001498   Alt=-028672  Pero no me creerÕan si les digo "Alguien 
@@ -44113,7 +44113,7 @@ Message: ID=002008   Alt=-032768  No estoy de parte de nadie.
 Message: ID=002036   Alt=-032768  No sÈ nada de todo esto.
 Message: ID=002053   Alt=-032768  üPor quÈ no empiezas diciÈndome 
 lo que ha pasado aquÕ?
-Message: ID=002068   Alt=-032768  Y ese monstruo, quÈ demonios 
+Message: ID=002068   Alt=-032768  Y ese monstruo, quÈ rayos 
 era eso...
 Message: ID=002099   Alt=-032768  SÈ lo mismo que t⁄, o sea nada.
 Message: ID=002122   Alt=-032768  S”lo sÈ que aquÕ est¡n pasando cosas 
@@ -44139,7 +44139,7 @@ Message: ID=002422   Alt=-032768  Nada.
 Message: ID=002430   Alt=-032768  üAd”nde vas?
 Message: ID=002436   Alt=-032768  Me voy a casa en el metro.
 Message: ID=002445   Alt=-032768  üQuÈ deberÕa hacer?
-Message: ID=002461   Alt=-032768  Y quÈ demonios sÈ yo.
+Message: ID=002461   Alt=-032768  Y quÈ rayos sÈ yo.
 Message: ID=002474   Alt=-028672  Tengo el &gmapa del centro comercial&w.
 Message: ID=002488   Alt=-028672  Ese extraÒo detective est¡ ahÕ fuera, 
 ser¡ mejor que no salga.
@@ -44584,7 +44584,7 @@ tuvo lugar la muerte. Si uno no
 quiere que le ocurra tambiÈn, claro.&w
 Message: ID=002486   Alt=-032768  &RRevista ocultista
 Message: ID=002887   Alt=004096  &B&cHay un monstruo en el agua. El 
-bastardo mat” a 2 de mis amigos.&w
+bruto mat” a 2 de mis amigos.&w
 Message: ID=002887   Alt=004096  &B&cNunca debÕ haber dudado de aquella 
 leyenda urbana sobre cocodrilos en 
 las alcantarillas. No es un mito.&w
@@ -44917,7 +44917,7 @@ que espero con ansiedad tenerte
 entre mis manos.&w
 Message: ID=008038   Alt=004096  &B&cLa llave est¡ detr¡s de los estantes 
 en el garage subterr¡neo. üPor quÈ 
-ahÕ? Preg⁄ntale al idiota del doctor.&w
+ahÕ? Preg⁄ntale al tonto del doctor.&w
 Message: ID=008038   Alt=004096  &B&cAquÕ no hay una sola persona que 
 estÈ bien de la cabeza. 
 No s”lo en este hospital--- 
@@ -45299,7 +45299,7 @@ espÕritus malignos. Se dice que crece
 en los desiertos de Arabia.&w
 Message: ID=014361   Alt=-028672  &B&cPuede vaporizarse o aplicarse como 
 cataplasma para protegerse de los 
-demonios. Potente, pero al ser rara, 
+rayos. Potente, pero al ser rara, 
 extremadamente difÕcil de obtener.&w
 Message: ID=014376   Alt=-032768  &R"Aglaophotis"
 Message: ID=014574   Alt=004096  &B&cLa puerta sin duda vibra, 
@@ -45466,7 +45466,7 @@ mostrar a los niÒos el verdadero camino,
 es nuestro deber m¡s importante.&w
 Message: ID=015955   Alt=-028672  &B&cJoseph Schreiber&w
 Message: ID=016155   Alt=-032768  &RArtÕculo "Casa de la esperanza"
-Message: ID=017216   Alt=004096  &B&cManchados por los demonios de este 
+Message: ID=017216   Alt=004096  &B&cManchados por los rayos de este 
 mundo guardamos nuestros pesares. 
 S”lo t⁄ puedes curar nuestras heridas. 
 Cada maÒana, tarde y noche 
@@ -46187,7 +46187,7 @@ no pasa nada.
 Message: ID=001826   Alt=-028672  Pero la estoy usando. 
 Me la quedarÈ de todos modos.
 Message: ID=001855   Alt=004096  Hay un mont”n de porquerÕa.
-Message: ID=001855   Alt=004096  üDe d”nde demonios ha salido?
+Message: ID=001855   Alt=004096  üDe d”nde rayos ha salido?
 Message: ID=001855   Alt=-028672  Supongo que es todo lo que lanzan 
 a las cloacas.
 Message: ID=001884   Alt=-028672  üQuÈ clase de m¡quina es esta? 
@@ -46200,14 +46200,14 @@ Message: ID=001979   Alt=-028672  Dentro hay un desodorante, pero creo
 que serÕa una pÈrdida de energÕa.
 Message: ID=002011   Alt=004096  AquÕ estoy perdiendo el tiempo. 
 Ser¡ mejor que me ponga en marcha.
-Message: ID=002011   Alt=-028672  Pero huele a mil demonios. 
+Message: ID=002011   Alt=-028672  Pero huele a mil rayos. 
 El olor me penetra por la nariz y 
 se me sube a la cabeza...
 Message: ID=002079   Alt=-028672  üUna silla de ruedas? üPor quÈ habr¡n 
 dejado aquÕ una silla de ruedas?
 Message: ID=002163   Alt=004096  En el bloc de notas hay algo escrito.
 Message: ID=002163   Alt=004096  &B&cHay un monstruo en el agua. El 
-bastardo mat” a 2 de mis amigos.&w
+bruto mat” a 2 de mis amigos.&w
 Message: ID=002163   Alt=004096  &B&cNunca debÕ haber dudado de aquella 
 leyenda urbana sobre cocodrilos en 
 las alcantarillas. No es un mito.&w
